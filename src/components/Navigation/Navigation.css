@@ -2,6 +2,11 @@
     display: flex;
 }
 
+.Navigation__none {
+    margin: 0;
+    align-self: center;
+}
+
 .Navigation__list {
     display: flex;
     flex-direction: row;
@@ -101,6 +106,7 @@
 
 .Navigation__sidebar-menu {
     padding-top: 159px;
+    margin: 0;
 }
 
 .Navigation__sidebar-profile{
