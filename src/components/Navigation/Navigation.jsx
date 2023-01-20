@@ -15,33 +15,32 @@ export function Navigation({ loggedIn }) {
   }
 
   return (
-    <nav className="Navigation">
-      <ul className='Navigation__none'>
+    <nav className="navigation">
+      <ul className='navigation__none'>
         {loggedIn && (
           <>
-             <Link
-                to={routerPath.movies}
-                className="Navigation__link Navigation__link_first"
-              >
-                Фильмы
-              </Link>
-              <Link
-                to={routerPath.savedMovies}
-                className="Navigation__link"
-              >
-                Сохранённые фильмы
-              </Link>
+            <Link
+              to={routerPath.movies}
+              className="navigation__link navigation__link_first"
+            >
+              Фильмы
+            </Link>
+            <Link
+              to={routerPath.savedMovies}
+              className="navigation__link"
+            >
+              Сохранённые фильмы
+            </Link>
           </>
         )}
       </ul>
-
-      <ul className='Navigation__list'>
+      <ul className='navigation__list'>
         {!loggedIn && (
           <>
             <li>
               <Link
                 to={routerPath.register}
-                className="Navigation__link Navigation__link_mini"
+                className="navigation__link navigation__link_mini"
               >
                 Регистрация
               </Link>
@@ -49,7 +48,7 @@ export function Navigation({ loggedIn }) {
             <li>
               <Link
                 to={routerPath.login}
-                className=" Navigation__link Navigation__link_mini Navigation__btn"
+                className="navigation__link navigation__link_mini navigation__btn"
               >
                 Войти
               </Link>
@@ -57,72 +56,67 @@ export function Navigation({ loggedIn }) {
           </>
         )}
         {loggedIn && (
-          <li className='Navigation__none'>
+          <li className='navigation__none'>
             <Link
               to={routerPath.profile}
-              className="Navigation__link Navigation__link_profile"
+              className="navigation__link navigation__link_profile"
             >
               Аккаунт
-              <img src={account} alt={navigation.icoAccountAlt}  className='Navigation__link_ico'/>
+              <img src={account} alt={navigation.icoAccountAlt} className='navigation__link_ico'/>
             </Link>
           </li>
         )}
       </ul>
       {loggedIn && (
         <button
-            className= "Navigation__burger-btn"
-            type={navigation.burgerBtnType}
-            aria-label={navigation.ariaLabelBtnBurger}
-            onClick={handleToggleMenu}
+          className= "navigation__burger-btn"
+          type={navigation.burgerBtnType}
+          aria-label={navigation.ariaLabelBtnBurger}
+          onClick={handleToggleMenu}
         />
       )}
       {loggedIn && (
-        <div className={`Navigation__sidebar ${menuIsOpen? "Navigation__sidebar_opened" : ''}`} >
-          <div className='Navigation__sidebar-container'>
-            <button className="Navigation__close-btn" onClick={handleToggleMenu}></button>
-            <ul className='Navigation__sidebar-menu'>
-                <li className='Navigation__sidebar-list-element'>
-                  <Link
-                    to={routerPath.main}
-                    className="Navigation__sidebar-link"
-                  >
-                    Главгая
+        <div className={`navigation__sidebar ${menuIsOpen ? "navigation__sidebar_opened" : ''}`} >
+          <div className='navigation__sidebar-container'>
+            <button className="navigation__close-btn" onClick={handleToggleMenu}></button>
+            <ul className='navigation__sidebar-menu'>
+              <li className='navigation__sidebar-list-element'>
+                <Link
+                  to={routerPath.main}
+                  className="navigation__sidebar-link"
+                >
+                  Главгая
                 </Link>
-                </li>
-                <li className='Navigation__sidebar-list-element'>
-                  <Link
-                    to={routerPath.movies}
-                    className="Navigation__sidebar-link Navigation__sidebar-link_active"
-                  >
-                    Фильмы
+              </li>
+              <li className='navigation__sidebar-list-element'>
+                <Link
+                  to={routerPath.movies}
+                  className="navigation__sidebar-link navigation__sidebar-link_active"
+                >
+                  Фильмы
                 </Link>
-                </li>
-                <li className='Navigation__sidebar-list-element'>
-                  <Link
-                    to={routerPath.savedMovies}
-                    className="Navigation__sidebar-link"
-                  >
-                    Сохранённые фильмы
+              </li>
+              <li className='navigation__sidebar-list-element'>
+                <Link
+                  to={routerPath.savedMovies}
+                  className="navigation__sidebar-link"
+                >
+                  Сохранённые фильмы
                 </Link>
-                </li>
+              </li>
             </ul>
-            <div className='Navigation__sidebar-profile'>
-
-                  <Link
-                    to={routerPath.profile}
-                    className="Navigation__sidebar-link Navigation__sidebar-link-profile"
-                    // onClick={}
-                  >
-                    Аккаунт
-                    <img src={account} alt={navigation.icoAccountAlt}  className='Navigation__link_ico'/>
-                  </Link>
-
+            <div className='navigation__sidebar-profile'>
+              <Link
+                to={routerPath.profile}
+                className="navigation__sidebar-link navigation__sidebar-link-profile"
+              >
+                Аккаунт
+                <img src={account} alt={navigation.icoAccountAlt} className='navigation__link_ico'/>
+              </Link>
             </div>
           </div>
         </div>
-      
       )}
-      
     </nav>
   );
 };

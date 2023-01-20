@@ -2,14 +2,14 @@ import './Footer.css';
 
 export function Footer() {
   return (
-    <div className="Footer">
-      <p className="Footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
-      <div className="Footer__border"></div>
-      <nav className="Footer__nav">
-        <p className="Footer__copy">&copy;{new Date().getFullYear()}</p>
-        <div className="Footer__links">
-          <a href="https://practicum.yandex.ru" className="Footer__link" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
-          <a href="https://github.com/ChernoSlava" className="Footer__link Footer__last-link" target="_blank" rel="noreferrer">Github</a>
+    <div className="footer">
+      <p className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
+      <div className="footer__border"></div>
+      <nav className="footer__nav">
+        <p className="footer__copy">&copy;{new Date().getFullYear()}</p>
+        <div className="footer__links">
+          <a href="https://practicum.yandex.ru" className="footer__link" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
+          <a href="https://github.com/ChernoSlava" className="footer__link footer__last-link" target="_blank" rel="noreferrer">Github</a>
         </div>
       </nav>
     </div>

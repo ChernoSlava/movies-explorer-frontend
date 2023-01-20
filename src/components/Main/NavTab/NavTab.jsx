@@ -2,7 +2,7 @@ import './NavTab.css';
 
 export function NavTab() {
   return (
-    <div className="NavTab">
+    <div className="navtab">
       Я есть NavTab
     </div>
   );

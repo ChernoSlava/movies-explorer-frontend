@@ -20,7 +20,7 @@ export const App = () => {
    const [loggedIn, setLoggedIn] = useState(true);
 
   return (
-    <div className='App'>  
+    <div className='app'>  
       <Routes>
         <Route path={routerPath.main} element={<Main loggedIn={loggedIn} />} />
         <Route path={routerPath.login} element={<Login />} />

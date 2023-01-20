@@ -12,14 +12,14 @@ export function Header({ loggedIn }) {
 
 
   return (
-    <div className='Header'>
+    <div className='header'>
       <Link 
-        className='Header__link'
+        className='header__link'
         to={routerPath.main}
         aria-label={header.ariaLabel}
       >
         <img 
-          className='Header__logo' 
+          className='header__logo' 
           src={logo} 
           alt={header.logoAlt} />
       </Link>

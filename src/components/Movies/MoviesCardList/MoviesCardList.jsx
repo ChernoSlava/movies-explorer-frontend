@@ -2,7 +2,7 @@ import './MoviesCardList.css';
 
 export function MoviesCardList() {
   return (
-    <div className="MoviesCardList">
+    <div className="movies-card-list">
       Я есть MoviesCardList
     </div>
   );

@@ -2,7 +2,7 @@ import './Techs.css';
 
 export function Techs() {
   return (
-    <div className="Techs">
+    <div className="techs">
       Я есть Techs
     </div>
   );

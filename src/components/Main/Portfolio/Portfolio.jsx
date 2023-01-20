@@ -2,7 +2,7 @@ import './Portfolio.css';
 
 export function Portfolio() {
   return (
-    <div className="Portfolio">
+    <div className="portfolio">
       Я есть Portfolio
     </div>
   );

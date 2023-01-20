@@ -2,7 +2,7 @@ import './AboutProject.css';
 
 export function AboutProject() {
   return (
-    <div className="AboutProject">
+    <div className="about-project">
       Я есть AboutProject
     </div>
   );

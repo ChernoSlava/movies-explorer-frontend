@@ -8,7 +8,7 @@ export function Main({ loggedIn }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <div className="Main">
+      <div className="main">
         
         Я есть Main
         
