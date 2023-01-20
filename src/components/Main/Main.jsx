@@ -1,9 +1,19 @@
+import React from 'react';
+
 import './Main.css';
 
-export function Main() {
+import { Header, Footer } from '..';
+
+export function Main({ loggedIn }) {
   return (
-    <div className="Main">
-      Я есть Main
-    </div>
+    <>
+      <Header loggedIn={loggedIn} />
+      <div className="Main">
+        
+        Я есть Main
+        
+      </div>
+      <Footer />
+    </>
   );
 };
