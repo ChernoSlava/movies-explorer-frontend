@@ -191,6 +191,8 @@
     .navigation__btn {
         width: 54px;
         height: 26px;
+        margin-left: 14px;
+        
     }
 
     .navigation__close-btn {
