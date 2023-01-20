@@ -7,7 +7,7 @@ export const routerPath = {
     profile: '/profile',
 } 
 
-export const header = {
+export const logo = {
     ariaLabel: 'Ссылка на главную страницу',
     logoAlt: "Логотип эмблемы",
 }

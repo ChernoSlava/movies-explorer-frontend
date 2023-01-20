@@ -3,9 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
-
-import { Header } from '../Header';
-import { Footer } from '../Footer';
 import { Login } from '../Login';
 import { Register } from '../Register';
 import { Main } from '../Main';
@@ -17,7 +14,7 @@ import { routerPath } from '../../constants';
 
 export const App = () => {
 
-   const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <div className='app'>  
