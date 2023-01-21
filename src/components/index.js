@@ -1,4 +1,4 @@
-export { App } from './App';
+export { AppLayout } from './AppLayout';
 export { Logo } from './Logo';
 export { Header } from './Header';
 export { Footer } from './Footer';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Promo.css';
 
-import { NavTab } from '..';
+import { NavTab } from '../NavTab';
 
 export function Promo() {
   return (

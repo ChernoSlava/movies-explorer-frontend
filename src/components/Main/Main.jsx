@@ -2,8 +2,13 @@ import React from 'react';
 
 import './Main.css';
 
-import { Header, Footer } from '..'
-import { Promo, AboutProject, Techs, AboutMe, Portfolio } from '.';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
+import { Promo } from './Promo';
+import { AboutProject } from './AboutProject';
+import { Techs } from './Techs';
+import { AboutMe } from './AboutMe';
+import { Portfolio } from './Portfolio';
 
 export function Main({ loggedIn }) {
   return (

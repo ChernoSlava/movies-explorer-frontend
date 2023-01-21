@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Profile.css';
 
-import { Header } from '..';
+import { Header } from '../Header';
 
 export function Profile({ loggedIn }) {
   return (

@@ -1,5 +1,5 @@
 export { Main } from './Main';
-export { AboutMe } from './AbouteMe';
+export { AboutMe } from './AboutMe';
 export { AboutProject } from './AboutProject';
 export { NavTab } from './NavTab';
 export { Portfolio } from './Portfolio';
