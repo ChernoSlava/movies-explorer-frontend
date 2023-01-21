@@ -3,18 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
-import { Login } from '../Login';
-import { Register } from '../Register';
-import { Main } from '../Main';
-import { Movies } from '../Movies';
-import { SavedMovies } from '../SavedMovies';
-import { Profile } from '../Profile';
-
+import { Login, Register, Main, Movies, SavedMovies, Profile } from '..'
 import { routerPath } from '../../constants';
 
 export const App = () => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <div className='app'>  

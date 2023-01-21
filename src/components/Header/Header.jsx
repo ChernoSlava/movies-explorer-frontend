@@ -2,8 +2,8 @@ import React from 'react';
 
 import './Header.css';
 
-import { Logo } from '../Logo';
-import { Navigation } from '../Navigation';
+import { Logo } from '..';
+import { Navigation } from '..';
 
 export function Header({ loggedIn }) {
   return (

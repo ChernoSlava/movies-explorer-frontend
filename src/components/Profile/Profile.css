@@ -111,7 +111,7 @@
     }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 460px) {
     .profile__label {
         width: 260px;
     }

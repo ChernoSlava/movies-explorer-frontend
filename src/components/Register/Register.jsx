@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Register.css';
 
 import { routerPath } from '../../constants';
-import { Logo } from '../Logo';
+import { Logo } from '..';
 
 export function Register() {
   return (

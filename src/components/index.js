@@ -1,3 +1,11 @@
 export { App } from './App';
+export { Logo } from './Logo';
 export { Header } from './Header';
 export { Footer } from './Footer';
+export { Login } from './Login';
+export { Main } from './Main';
+export { Movies } from './Movies';
+export { Navigation } from './Navigation';
+export { Profile } from './Profile';
+export { Register } from './Register';
+export { SavedMovies } from './SavedMovies';

@@ -8,7 +8,7 @@ export function Profile({ loggedIn }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <section className="profile">
+      <section className="profile"> 
         <form className='profile__form'>
           <h1 className="profile__title">Привет, космический пират!</h1>
           <fieldset className="profile__fieldset">
@@ -17,7 +17,7 @@ export function Profile({ loggedIn }) {
               <input
                 className="profile__input"
                 name="name"
-                value="Вячеслав"
+                defaultValue="Вячеслав"
                 minLength={2}
                 type="text"
                 required
@@ -29,7 +29,7 @@ export function Profile({ loggedIn }) {
               <input
                 className="profile__input"
                 name="email"
-                value="star-wolf@gmail.com"
+                defaultValue="star-wolf@gmail.com"
                 type="email"
                 required
               ></input>
