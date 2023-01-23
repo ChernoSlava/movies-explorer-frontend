@@ -1,2 +1,3 @@
 # movies-explorer-frontend
-Frontend for my diplom project
+## leve - 2
+### Сылка на макет проекта https://disk.yandex.ru/d/69oaThBQQpratA

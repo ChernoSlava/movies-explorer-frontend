@@ -3,7 +3,9 @@ import './Preloader.css';
 export function Preloader() {
   return (
     <div className="preloader">
-      Я есть Preloader
+      <div className="preloader__container">
+        <span className="preloader__round" />
+      </div>
     </div>
   );
 };
