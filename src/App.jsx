@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { Login, Register, Main, Movies, SavedMovies, Profile, AppLayout } from './components'
+import { Login, Register, Main, Movies, SavedMovies, Profile, AppLayout, ErrorPage } from './components'
 import { routerPath } from './constants';
 
 function getUniqueId() {
@@ -97,6 +97,7 @@ export const App = () => {
                         setSaved(saved.filter(x => x !== id));
                     }} />} />
                 <Route path={routerPath.profile} element={<Profile loggedIn={loggedIn} />} />
+                <Route path={routerPath.alien} element={<ErrorPage />} />
             </Routes>
         </AppLayout>
     );

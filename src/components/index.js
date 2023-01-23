@@ -9,3 +9,4 @@ export { Navigation } from './Navigation';
 export { Profile } from './Profile';
 export { Register } from './Register';
 export { SavedMovies } from './SavedMovies';
+export { ErrorPage } from "./ErrorPage";

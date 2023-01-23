@@ -5,6 +5,7 @@ export const routerPath = {
     movies: '/movies',
     savedMovies: '/saved-movies',
     profile: '/profile',
+    alien: '/*',
 } 
 
 export const logo = {
