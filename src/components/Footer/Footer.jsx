@@ -2,7 +2,7 @@ import './Footer.css';
 
 export function Footer() {
   return (
-    <div className="footer">
+    <footer className="footer">
       <p className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
       <div className="footer__border"></div>
       <nav className="footer__nav">
@@ -12,6 +12,6 @@ export function Footer() {
           <a href="https://github.com/ChernoSlava" className="footer__link footer__last-link" target="_blank" rel="noreferrer">Github</a>
         </div>
       </nav>
-    </div>
+    </footer>
   );
 };

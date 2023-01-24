@@ -7,9 +7,9 @@ import { Navigation } from '../Navigation';
 
 export function Header({ loggedIn }) {
   return (
-    <div className='header'>
+    <header className='header'>
       <Logo />
       <Navigation loggedIn={loggedIn} />
-    </div>
+    </header>
   );
 };

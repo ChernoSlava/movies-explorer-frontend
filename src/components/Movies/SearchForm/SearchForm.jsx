@@ -22,7 +22,7 @@ export function SearchForm() {
             className="search-form__button"
           />
         </fieldset>
-        <div className='search-form__cheb-container'>     
+        <div className='search-form__checkbox-container'>     
           <input 
             type="checkbox" 
             name="checkbox" 
@@ -30,7 +30,7 @@ export function SearchForm() {
             className='search-form__checkbox' 
           />
           <label className="search-form__checkbox-label" htmlFor="checkbox" />
-          <p className="searc-hform__text">Короткометражки</p>
+          <p className="search-form__text">Короткометражки</p>
         </div>
       </form>
     </div>

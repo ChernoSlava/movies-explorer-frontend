@@ -9,7 +9,7 @@ import { routerPath, logo } from '../../constants';
 export const Logo = () => {
     return (
         <Link
-            className='logo__link'
+            className='logo'
             to={routerPath.main}
             aria-label={logo.ariaLabel}
         >

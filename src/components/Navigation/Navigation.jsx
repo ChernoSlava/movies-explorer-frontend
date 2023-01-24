@@ -62,7 +62,7 @@ export function Navigation({ loggedIn }) {
               className="navigation__link navigation__link_profile"
             >
               Аккаунт
-              <img src={account} alt={navigation.icoAccountAlt} className='navigation__link_ico'/>
+              <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico'/>
             </Link>
           </li>
         )}
@@ -111,7 +111,7 @@ export function Navigation({ loggedIn }) {
                 className="navigation__sidebar-link navigation__sidebar-link-profile"
               >
                 Аккаунт
-                <img src={account} alt={navigation.icoAccountAlt} className='navigation__link_ico'/>
+                <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico'/>
               </Link>
             </div>
           </div>
