@@ -31,12 +31,15 @@
     color: #FFFFFF;
     text-decoration: none;
 }
+.navigation__link_active {
+    font-weight: 500;
+}
+
 .navigation__link_mini {
     font-size: 12px;
 }
 
 .navigation__link_first {
-    font-weight: 500;
     padding-right: 20px;
 }
 
@@ -131,8 +134,8 @@
 }
 
 .navigation__sidebar-link_active {
-    text-decoration: underline;
-    height: 24px;
+    border-bottom: 2px solid  #FFFFFF;
+    height: 26px;
 }
 
 .navigation__sidebar-link-profile  {

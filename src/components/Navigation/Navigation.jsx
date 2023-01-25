@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 import './Navigation.css';
 
-import account  from '../../images/Account.svg';
-import { routerPath, navigation }from '../../constants';
+import account from '../../images/Account.svg';
+import { routerPath, navigation } from '../../constants';
 
 export function Navigation({ loggedIn }) {
-    
+
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   function handleToggleMenu() {
@@ -21,7 +21,7 @@ export function Navigation({ loggedIn }) {
           <>
             <Link
               to={routerPath.movies}
-              className="navigation__link navigation__link_first"
+              className="navigation__link navigation__link_first navigation__link_active"
             >
               Фильмы
             </Link>
@@ -62,14 +62,14 @@ export function Navigation({ loggedIn }) {
               className="navigation__link navigation__link_profile"
             >
               Аккаунт
-              <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico'/>
+              <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico' />
             </Link>
           </li>
         )}
       </ul>
       {loggedIn && (
         <button
-          className= "navigation__burger-btn"
+          className="navigation__burger-btn"
           type={navigation.burgerBtnType}
           aria-label={navigation.ariaLabelBtnBurger}
           onClick={handleToggleMenu}
@@ -78,7 +78,7 @@ export function Navigation({ loggedIn }) {
       {loggedIn && (
         <div className={`navigation__sidebar ${menuIsOpen ? "navigation__sidebar_opened" : ''}`} >
           <div className='navigation__sidebar-container'>
-            <button className="navigation__close-btn" onClick={handleToggleMenu}></button>
+            <button className="navigation__close-btn" onClick={handleToggleMenu} />
             <ul className='navigation__sidebar-menu'>
               <li className='navigation__sidebar-list-element'>
                 <Link
@@ -111,7 +111,7 @@ export function Navigation({ loggedIn }) {
                 className="navigation__sidebar-link navigation__sidebar-link-profile"
               >
                 Аккаунт
-                <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico'/>
+                <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico' />
               </Link>
             </div>
           </div>

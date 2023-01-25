@@ -17,6 +17,5 @@ export function Movies({ loggedIn, films, onSave }) {
     </section>
     <Footer />
   </>
-  );
-    
+  ); 
 };

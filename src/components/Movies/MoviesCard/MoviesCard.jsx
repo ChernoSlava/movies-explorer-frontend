@@ -28,14 +28,14 @@ export function MoviesCard({ id, title, time, isSaved, canDelete, onSave }) {
                 setAdd(!add);
                 onSave?.(id);
               }}
-            ></button>
+            />
           : <button
               className={`movies-card__button movies-card__button_type_delete`}
               onClick={() => {
                 setAdd(false);
                 onSave?.(id);
               }}
-            ></button>
+            />
         }
       </div>
     </li>
