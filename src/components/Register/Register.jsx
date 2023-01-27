@@ -5,11 +5,18 @@ import './Register.css';
 
 import { routerPath } from '../../constants';
 import { Logo } from '../Logo';
+import { useForm } from '../../hooks';
 
-export function Register() {
+export function Register({ onRegistration }) {
+  const { values, handleChange } = useForm({});
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onRegistration(values);
+  }
   return (
     <section className="register">
-      <form className='register__form'>
+      <form className='register__form' onSubmit={handleSubmit}>
         <div className="register__logo"><Logo /></div>
           <h1 className="register__title">Добро пожаловать!</h1>
           <fieldset className="register__fieldset">
@@ -23,6 +30,8 @@ export function Register() {
                 maxLength={40}
                 type="text"
                 required
+                onChange={handleChange}
+                value={values.name || ""}
               ></input>
               <span
                 className="register__field-error"
@@ -38,6 +47,8 @@ export function Register() {
                 placeholder="star@mail.ru"
                 type="email"
                 required
+                onChange={handleChange}
+                value={values.email || ""}
               ></input>
               <span
                 className="register__field-error"
@@ -54,6 +65,8 @@ export function Register() {
                 minLength={6}
                 type="password"
                 required
+                onChange={handleChange}
+                value={values.password || ""}
               ></input>
               <span
                 className="register__field-error register__field-error_opened"

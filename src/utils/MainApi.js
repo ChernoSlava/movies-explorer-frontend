@@ -8,11 +8,11 @@ class MainApi {
         if (res.ok) {
             return res.json();
         }
-        return Promise.reject(`Что-то упало: ${res.status}`);
+        return Promise.reject(`Что-то упало в _checkResponse: ${res.status}`);
     }
 
     _request(url, options) {
-        return fetch(url, options).then(this._checkMainResponse);
+        return fetch(url, options).then(this._checkResponse);
     }
 
     register(data) {
@@ -64,7 +64,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-    url:"http://localhost:3000",
+    url:"http://localhost:3001",
     headers: {
         "content-type": "application/json",
         "Authorization": "",
