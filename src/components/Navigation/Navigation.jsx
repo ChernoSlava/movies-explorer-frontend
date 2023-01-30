@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './Navigation.css';
 
 import account from '../../images/Account.svg';
-import { routerPath, navigation } from '../../constants';
+import { routerPath, navigation, link } from '../../constants';
 
 export function Navigation({ loggedIn }) {
-
+  const location = useLocation();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   function handleToggleMenu() {
@@ -21,13 +21,13 @@ export function Navigation({ loggedIn }) {
           <>
             <Link
               to={routerPath.movies}
-              className="navigation__link navigation__link_first navigation__link_active"
+              className={location.pathname === routerPath.movies ? link.navActiveLink : link.navStandartLink}
             >
               Фильмы
             </Link>
             <Link
               to={routerPath.savedMovies}
-              className="navigation__link"
+              className={location.pathname === routerPath.savedMovies ? link.navActiveLink : link.navStandartLink}
             >
               Сохранённые фильмы
             </Link>
@@ -83,7 +83,7 @@ export function Navigation({ loggedIn }) {
               <li className='navigation__sidebar-list-element'>
                 <Link
                   to={routerPath.main}
-                  className="navigation__sidebar-link"
+                  className={location.pathname === routerPath.main ? link.navActiveBarLink : link.navStandartBarLink}
                 >
                   Главгая
                 </Link>
@@ -91,7 +91,7 @@ export function Navigation({ loggedIn }) {
               <li className='navigation__sidebar-list-element'>
                 <Link
                   to={routerPath.movies}
-                  className="navigation__sidebar-link navigation__sidebar-link_active"
+                  className={location.pathname === routerPath.movies ? link.navActiveBarLink : link.navStandartBarLink}
                 >
                   Фильмы
                 </Link>
@@ -99,7 +99,7 @@ export function Navigation({ loggedIn }) {
               <li className='navigation__sidebar-list-element'>
                 <Link
                   to={routerPath.savedMovies}
-                  className="navigation__sidebar-link"
+                  className={location.pathname === routerPath.savedMovies ? link.navActiveBarLink : link.navStandartBarLink}
                 >
                   Сохранённые фильмы
                 </Link>

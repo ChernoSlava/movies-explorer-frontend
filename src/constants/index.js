@@ -1,1 +1,1 @@
-export { routerPath, logo, navigation } from './constants';
+export { routerPath, logo, navigation, link } from './constants';

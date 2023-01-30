@@ -1,39 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './MoviesCardList.css';
 
 import { MoviesCard } from '../MoviesCard';
 
-const pageSize = 4;
+const pageSize = 12;
 
-export function MoviesCardList({ films, onSave}) {
-  const [currentPage, setNextPage] = useState(1);
+export function MoviesCardList({ 
+  onSaveFilm, 
+  onDeleteFilm,
+  savedMoviesList,
+  moviesForShow
+ }) {
 
+  const [currentPage, setNextPage] = useState(0);
+  
+  function getSavedMovieCard(arr, movie) {
+    return arr.find((item) => {
+      return item.movieId === (movie.id || movie.movieId);
+    });
+  }
+  
   return (
     <section className="movies-card-list">
       <ul className='movies-card-list__list'>
-        {films?.slice(0, pageSize * currentPage).map((card) => (
+        {moviesForShow?.slice(0, pageSize + currentPage).map(movie => (
           <MoviesCard
-            key={card.id}
-            id={card.id}
-            canDelete={card.canDelete}
-            title={card.title}
-            time={card.time}
-            isSaved={card.isSaved}
-            onSave={onSave}
+            key={movie.id || movie._id}
+            onDeleteFilm={onDeleteFilm}
+            onSaveFilm={onSaveFilm}
+            saved={getSavedMovieCard(savedMoviesList, movie)}
+            movie={movie}
           />
         ))}
       </ul>
-      { films.length > currentPage * pageSize 
-        ? <button
+      {moviesForShow.length > currentPage + pageSize
+        ? 
+        <button
             type="button"
             className="movies-card-list__button"
-            onClick={() => setNextPage(currentPage + 1)}
+            onClick={() => { 
+              if (window.innerWidth <= 768) {
+                setNextPage(currentPage + 2);
+              } else {
+                setNextPage(currentPage + 3); 
+              }
+              console.log(window.innerWidth); }}
           >
           Ещё
           </button> 
         : null 
-      }
+      } 
     </section>
   );
 };

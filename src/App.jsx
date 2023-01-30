@@ -1,32 +1,52 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { Login, Register, Main, Movies, SavedMovies, Profile, AppLayout, ErrorPage, CurrentUserContext, ProtectedRoute } from './components'
+import { 
+    Login, 
+    Register, 
+    Main, 
+    Movies, 
+    SavedMovies, 
+    Profile, 
+    AppLayout, 
+    ErrorPage, 
+    CurrentUserContext, 
+    ProtectedRoute 
+} from './components';
 import { routerPath } from './constants';
-import { mainApi, moviesApi } from './utils';
-
-function getUniqueId() {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-        // eslint-disable-next-line no-mixed-operators
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-}
-
+import { mainApi } from './utils';
 
 export const App = () => {
-
     const [loggedIn, setLoggedIn] = useState(false);
-    const [films, setFilms] = useState([]);
-    const [saved, setSaved] = useState([]);
-
-    const [currentUser, setCurrentUser] = useState({
-        name: 'Вячеслав',
-        email: 'star@mail.ru'
-    });
-    
+    const [savedMoviesList, setSavedMoviesList] = useState([]);
+    const [currentUser, setCurrentUser] = useState({}); 
     const navigate = useNavigate();
 
-    const handleCheckToken = () => {
+    // const handleCheckToken = () => {
+    //     const jwt = localStorage.getItem("jwt");
+    //     mainApi.setToken(jwt)
+    //     if (jwt) {
+    //         mainApi
+    //             .getUserInfoFromServer()
+    //             .then((data) => {
+    //                 if (data) {
+    //                     setCurrentUser(data)
+    //                     setLoggedIn(true)
+    //                     navigate(routerPath.main);
+    //                 } else {
+    //                     console.log('Ошибка в проверке токена, пришли не те данные')
+    //                     navigate(routerPath.login);
+    //                 }                   
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             });
+    //     } else {
+    //        navigate(routerPath.main);
+    //     } 
+    // };
+
+    useEffect(() => {
         const jwt = localStorage.getItem("jwt");
         mainApi.setToken(jwt)
         if (jwt) {
@@ -48,11 +68,6 @@ export const App = () => {
         } else {
            navigate(routerPath.main);
         } 
-    };
-
-    useEffect(() => {
-        handleCheckToken();
-
     }, []);
 
     function handleRegistration(data) {
@@ -106,65 +121,106 @@ export const App = () => {
                 });
     };
 
-    function handleSaveMovie() {};
-    function handleDeleteMovie() { };
+    function handleSaveFilm(film) {
+        mainApi
+            .saveNewFilm(film)
+            .then(newFilm => setSavedMoviesList([...savedMoviesList, newFilm]))
+            .catch(err =>
+                console.log('При сохранении фильма произошла какая-то ошибка', err,)
+            );
+    }
 
+    function handleDeleteFilm(film) { 
+        const savedFilm = savedMoviesList.find(
+            (x) => x.movieId === film.id || x.movieId === film.movieId
+        );
+        mainApi
+            .deleteFilm(savedFilm._id)
+            .then(() => {
+                const newSavedFilms = savedMoviesList.filter(x => {
+                    if (film.id === x.movieId || film.movieId === x.movieId) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+                setSavedMoviesList(newSavedFilms)
+            })
+            .catch(err =>              
+                console.log('При удалении фильма произошла какая-то ошибка', err,)
+            );
+    };
+    
     useEffect(() => {
-        const items = [
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: false,
-            },
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: true,
-            },
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: false,
-            },
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: true,
-            },
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: false,
-            },
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: true,
-            },
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: false,
-            },
-            {
-                id: getUniqueId(),
-                title: 'Чужой близко',
-                time: '2 ч',
-                isSaved: true,
-            },
-        ];
+        if (loggedIn && currentUser) {
+            mainApi
+                .getSavedFilms()
+                .then(data => {
+                    const personalSavedFilms = data.filter(x => x.owner === currentUser._id);
+                    setSavedMoviesList(personalSavedFilms);
+                })
+                .catch((err) => {
+                    console.log(`Не могу получить карточки`, err);
+                });
+        }
+    }, [loggedIn, currentUser])
 
-        setFilms(items);
+    // useEffect(() => {
+    //     const items = [
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: false,
+    //         },
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: true,
+    //         },
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: false,
+    //         },
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: true,
+    //         },
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: false,
+    //         },
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: true,
+    //         },
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: false,
+    //         },
+    //         {
+    //             id: getUniqueId(),
+    //             title: 'Чужой близко',
+    //             time: '2 ч',
+    //             isSaved: true,
+    //         },
+    //     ];
 
-        setSaved(items.filter(x => x.isSaved).map(x => x.id));
-    }, []);
+    //     setFilms(items);
+
+    //     setSaved(items.filter(x => x.isSaved).map(x => x.id));
+    // }, []);
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -178,16 +234,20 @@ export const App = () => {
                         element={(
                             <ProtectedRoute loggedIn={loggedIn}>
                                 <Movies 
-                                    loggedIn={loggedIn} 
-                                    films={
-                                        films.map(x => ({
-                                            ...x,
-                                            isSaved: saved.includes(x.id)
-                                        }))
-                                    }
-                                    onSave={(id) => {
-                                        saved.find(x => x === id) ? setSaved(saved.filter(x => x !== id)) : setSaved([...saved, id]);
-                                    }} />
+                                    loggedIn={loggedIn}
+                                    onSaveFilm={handleSaveFilm}
+                                    onDeleteFilm={handleDeleteFilm}
+                                    savedMoviesList={savedMoviesList}
+                                    // films={
+                                    //     films.map(x => ({
+                                    //         ...x,
+                                    //         isSaved: saved.includes(x.id)
+                                    //     }))
+                                    // }
+                                    // onSave={(id) => {
+                                    //     saved.find(x => x === id) ? setSaved(saved.filter(x => x !== id)) : setSaved([...saved, id]);
+                                    // }} 
+                                />
                             </ProtectedRoute>
                         )}
                     />
@@ -196,15 +256,18 @@ export const App = () => {
                         element={(
                             <ProtectedRoute loggedIn={loggedIn}>
                                 <SavedMovies 
-                                    loggedIn={loggedIn} 
-                                    films={films.filter(x => saved.includes(x.id)).map(x => ({
-                                    ...x,
-                                    canDelete: true,
-                                    isSaved: saved.includes(x.id)
-                                }))}
-                                    onSave={(id) => {
-                                        setSaved(saved.filter(x => x !== id));
-                                    }} />
+                                    loggedIn={loggedIn}
+                                    onDeleteFilm={handleDeleteFilm}
+                                    savedMoviesList={savedMoviesList}
+                                //     films={films.filter(x => saved.includes(x.id)).map(x => ({
+                                //     ...x,
+                                //     canDelete: true,
+                                //     isSaved: saved.includes(x.id)
+                                // }))}
+                                //     onSave={(id) => {
+                                //         setSaved(saved.filter(x => x !== id));
+                                //     }} 
+                                    />
                             </ProtectedRoute>
                         )}
                     />

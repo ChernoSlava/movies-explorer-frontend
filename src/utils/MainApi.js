@@ -50,15 +50,34 @@ class MainApi {
         });
     }
 
-    getSavedMovies() {
+    getSavedFilms() {
         return this._request(`${this._url}/movies`, {
             headers: this._headers,
         });
     }
-    deleteMovie(id) {
+    deleteFilm(id) {
         return this._request(`${this._url}/movies/${id}`, {
             method: 'DELETE',
             headers: this._headers,
+        });
+    }
+    saveNewFilm(data) {
+         return this._request(`${this._url}/movies`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify({
+                country: data.country,
+                director: data.director,
+                duration: data.duration,
+                year: data.year,
+                description: data.description,
+                image: data.image,
+                trailerLink: data.trailerLink,
+                thumbnail: data.thumbnail,
+                movieId: data.id,
+                nameRU: data.nameRU,
+                nameEN: data.nameEN,
+            }),
         });
     }
 }

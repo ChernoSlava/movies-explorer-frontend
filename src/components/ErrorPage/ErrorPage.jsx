@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 export function ErrorPage() {
     return (
         <div className="error-page">
+            <h2>бла бла бла</h2>
             <Link to={routerPath.main} className="error-page__link">БЕГИИИИ!!!</Link>
         </div>
     )

@@ -18,3 +18,10 @@ export const navigation = {
     ariaLabelBtnBurger: "Кнопка меню",
     burgerBtnType: "button",
 }
+
+export const link = {
+    navStandartLink: 'navigation__link',
+    navActiveLink: 'navigation__link navigation__link_active',
+    navStandartBarLink: 'navigation__sidebar-link',
+    navActiveBarLink: 'navigation__sidebar-link navigation__sidebar-link_active'
+}

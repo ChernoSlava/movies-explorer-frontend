@@ -12,7 +12,7 @@
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 .movies-card-list__button {

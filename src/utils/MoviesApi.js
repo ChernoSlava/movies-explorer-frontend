@@ -4,20 +4,17 @@ class MoviesApi {
     this._headers = headers;
   }
 
-    _checkResponse(res) {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Что-то упало: ${res.status}`);
+  _checkResponse(res) {
+    if (res.ok) {
+        return res.json();
     }
+    return Promise.reject(`Что-то упало: ${res.status}`);
+  }
 
-    getAllMovies() {
-        return fetch(
-                    `${this._url}`, 
-                    { method: 'GET', headers: this._headers }
-                )
-            .then(this._checkResponse)
-    }
+  getAllMovies() {
+    return fetch(`${this._url}`, { method: 'GET', headers: this._headers })
+      .then(this._checkResponse)
+  }
 }
 
 export const moviesApi = new MoviesApi({

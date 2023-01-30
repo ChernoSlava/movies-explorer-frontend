@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import './SearchForm.css';
 
-export function SearchForm() {
+import { useForm } from '../../../hooks';
+import { CurrentUserContext } from '../../contexts';
+import { routerPath } from '../../../constants';
+
+export function SearchForm({ 
+  onSubmit, 
+  handleShortMovies, 
+  shortMovies 
+}) {
+  const { values, handleChange } = useForm({});
+  
+  const location = useLocation();
+  const user = useContext(CurrentUserContext);
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onSubmit(values.film)
+  }
+  useEffect(() => {
+    if (location.pathname === routerPath.movies && localStorage.getItem(`${user.email} - movieSearch`)) {
+      const searchValue = localStorage.getItem(`${user.email} - movieSearch`);
+      values.film = searchValue;
+    }
+  }, [user]);
+
   return (
     <div className="search-form">
-      <form className='search-form__form'>
+      <form className='search-form__form' onSubmit={handleSubmit}>
         <fieldset className='search-form__field'>
           <input
             type="text"
             placeholder="Фильм"
             name="film"
-            minLength={2}
+            minLength={1}
             className="search-form__input"
             id='film'
             required
+            onChange={handleChange}
           />
           <button
             type="submit"
@@ -27,6 +53,8 @@ export function SearchForm() {
             type="checkbox" 
             name="checkbox" 
             id="checkbox"
+            onChange={handleShortMovies}
+            checked={shortMovies ? true : false}
             className='search-form__checkbox' 
           />
           <label className="search-form__checkbox-label" htmlFor="checkbox" />

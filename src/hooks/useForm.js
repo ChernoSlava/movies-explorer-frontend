@@ -4,7 +4,8 @@ export function useForm() {
   const [values, setValues] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const input = e.target;
+    const { name, value } = input;
     setValues({ ...values, [name]: value });
   };
 
