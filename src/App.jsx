@@ -18,33 +18,10 @@ import { mainApi } from './utils';
 
 export const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [isLoading, setLoading] = useState(true);
     const [savedMoviesList, setSavedMoviesList] = useState([]);
     const [currentUser, setCurrentUser] = useState({}); 
     const navigate = useNavigate();
-
-    // const handleCheckToken = () => {
-    //     const jwt = localStorage.getItem("jwt");
-    //     mainApi.setToken(jwt)
-    //     if (jwt) {
-    //         mainApi
-    //             .getUserInfoFromServer()
-    //             .then((data) => {
-    //                 if (data) {
-    //                     setCurrentUser(data)
-    //                     setLoggedIn(true)
-    //                     navigate(routerPath.main);
-    //                 } else {
-    //                     console.log('Ошибка в проверке токена, пришли не те данные')
-    //                     navigate(routerPath.login);
-    //                 }                   
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             });
-    //     } else {
-    //        navigate(routerPath.main);
-    //     } 
-    // };
 
     useEffect(() => {
         const jwt = localStorage.getItem("jwt");
@@ -56,7 +33,6 @@ export const App = () => {
                     if (data) {
                         setCurrentUser(data)
                         setLoggedIn(true)
-                        navigate(routerPath.main);
                     } else {
                         console.log('Ошибка в проверке токена, пришли не те данные')
                         navigate(routerPath.login);
@@ -64,9 +40,12 @@ export const App = () => {
                 })
                 .catch((err) => {
                     console.log(err);
-                });
+                })
+                .finally(() => {
+                    setLoading(false);
+                })
         } else {
-           navigate(routerPath.main);
+            setLoading(false);
         } 
     }, []);
 
@@ -165,66 +144,11 @@ export const App = () => {
         }
     }, [loggedIn, currentUser])
 
-    // useEffect(() => {
-    //     const items = [
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: false,
-    //         },
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: true,
-    //         },
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: false,
-    //         },
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: true,
-    //         },
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: false,
-    //         },
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: true,
-    //         },
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: false,
-    //         },
-    //         {
-    //             id: getUniqueId(),
-    //             title: 'Чужой близко',
-    //             time: '2 ч',
-    //             isSaved: true,
-    //         },
-    //     ];
-
-    //     setFilms(items);
-
-    //     setSaved(items.filter(x => x.isSaved).map(x => x.id));
-    // }, []);
-
     return (
+        !isLoading &&
         <CurrentUserContext.Provider value={currentUser}>
             <AppLayout>
+                {
                 <Routes>
                     <Route path={routerPath.main} element={<Main loggedIn={loggedIn} />} />
                     <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} />} />
@@ -238,15 +162,6 @@ export const App = () => {
                                     onSaveFilm={handleSaveFilm}
                                     onDeleteFilm={handleDeleteFilm}
                                     savedMoviesList={savedMoviesList}
-                                    // films={
-                                    //     films.map(x => ({
-                                    //         ...x,
-                                    //         isSaved: saved.includes(x.id)
-                                    //     }))
-                                    // }
-                                    // onSave={(id) => {
-                                    //     saved.find(x => x === id) ? setSaved(saved.filter(x => x !== id)) : setSaved([...saved, id]);
-                                    // }} 
                                 />
                             </ProtectedRoute>
                         )}
@@ -259,14 +174,6 @@ export const App = () => {
                                     loggedIn={loggedIn}
                                     onDeleteFilm={handleDeleteFilm}
                                     savedMoviesList={savedMoviesList}
-                                //     films={films.filter(x => saved.includes(x.id)).map(x => ({
-                                //     ...x,
-                                //     canDelete: true,
-                                //     isSaved: saved.includes(x.id)
-                                // }))}
-                                //     onSave={(id) => {
-                                //         setSaved(saved.filter(x => x !== id));
-                                //     }} 
                                     />
                             </ProtectedRoute>
                         )}
@@ -280,7 +187,7 @@ export const App = () => {
                         )}
                     />
                     <Route path={routerPath.alien} element={<ErrorPage />} />
-                </Routes>
+                </Routes>}
             </AppLayout>
         </CurrentUserContext.Provider>
     );

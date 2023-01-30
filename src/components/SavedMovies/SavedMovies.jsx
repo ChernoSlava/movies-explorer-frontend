@@ -12,8 +12,9 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
   const user = useContext(CurrentUserContext);
 
   const [shortMovies, setShortMovies] = useState(false);
-  const [showedMovies, setShowedMovies] = useState(savedMoviesList); // показываемывые фильмы
-  const [filteredMovies, setFilteredMovies] = useState(showedMovies); // отфильтрованные по запросу фильмы
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showedMovies, setShowedMovies] = useState(savedMoviesList);
+  const [filteredMovies, setFilteredMovies] = useState(showedMovies);
 
   function filterMovies(movies, userSearch) {
     function lower(x) {
@@ -28,49 +29,57 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
     });
     return filteredMovies;
   }
-  function handleSearchSubmit(inputValue) {
-    const moviesList = filterMovies(savedMoviesList, inputValue);
+  function handleSearchSubmit(inputValue, isShortMovies) {
+    setSearchQuery(inputValue);
+    localStorage.setItem(`${user.email} - movieSearchSaved`, inputValue);
+    let moviesList = filterMovies(savedMoviesList, inputValue);
+    moviesList = isShortMovies ? filterShortMovies(moviesList) : moviesList;
     if (moviesList.length === 0) {
-      console.log('Таких фильмов в вашей листе нет');
+      console.log('Таких фильмов в вашем листе нет');
     } else {
       setFilteredMovies(moviesList);
-      setShowedMovies(moviesList);
     }
   }
   function filterShortMovies(movies) {
     return movies.filter(movie => movie.duration < 40);
   }
   function handleShortMovies() {
-    // setShortMovies(!shortMovies);
-    if (!shortMovies) {
-      setShortMovies(true);
-      setShowedMovies(filterShortMovies(filteredMovies));
-      localStorage.setItem(`${user.email} - shortSavedMovies`, true);
-
-    } else {
-      setShortMovies(false);
-      setShowedMovies(filteredMovies);
-      localStorage.setItem(`${user.email} - shortSavedMovies`, false);
-    }
+    let moviesList = filterMovies(savedMoviesList, searchQuery);
+    moviesList = !shortMovies ? filterShortMovies(moviesList) : moviesList;
+    setFilteredMovies(moviesList);
+    setShortMovies(!shortMovies);
+    localStorage.setItem(`${user.email} - shortSavedMovies`, !shortMovies);
   }
+  
+  useEffect(() => {
+    setShowedMovies(savedMoviesList);
+    const items = filterMovies(savedMoviesList, searchQuery);
+    setFilteredMovies(shortMovies ? filterShortMovies(items) : items);
+  }, [savedMoviesList]);
 
   useEffect(() => {
-    setFilteredMovies(savedMoviesList);
-  }, [savedMoviesList]);
+    const isShortMovies = localStorage.getItem(`${user.email} - shortSavedMovies`) === 'true';
+    setShortMovies(isShortMovies);
+    const searchValue = localStorage.getItem(`${user.email} - movieSearchSaved`);
+    setSearchQuery(searchValue);
+    if (searchValue) {
+      handleSearchSubmit(searchValue, isShortMovies);
+    }
+  }, [user]);
   
   return (
     <>
       <Header loggedIn={loggedIn} />
       <section className="saved-movies">
         <SearchForm 
-          handleSearchSubmit={handleSearchSubmit} 
+          onSubmit={(value) => handleSearchSubmit(value, shortMovies)} 
           handleShortMovies={handleShortMovies}
           shortMovies={shortMovies}
         />
         <MoviesCardList 
           onDeleteFilm={onDeleteFilm} 
           savedMoviesList={savedMoviesList}
-          moviesForShow={showedMovies}
+          moviesForShow={filteredMovies}
           />
       </section>
       <Footer />

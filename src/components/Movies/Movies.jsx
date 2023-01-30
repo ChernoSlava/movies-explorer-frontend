@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import './Movies.css';
 
@@ -6,6 +6,7 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { SearchForm } from './SearchForm';
 import { MoviesCardList } from './MoviesCardList';
+import { Loader } from './Preloader';
 import { moviesApi } from '../../utils';
 
 import { CurrentUserContext } from '../contexts';
@@ -19,7 +20,7 @@ export function Movies({
   }) {
   const user = useContext(CurrentUserContext);
 
-  // const [allMovies, setAllMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [moviesFromSearch, setMoviesFromSearch] = useState([]);
   const [shortMovies, setShortMovies] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([])
@@ -74,23 +75,25 @@ export function Movies({
     );
   }
 
-  function handleSearch(value) {
+  function handleSearch(value, isShortMovies) {
+    setIsLoading(true);
     localStorage.setItem(`${user.email} - movieSearch`, value);
     localStorage.setItem(`${user.email} - shortMovies`, shortMovies);
-    // if (allMovies.length === 0) {
       moviesApi
         .getAllMovies()
         .then(movies => {
-            // setAllMovies(movies);
             handleAnswerMovies(
               transformMovies(movies),
-              value
+              value,
+              isShortMovies
             )
         })
         .catch(() => {
           console.log('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
         })
-    // }
+        .finally(() => {
+          setIsLoading(false);
+        })
   }
 
   function handleShortMovies() {
@@ -102,13 +105,22 @@ export function Movies({
     localStorage.setItem(`${user.email} - shortMovies`, !shortMovies);
   }
 
+  useEffect(() => {
+    const isShortMovies = localStorage.getItem(`${user.email} - shortMovies`) === 'true';
+    setShortMovies(isShortMovies);
+    const searchValue = localStorage.getItem(`${user.email} - movieSearch`);
+    if (searchValue) {
+      handleSearch(searchValue, isShortMovies);
+    }
+  }, [user]);
 
   return (
   <>
+    {isLoading && <Loader />}
     <Header loggedIn={loggedIn} />
     <section className="movies">
         <SearchForm 
-          onSubmit={handleSearch} 
+          onSubmit={(value) => handleSearch(value, shortMovies)} 
           handleShortMovies={handleShortMovies}
           shortMovies={shortMovies}
           />

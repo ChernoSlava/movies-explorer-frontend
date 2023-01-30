@@ -26,6 +26,10 @@ export function SearchForm({
       const searchValue = localStorage.getItem(`${user.email} - movieSearch`);
       values.film = searchValue;
     }
+    if (location.pathname === routerPath.savedMovies && localStorage.getItem(`${user.email} - movieSearchSaved`)) {
+      const searchValue = localStorage.getItem(`${user.email} - movieSearchSaved`);
+      values.film = searchValue;
+    }
   }, [user]);
 
   return (
@@ -41,6 +45,7 @@ export function SearchForm({
             id='film'
             required
             onChange={handleChange}
+            value={values.film || ''}
           />
           <button
             type="submit"
