@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Register.css';
@@ -8,12 +8,16 @@ import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
 
 export function Register({ onRegistration }) {
-  const { values, handleChange } = useForm({});
+  const { values, handleChange, resetForm, errors } = useForm({});
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onRegistration(values);
   }
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
+
   return (
     <section className="register">
       <form className='register__form' onSubmit={handleSubmit}>
@@ -21,9 +25,12 @@ export function Register({ onRegistration }) {
           <h1 className="register__title">Добро пожаловать!</h1>
           <fieldset className="register__fieldset">
             <label htmlFor="name" className='register__label'>
+            <span className={`register__field-error ${errors.name && 'register__field-error_active'}`}>
+              {errors.name}
+            </span>
               <p className='register__field'>Имя</p>
               <input
-                className="register__input"
+                className={`register__input ${errors.name && 'register__input-error'}`}
                 name="name"
                 placeholder="Ваше имя"
                 minLength={2}
@@ -33,16 +40,15 @@ export function Register({ onRegistration }) {
                 onChange={handleChange}
                 value={values.name || ""}
               ></input>
-              <span
-                className="register__field-error"
-              >
-                Ошибочка вышла... измените имя!!!
-              </span>
+
             </label>
             <label htmlFor="email" className='register__label'>
+            <span className={`register__field-error ${errors.email && 'register__field-error_active'}`}>
+              {errors.email}
+            </span>
               <p className='register__field'>Космо почта</p>
               <input
-                className="register__input"
+                className={`register__input ${errors.email && 'register__input-error'}`}
                 name="email"
                 placeholder="star@mail.ru"
                 type="email"
@@ -50,16 +56,14 @@ export function Register({ onRegistration }) {
                 onChange={handleChange}
                 value={values.email || ""}
               ></input>
-              <span
-                className="register__field-error"
-              >
-                Ошибочка вышла... измените почту!!!
-              </span>
             </label>
             <label htmlFor="password" className='register__label'>
+            <span className={`register__field-error ${errors.password && 'register__field-error_active'}`}>
+              {errors.password}
+            </span>
               <p className='register__field'>Космо пароль</p>
               <input
-                className="register__input register__input-error"
+                className={`register__input ${errors.password && 'register__input-error'}`}
                 name="password"
                 placeholder="Пароль"
                 minLength={6}
@@ -68,11 +72,6 @@ export function Register({ onRegistration }) {
                 onChange={handleChange}
                 value={values.password || ""}
               ></input>
-              <span
-                className="register__field-error register__field-error_opened"
-              >
-                Наш техножрец ничего не разобрал, пожалуйста используейте руки!!!
-              </span>
             </label>
           </fieldset>
         <div className='register__btn-container'>

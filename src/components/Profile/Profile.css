@@ -37,6 +37,7 @@
     flex-direction: row;
     width: 410px;
     justify-content: space-between;
+    position: relative;
 }
 
 .profile__field {
@@ -100,7 +101,40 @@
     color: #EE3465;
     padding-bottom: 93px;
 }
+.profile__input-error {
+    color: #EE3465;
+}
 
+.profile__field-error {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+}
+.profile__field-error_name{
+    top: -20px;
+    left: 0;
+}
+.profile__field-error {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+}
+.profile__field-error_email{
+    top: 20px;
+    left: 0;
+}
 @media screen and (max-width: 768px) {
     .profile__title {
         padding-top: 236px;

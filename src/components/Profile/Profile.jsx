@@ -1,64 +1,59 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import './Profile.css';
 
 import { Header } from '../Header';
 import { CurrentUserContext } from '../contexts';
+import { useForm } from '../../hooks';
 
 export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
   const user = useContext(CurrentUserContext);
   
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const { values, handleChange, resetForm, errors } = useForm({});
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleChangeProfile(values);
   }
 
   useEffect(() => {
-    setName(user.name);
-    setEmail(user.email);
-  }, [user.name, user.email]);
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    handleChangeProfile({name, email});
-  }
-
+    if (user) {
+      resetForm(user, {});
+    }
+  }, [user, resetForm]);
 
   return (
     <>
       <Header loggedIn={loggedIn} />
       <section className="profile"> 
         <form className='profile__form' onSubmit={handleSubmit}>
-          <h1 className="profile__title">Добро пожаловать, уважаемый {name}!</h1>
+          <h1 className="profile__title">Добро пожаловать, уважаемый {user.name}!</h1>
           <fieldset className="profile__fieldset">
             <label htmlFor="name" className='profile__label'>
+              <span className='profile__field-error profile__field-error_name'>{errors.name || null}</span>
               <p className='profile__field'>Имя</p>
               <input
                 className="profile__input"
                 name="name"
-                minLength={2}
+                minLength='2'
+                maxLength='30'
                 type="text"
                 required
-                value={name}
-                onChange={handleChangeName}
+                value={values.name || ''}
+                onChange={handleChange}
               ></input>
             </label>
             <div className="profile__border"></div>
             <label htmlFor="email" className='profile__label'>
+              <span className='profile__field-error profile__field-error_email'>{errors.email || null}</span>
               <p className='profile__field'>Космо почта</p>
               <input
                 className="profile__input"
                 name="email"
                 type="email"
                 required
-                value={email}
-                onChange={handleChangeEmail}
+                value={values.email || ''}
+                onChange={handleChange}
               ></input>
             </label>
             <div className='profile__btn-container'>

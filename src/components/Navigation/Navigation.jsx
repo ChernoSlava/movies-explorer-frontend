@@ -21,7 +21,7 @@ export function Navigation({ loggedIn }) {
           <>
             <Link
               to={routerPath.movies}
-              className={location.pathname === routerPath.movies ? link.navActiveLink : link.navStandartLink}
+              className={`navigation__link-first ${location.pathname === routerPath.movies ? link.navActiveLink : link.navStandartLink}`}
             >
               Фильмы
             </Link>
