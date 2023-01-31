@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './MoviesCardList.css';
 
 import { MoviesCard } from '../MoviesCard';
-
-const pageSize = 12;
 
 export function MoviesCardList({ 
   onSaveFilm, 
@@ -14,13 +12,38 @@ export function MoviesCardList({
  }) {
 
   const [currentPage, setNextPage] = useState(0);
+  const [sizeScreen, setSizeSreen] = useState({ width: window.innerWidth })
   
   function getSavedMovieCard(arr, movie) {
     return arr.find((item) => {
       return item.movieId === (movie.id || movie.movieId);
     });
   }
-  
+  const takeWidthScreen = () => {
+    setSizeSreen({
+      width: window.innerWidth
+    })
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', takeWidthScreen)
+
+    return() => {
+      window.removeEventListener('resize', takeWidthScreen)
+    }
+  }, [sizeScreen]);
+
+  let pageSize;
+  let win = sizeScreen.width;
+  if (win > 768) {
+    pageSize = 12;
+  } else if (win > 480) {
+    pageSize = 8;
+  }
+  else {
+    pageSize = 5;
+  }
+ 
   return (
     <section className="movies-card-list">
       {moviesForShow.length === 0 ? <span className='movies-card-list__nothing'>Ничего не найдено</span> : ''}
