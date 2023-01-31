@@ -122,7 +122,14 @@
     text-align: center;
     color: #FFFFFF;
 }
-
+.login__btn_disabled {
+    color: #343333;;
+    cursor: not-allowed;
+    background: #49638c;
+}
+.login__btn_disabled:hover {
+    opacity: 1; 
+}
 .login__link-text {
     margin: 0;
     padding: 0;

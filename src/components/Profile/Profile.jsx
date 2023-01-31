@@ -26,14 +26,14 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
     <>
       <Header loggedIn={loggedIn} />
       <section className="profile"> 
-        <form className='profile__form' onSubmit={handleSubmit}>
+        <form className='profile__form' onSubmit={handleSubmit} noValidate>
           <h1 className="profile__title">Добро пожаловать, уважаемый {user.name}!</h1>
           <fieldset className="profile__fieldset">
             <label htmlFor="name" className='profile__label'>
               <span className='profile__field-error profile__field-error_name'>{errors.name || null}</span>
               <p className='profile__field'>Имя</p>
               <input
-                className="profile__input"
+                className={`profile__input ${errors.name && 'profile__input-error'}`}                
                 name="name"
                 minLength='2'
                 maxLength='30'
@@ -48,7 +48,7 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
               <span className='profile__field-error profile__field-error_email'>{errors.email || null}</span>
               <p className='profile__field'>Космо почта</p>
               <input
-                className="profile__input"
+                className={`profile__input ${errors.email && 'profile__input-error'}`}
                 name="email"
                 type="email"
                 required
@@ -57,7 +57,13 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
               ></input>
             </label>
             <div className='profile__btn-container'>
-              <button type="submit" className="profile__btn profile__btn_edit">Изменить хроники</button>
+              <button  
+                type="submit" 
+                className={`profile__btn profile__btn_edit ${(errors.name || errors.email) && 'profile__btn_disabled'}`}                
+                disabled={(errors.name || errors.email) ? true : false} 
+                >
+                  Изменить хроники
+                </button>
               <button type="button" className="profile__btn profile__btn_exit" onClick={handleSignOut}>Покинуть корабль</button>
             </div>
           </fieldset>
@@ -66,3 +72,4 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
     </>
   );
 };
+// }; {...errors ? normalButton : disabledButton } {...errors ? disabled : null}className={errors ? disabledButton : ''}

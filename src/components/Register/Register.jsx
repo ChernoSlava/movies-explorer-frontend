@@ -14,13 +14,15 @@ export function Register({ onRegistration }) {
     evt.preventDefault();
     onRegistration(values);
   }
+
+  let isErrors = (errors.name || errors.email || errors.password);
+  let isEmptyValues = (!values.name || !values.password || !values.email);
   useEffect(() => {
     resetForm();
   }, [resetForm]);
-
   return (
     <section className="register">
-      <form className='register__form' onSubmit={handleSubmit}>
+      <form className='register__form' onSubmit={handleSubmit} noValidate>
         <div className="register__logo"><Logo /></div>
           <h1 className="register__title">Добро пожаловать!</h1>
           <fieldset className="register__fieldset">
@@ -40,7 +42,6 @@ export function Register({ onRegistration }) {
                 onChange={handleChange}
                 value={values.name || ""}
               ></input>
-
             </label>
             <label htmlFor="email" className='register__label'>
             <span className={`register__field-error ${errors.email && 'register__field-error_active'}`}>
@@ -75,7 +76,13 @@ export function Register({ onRegistration }) {
             </label>
           </fieldset>
         <div className='register__btn-container'>
-          <button type="submit" className="register__btn">Зарегистрироваться</button>
+          <button 
+            type="submit" 
+            className={`register__btn ${(isErrors || isEmptyValues) && 'register__btn_disabled'}`}
+            disabled={(isErrors || isEmptyValues) ? true : false}
+          >
+            Зарегистрироваться
+          </button>
           <p className="register__link-text">
             Уже зарегистрированы?
             <Link

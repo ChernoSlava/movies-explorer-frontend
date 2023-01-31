@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Login.css';
@@ -6,9 +6,9 @@ import './Login.css';
 import { routerPath } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
-import { useEffect } from 'react';
+import { Loader } from '../Movies/Preloader';
 
-export function Login({ onAuthorization }) {
+export function Login({ onAuthorization, isLoading }) {
   const { values, handleChange, resetForm, errors } = useForm({});
 
   function handleSubmit(evt) {
@@ -19,10 +19,12 @@ export function Login({ onAuthorization }) {
   useEffect(() => {
     resetForm();
   }, [resetForm]);
-  
+  let isErrors = (errors.email || errors.password);
+  let isEmptyValues = (!values.password || !values.email);
   return (
     <section className="login">
-      <form className='login__form' onSubmit={handleSubmit}>
+      {isLoading && <Loader />}
+      <form className='login__form' onSubmit={handleSubmit} noValidate>
         <div className="login__logo"><Logo /></div>
         <h1 className="login__title">Скорее на борт!</h1>
         <fieldset className="login__fieldset">
@@ -59,7 +61,13 @@ export function Login({ onAuthorization }) {
           </label>
         </fieldset>
         <div className='login__btn-container'>
-          <button type="submit" className="login__btn">Отправляемся</button>
+          <button 
+            type="submit" 
+            className={`login__btn ${(isErrors || isEmptyValues) && 'login__btn_disabled'}`}                
+            disabled={(isErrors || isEmptyValues) ? true : false}
+          >
+            Отправляемся
+          </button>
           <p className="login__link-text">
             Ещё не зарегистрированы?
             <Link

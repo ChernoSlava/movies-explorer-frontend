@@ -21,11 +21,14 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
       return x.toLowerCase().trim();
     }
     const filteredMovies = movies.filter((movie) => {
-      const userMovie = lower(userSearch);
-      const movieRu = lower(String(movie.nameRU)).indexOf(userMovie) !== -1;
-      const movieEn = lower(String(movie.nameEN)).indexOf(userMovie) !== -1;
-      const result = movieRu || movieEn;
-      return result;
+      if (userSearch) {
+        const userMovie = lower(userSearch);
+        const movieRu = lower(String(movie.nameRU)).indexOf(userMovie) !== -1;
+        const movieEn = lower(String(movie.nameEN)).indexOf(userMovie) !== -1;
+        const result = movieRu || movieEn;
+        return result;
+      }
+      return true;
     });
     return filteredMovies;
   }

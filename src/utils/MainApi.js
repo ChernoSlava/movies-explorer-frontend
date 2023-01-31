@@ -11,8 +11,9 @@ class MainApi {
         return Promise.reject(`Что-то упало в _checkResponse: ${res.status}`);
     }
 
-    _request(url, options) {
-        return fetch(url, options).then(this._checkResponse);
+    async _request(url, options) {
+        const res = await fetch(url, options);
+        return this._checkResponse(res);
     }
 
     register(data) {
@@ -83,7 +84,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-    url:"http://localhost:3001",
+    url:"https://api.movies.chernoslava.nomoredomains.club",
     headers: {
         "content-type": "application/json",
         "Authorization": "",

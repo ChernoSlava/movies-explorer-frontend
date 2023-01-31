@@ -23,7 +23,7 @@ export function Movies({
   const [isLoading, setIsLoading] = useState(false)
   const [moviesFromSearch, setMoviesFromSearch] = useState([]);
   const [shortMovies, setShortMovies] = useState(false);
-  const [filteredMovies, setFilteredMovies] = useState([])
+  const [filteredMovies, setFilteredMovies] = useState([]);
   
   function filterShortMovies(movies) {
     return movies.filter(movie => movie.duration < 40);
@@ -56,6 +56,9 @@ export function Movies({
       if (!movie.nameEN) {
         movie.nameEN = movie.nameRU;
       }
+      if (!movie.nameRU) {
+        movie.nameRU = movie.nameEN;
+      }
     });
     return movies
   }
@@ -85,7 +88,7 @@ export function Movies({
             handleAnswerMovies(
               transformMovies(movies),
               value,
-              isShortMovies
+              isShortMovies,
             )
         })
         .catch(() => {

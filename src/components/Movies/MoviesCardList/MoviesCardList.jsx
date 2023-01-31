@@ -23,6 +23,7 @@ export function MoviesCardList({
   
   return (
     <section className="movies-card-list">
+      {moviesForShow.length === 0 ? <span className='movies-card-list__nothing'>Ничего не найдено</span> : ''}
       <ul className='movies-card-list__list'>
         {moviesForShow?.slice(0, pageSize + currentPage).map(movie => (
           <MoviesCard

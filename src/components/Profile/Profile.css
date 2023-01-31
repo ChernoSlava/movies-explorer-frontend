@@ -95,7 +95,14 @@
     font-weight: 400;
     color: #FFFFFF;
 }
-
+.profile__btn_disabled {
+    color: #343333;;
+    cursor: not-allowed; 
+}
+.profile__btn_disabled:hover {
+    opacity: 1;
+    
+}
 .profile__btn_exit {
     font-weight: 500;
     color: #EE3465;
@@ -120,7 +127,7 @@
     top: -20px;
     left: 0;
 }
-.profile__field-error {
+/* .profile__field-error {
     margin: 0;
     padding: 0;
     position: absolute;
@@ -130,7 +137,7 @@
     font-size: 10px;
     line-height: 12px;
     color: #EE3465;
-}
+} */
 .profile__field-error_email{
     top: 20px;
     left: 0;
