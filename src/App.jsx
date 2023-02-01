@@ -11,7 +11,7 @@ import {
     AppLayout, 
     ErrorPage, 
     CurrentUserContext, 
-    ProtectedRoute
+    ProtectedRoute,
 } from './components';
 import { routerPath } from './constants';
 import { mainApi } from './utils';
@@ -21,7 +21,11 @@ export const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [savedMoviesList, setSavedMoviesList] = useState([]);
-    const [user, setUser] = useState({}); 
+    const [user, setUser] = useState({});
+    const [popupIsOpen, setPopupIsOpen] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [text, setText] = useState('Норм');
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,26 +54,40 @@ export const App = () => {
         } 
     }, [loggedIn, navigate]);
 
+    function handlePopupIsOpen() {
+        setPopupIsOpen(true);
+    }
+    function handleClosePopup() {
+        setPopupIsOpen(false);
+    }
+
     function handleRegistration(data) {
         mainApi
             .register(data)
             .then((res) => {
+                setIsSuccess(true);
                 !res && !res.data 
                 ?
                 console.log("Возникла ошибка при регистрации") 
                 :
                 setUser(res.data)
                 navigate(routerPath.login);
+                setText('Регистрация успешна')
             })
             .catch((err) => {;
                 console.log(err);
+                setIsSuccess(false);
+                setText('Ошибка с регистрацией')
+            })
+            .finally(() => {
+                handlePopupIsOpen();
             });
     };
     function handleAuthorization(data) {
-        setIsLoading(true);
         mainApi
             .login(data)
             .then((res) => {
+                setIsSuccess(true);
                 !res && !res.token
                 ?
                 console.log('Возникла ошибка авторизации на борт')
@@ -78,12 +96,15 @@ export const App = () => {
                 localStorage.setItem("jwt", res.token)
                 navigate(routerPath.main)
                 console.log('Добро пожаловать, Космический скиталец');
+                setText('Добро пожаловать')
             })
             .catch((err) => {
+                setIsSuccess(false);
+                setText('Ошибка с авторизацией')
                 console.log(`Что-то глобально пошло не по плану`, err);
             })
             .finally(() => {
-                setIsLoading(false);
+                handlePopupIsOpen();
             });
     };
 
@@ -94,18 +115,21 @@ export const App = () => {
     };
 
     function handleChangeProfile({ name, email }) {
-        setIsLoading(true);
         mainApi
             .setUserInfoToServer({ name, email })
                 .then((userData) => {
+                    setIsSuccess(true);
                     setUser(userData)
+                    setText('Данные изменены')
                     console.log('ай да молодец, смог изменить имя')
                 })
                 .catch((err) => {
+                    setIsSuccess(false);
                     console.log(err)
+                    setText('Ошибочка вышла')
                 })
                 .finally(() => {
-                    setIsLoading(false);
+                    handlePopupIsOpen();
                 });
     };
 
@@ -164,11 +188,16 @@ export const App = () => {
     return (<>
         {isLoading ? <Loader /> :
         <CurrentUserContext.Provider value={user}>
-            <AppLayout>
+                <AppLayout 
+                    isOpen={popupIsOpen}
+                    onClose={handleClosePopup}
+                    isSuccess={isSuccess}
+                    text={text}>
                 {
                 <Routes>
                     <Route path={routerPath.main} element={<Main loggedIn={loggedIn} />} />
-                    <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} isLoading={isLoading}/>} />
+                    <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} />} 
+                    />
                     <Route path={routerPath.register} element={<Register onRegistration={handleRegistration} />} />
                     <Route
                         path={routerPath.movies}
@@ -206,6 +235,7 @@ export const App = () => {
                     <Route path={routerPath.alien} element={<ErrorPage />} />
                 </Routes>}
             </AppLayout>
-            </CurrentUserContext.Provider>}</>
+            </CurrentUserContext.Provider>}
+        </>
     );
 };

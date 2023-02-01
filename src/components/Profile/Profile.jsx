@@ -72,4 +72,3 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
     </>
   );
 };
-// }; {...errors ? normalButton : disabledButton } {...errors ? disabled : null}className={errors ? disabledButton : ''}

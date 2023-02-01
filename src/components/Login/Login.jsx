@@ -6,9 +6,9 @@ import './Login.css';
 import { routerPath } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
-import { Loader } from '../Movies/Preloader';
 
-export function Login({ onAuthorization, isLoading }) {
+export function Login({ onAuthorization }) {
+
   const { values, handleChange, resetForm, errors } = useForm({});
 
   function handleSubmit(evt) {
@@ -19,11 +19,12 @@ export function Login({ onAuthorization, isLoading }) {
   useEffect(() => {
     resetForm();
   }, [resetForm]);
+
   let isErrors = (errors.email || errors.password);
   let isEmptyValues = (!values.password || !values.email);
+
   return (
     <section className="login">
-      {isLoading && <Loader />}
       <form className='login__form' onSubmit={handleSubmit} noValidate>
         <div className="login__logo"><Logo /></div>
         <h1 className="login__title">Скорее на борт!</h1>
