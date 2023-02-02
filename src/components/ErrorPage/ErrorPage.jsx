@@ -1,14 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './ErrorPage.css';
-import { routerPath } from '../../constants';
-
-import { Link } from 'react-router-dom';
 
 export function ErrorPage() {
+    const navigate = useNavigate();
+    const back = () => navigate(-1);
+
     return (
         <div className="error-page">
-            <Link to={routerPath.main} className="error-page__link">БЕГИИИИ!!!</Link>
+            <button className='error-page__btn' onClick={back}>⚠ БЕГИИИИ!!! ⚠</button>
         </div>
     )
 };

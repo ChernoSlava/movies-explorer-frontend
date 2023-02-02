@@ -20,8 +20,15 @@ export function Login({ onAuthorization }) {
     resetForm();
   }, [resetForm]);
 
-  let isErrors = (errors.email || errors.password);
-  let isEmptyValues = (!values.password || !values.email);
+  const isErrors = errors.email || errors.password;
+  const isEmptyValues = !values.password || !values.email;
+  const isDisabled = (isErrors || isEmptyValues) ? true : false;
+  const isDisabledClass = isDisabled && 'login__btn_disabled';
+
+  const isErrorSpanEmail = errors.email && 'login__field-error_active';
+  const isErrorSpanPassw = errors.password && 'login__field-error_active';
+  const isErrorInputEmail = errors.email && 'login__input-error';
+  const isErrorInputPassw = errors.password && 'login__input-error';
 
   return (
     <section className="login">
@@ -30,13 +37,13 @@ export function Login({ onAuthorization }) {
         <h1 className="login__title">Скорее на борт!</h1>
         <fieldset className="login__fieldset">
           <label htmlFor="email" className='login__label'>
-            <span className={`login__field-error ${errors.email && 'login__field-error_active'}`}>
+            <span className={`login__field-error ${isErrorSpanEmail}`}>
               {errors.email}
             </span>
             <p className='login__field'>Космо почта</p>
             <input
               onChange={handleChange}
-              className={`login__input ${errors.email && 'login__input-error'}`}
+              className={`login__input ${isErrorInputEmail}`}
               name="email"
               placeholder="star@mail.ru"
               type="email"
@@ -45,13 +52,13 @@ export function Login({ onAuthorization }) {
             ></input>
           </label>
           <label htmlFor="password" className='login__label'>
-            <span className={`login__field-error ${errors.password && 'login__field-error_active'}`}>
+            <span className={`login__field-error ${isErrorSpanPassw}`}>
               {errors.password}
             </span>
             <p className='login__field'>Космо пароль</p>
             <input
               onChange={handleChange}
-              className={`login__input ${errors.password && 'login__input-error'}`}
+              className={`login__input ${isErrorInputPassw}`}
               name="password"
               placeholder="Пароль"
               minLength={6}
@@ -64,8 +71,8 @@ export function Login({ onAuthorization }) {
         <div className='login__btn-container'>
           <button 
             type="submit" 
-            className={`login__btn ${(isErrors || isEmptyValues) && 'login__btn_disabled'}`}                
-            disabled={(isErrors || isEmptyValues) ? true : false}
+            className={`login__btn ${isDisabledClass}`}                
+            disabled={isDisabled}
           >
             Отправляемся
           </button>

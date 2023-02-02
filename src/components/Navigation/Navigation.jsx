@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, NavLink } from 'react-router-dom';
 
 import './Navigation.css';
 
@@ -13,6 +13,10 @@ export function Navigation({ loggedIn }) {
   function handleToggleMenu() {
     setMenuIsOpen(!menuIsOpen);
   }
+  const setActiveSideBar = ({ isActive }) => isActive ? link.navActiveBarLink : link.navStandartBarLink;
+  const setActiveForMovies = location.pathname === routerPath.movies ? link.navActiveLink : link.navStandartLink;
+  const setActiveForSavedMovies = location.pathname === routerPath.savedMovies ? link.navActiveLink : link.navStandartLink;
+  const setActiveMenu = menuIsOpen && "navigation__sidebar_opened";
 
   return (
     <nav className="navigation">
@@ -21,13 +25,13 @@ export function Navigation({ loggedIn }) {
           <>
             <Link
               to={routerPath.movies}
-              className={`navigation__link-first ${location.pathname === routerPath.movies ? link.navActiveLink : link.navStandartLink}`}
+              className={`navigation__link-first ${setActiveForMovies}`}
             >
               Фильмы
             </Link>
             <Link
               to={routerPath.savedMovies}
-              className={location.pathname === routerPath.savedMovies ? link.navActiveLink : link.navStandartLink}
+              className={setActiveForSavedMovies}
             >
               Сохранённые фильмы
             </Link>
@@ -76,33 +80,33 @@ export function Navigation({ loggedIn }) {
         />
       )}
       {loggedIn && (
-        <div className={`navigation__sidebar ${menuIsOpen ? "navigation__sidebar_opened" : ''}`} >
+        <div className={`navigation__sidebar ${setActiveMenu}`} >
           <div className='navigation__sidebar-container'>
             <button className="navigation__close-btn" onClick={handleToggleMenu} />
             <ul className='navigation__sidebar-menu'>
               <li className='navigation__sidebar-list-element'>
-                <Link
+                <NavLink
                   to={routerPath.main}
-                  className={location.pathname === routerPath.main ? link.navActiveBarLink : link.navStandartBarLink}
+                  className={setActiveSideBar}
                 >
                   Главгая
-                </Link>
+                </NavLink>
               </li>
               <li className='navigation__sidebar-list-element'>
-                <Link
+                <NavLink
                   to={routerPath.movies}
-                  className={location.pathname === routerPath.movies ? link.navActiveBarLink : link.navStandartBarLink}
+                  className={setActiveSideBar}
                 >
                   Фильмы
-                </Link>
+                </NavLink>
               </li>
               <li className='navigation__sidebar-list-element'>
-                <Link
+                <NavLink
                   to={routerPath.savedMovies}
-                  className={location.pathname === routerPath.savedMovies ? link.navActiveBarLink : link.navStandartBarLink}
+                  className={setActiveSideBar}
                 >
                   Сохранённые фильмы
-                </Link>
+                </NavLink>
               </li>
             </ul>
             <div className='navigation__sidebar-profile'>
@@ -112,7 +116,7 @@ export function Navigation({ loggedIn }) {
               >
                 Аккаунт
                 <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico' />
-              </Link>
+              </Link> 
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import { 
     Login, 
@@ -23,10 +23,13 @@ export const App = () => {
     const [savedMoviesList, setSavedMoviesList] = useState([]);
     const [user, setUser] = useState({});
     const [popupIsOpen, setPopupIsOpen] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(true);
     const [text, setText] = useState('Норм');
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const fromPage = location.state?.from?.pathname || routerPath.main;
 
     useEffect(() => {
         const jwt = localStorage.getItem("jwt");
@@ -92,11 +95,11 @@ export const App = () => {
                 ?
                 console.log('Возникла ошибка авторизации на борт')
                 :
-                setLoggedIn(true)
-                localStorage.setItem("jwt", res.token)
-                navigate(routerPath.main)
+                setLoggedIn(true);
+                localStorage.setItem("jwt", res.token);
+                navigate(fromPage, {replace: true});
                 console.log('Добро пожаловать, Космический скиталец');
-                setText('Добро пожаловать')
+                setText('Добро пожаловать');
             })
             .catch((err) => {
                 setIsSuccess(false);
@@ -185,57 +188,64 @@ export const App = () => {
         }
     }, [loggedIn, user])
 
-    return (<>
-        {isLoading ? <Loader /> :
-        <CurrentUserContext.Provider value={user}>
-                <AppLayout 
-                    isOpen={popupIsOpen}
-                    onClose={handleClosePopup}
-                    isSuccess={isSuccess}
-                    text={text}>
-                {
-                <Routes>
-                    <Route path={routerPath.main} element={<Main loggedIn={loggedIn} />} />
-                    <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} />} 
-                    />
-                    <Route path={routerPath.register} element={<Register onRegistration={handleRegistration} />} />
-                    <Route
-                        path={routerPath.movies}
-                        element={(
-                            <ProtectedRoute loggedIn={loggedIn}>
-                                <Movies 
-                                    loggedIn={loggedIn}
-                                    onSaveFilm={handleSaveFilm}
-                                    onDeleteFilm={handleDeleteFilm}
-                                    savedMoviesList={savedMoviesList}
+    return (
+        <>
+            {isLoading ? 
+                <Loader /> :
+                <CurrentUserContext.Provider value={user}>
+                    <Routes>
+                        <Route 
+                            path={routerPath.main} 
+                            element={
+                                <AppLayout 
+                                    isOpen={popupIsOpen} 
+                                    onClose={handleClosePopup} 
+                                    isSuccess={isSuccess} 
+                                    text={text} 
                                 />
-                            </ProtectedRoute>
-                        )}
-                    />
-                    <Route
-                        path={routerPath.savedMovies}
-                        element={(
-                            <ProtectedRoute loggedIn={loggedIn}>
-                                <SavedMovies 
-                                    loggedIn={loggedIn}
-                                    onDeleteFilm={handleDeleteFilm}
-                                    savedMoviesList={savedMoviesList}
-                                    />
-                            </ProtectedRoute>
-                        )}
-                    />
-                    <Route
-                        path={routerPath.profile}
-                        element={(
-                            <ProtectedRoute loggedIn={loggedIn}>
-                                <Profile loggedIn={loggedIn} handleChangeProfile={handleChangeProfile} handleSignOut={handleSignOut}/>
-                            </ProtectedRoute>
-                        )}
-                    />
-                    <Route path={routerPath.alien} element={<ErrorPage />} />
-                </Routes>}
-            </AppLayout>
-            </CurrentUserContext.Provider>}
+                            }
+                        >
+                            <Route index element={<Main loggedIn={loggedIn} />} />
+                            <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} />} />
+                            <Route path={routerPath.register} element={<Register onRegistration={handleRegistration} />} />
+                            <Route
+                                path={routerPath.movies}
+                                element={(
+                                    <ProtectedRoute loggedIn={loggedIn}>
+                                        <Movies 
+                                            loggedIn={loggedIn}
+                                            onSaveFilm={handleSaveFilm}
+                                            onDeleteFilm={handleDeleteFilm}
+                                            savedMoviesList={savedMoviesList}
+                                        />
+                                    </ProtectedRoute>
+                                )}
+                            />
+                            <Route
+                                path={routerPath.savedMovies}
+                                element={(
+                                    <ProtectedRoute loggedIn={loggedIn}>
+                                        <SavedMovies 
+                                            loggedIn={loggedIn}
+                                            onDeleteFilm={handleDeleteFilm}
+                                            savedMoviesList={savedMoviesList}
+                                            />
+                                    </ProtectedRoute>
+                                )}
+                            />
+                            <Route
+                                path={routerPath.profile}
+                                element={(
+                                    <ProtectedRoute loggedIn={loggedIn}>
+                                        <Profile loggedIn={loggedIn} handleChangeProfile={handleChangeProfile} handleSignOut={handleSignOut}/>
+                                    </ProtectedRoute>
+                                )}
+                            />
+                            <Route path={routerPath.alien} element={<ErrorPage />} />
+                        </Route>
+                    </Routes>
+                </CurrentUserContext.Provider>
+            }
         </>
     );
 };

@@ -1,20 +1,16 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 import './AppLayout.css';
 
 import { Popup } from '../Popup';
 
-export const AppLayout = ({ 
-  children = null, 
-  isOpen,
-  onClose,
-  isSuccess,
-  text }) => {
+export const AppLayout = ({ ...props }) => {
 
   return (
     <div className='app-layout'>
-      <Popup isOpen={isOpen} onClose={onClose} text={text} isSuccess={isSuccess} />
-      {children}
+      <Popup {...props}/>
+      <Outlet />
     </div>
   );
 };

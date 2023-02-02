@@ -22,6 +22,12 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
     }
   }, [user, resetForm]);
 
+  const isDisabled = (errors.name || errors.email) ? true : false;
+  const isDisabledClass = (errors.name || errors.email) && 'profile__btn_disabled';
+
+  const isInutErrorName = errors.name && 'profile__input-error';
+  const isInutErrorEmail = errors.email && 'profile__input-error';
+  
   return (
     <>
       <Header loggedIn={loggedIn} />
@@ -30,10 +36,10 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
           <h1 className="profile__title">Добро пожаловать, уважаемый {user.name}!</h1>
           <fieldset className="profile__fieldset">
             <label htmlFor="name" className='profile__label'>
-              <span className='profile__field-error profile__field-error_name'>{errors.name || null}</span>
+              <span className='profile__field-error profile__field-error_name'>{errors.name}</span>
               <p className='profile__field'>Имя</p>
               <input
-                className={`profile__input ${errors.name && 'profile__input-error'}`}                
+                className={`profile__input ${isInutErrorName}`}                
                 name="name"
                 minLength='2'
                 maxLength='30'
@@ -45,10 +51,10 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
             </label>
             <div className="profile__border"></div>
             <label htmlFor="email" className='profile__label'>
-              <span className='profile__field-error profile__field-error_email'>{errors.email || null}</span>
+              <span className='profile__field-error profile__field-error_email'>{errors.email}</span>
               <p className='profile__field'>Космо почта</p>
               <input
-                className={`profile__input ${errors.email && 'profile__input-error'}`}
+                className={`profile__input ${isInutErrorEmail}`}
                 name="email"
                 type="email"
                 required
@@ -59,8 +65,8 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
             <div className='profile__btn-container'>
               <button  
                 type="submit" 
-                className={`profile__btn profile__btn_edit ${(errors.name || errors.email) && 'profile__btn_disabled'}`}                
-                disabled={(errors.name || errors.email) ? true : false} 
+                className={`profile__btn profile__btn_edit ${isDisabledClass}`}                
+                disabled={isDisabled} 
                 >
                   Изменить хроники
                 </button>
