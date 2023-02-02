@@ -21,9 +21,11 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
       resetForm(user, {});
     }
   }, [user, resetForm]);
+  
+  const isNotValues = user.name === values.name && user.email === values.email;
 
-  const isDisabled = (errors.name || errors.email) ? true : false;
-  const isDisabledClass = (errors.name || errors.email) && 'profile__btn_disabled';
+  const isDisabled = errors.name || errors.email || isNotValues;
+  const isDisabledClass = isDisabled && 'profile__btn_disabled';
 
   const isInutErrorName = errors.name && 'profile__input-error';
   const isInutErrorEmail = errors.email && 'profile__input-error';
