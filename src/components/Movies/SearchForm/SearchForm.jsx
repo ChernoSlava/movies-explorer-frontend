@@ -11,7 +11,7 @@ import { useState } from 'react';
 export function SearchForm({ 
   onSubmit, 
   handleShortMovies, 
-  shortMovies 
+  shortMovies
 }) {
   
   const location = useLocation();
@@ -21,6 +21,9 @@ export function SearchForm({
   const [ emptySearch, setEmptySearch ] = useState('');
 
   const textError = 'Нужно ввести ключевое слово.';
+
+  const savedMoviesLocation = location.pathname === routerPath.savedMovies;
+  const spanContainer = !savedMoviesLocation && emptySearch;
   
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -30,11 +33,6 @@ export function SearchForm({
   useEffect(() => {
     if (location.pathname === routerPath.movies && localStorage.getItem(`${user.email} - movieSearch`)) {
       const searchValue = localStorage.getItem(`${user.email} - movieSearch`);
-      values.film = searchValue;
-      setIsEmptiness(true);
-    }
-    if (location.pathname === routerPath.savedMovies && localStorage.getItem(`${user.email} - movieSearchSaved`)) {
-      const searchValue = localStorage.getItem(`${user.email} - movieSearchSaved`);
       values.film = searchValue;
       setIsEmptiness(true);
     }
@@ -48,7 +46,7 @@ export function SearchForm({
     <div className="search-form">
       <form className='search-form__form' onSubmit={handleSubmit} noValidate>
         <fieldset className='search-form__field'>
-          <span className={`search-form__field-error`}>{emptySearch}</span>
+          <span className={`search-form__field-error`}>{spanContainer}</span>
           <input
             type="text"
             placeholder="Фильм"
@@ -64,7 +62,6 @@ export function SearchForm({
             type="submit"
             aria-label="Найти"
             className="search-form__button"
-            disabled={emptySearch}
           />
         </fieldset>
         <div className='search-form__checkbox-container'>     

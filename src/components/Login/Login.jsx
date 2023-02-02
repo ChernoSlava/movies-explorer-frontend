@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './Login.css';
@@ -7,15 +7,13 @@ import { routerPath } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
 
-export function Login({ onAuthorization, loggedIn }) {
+export function Login({ onAuthorization, loggedIn, isInquiry }) {
   const navigation = useNavigate();
 
   const { values, handleChange, resetForm, errors } = useForm({});
-  const [isInquiry, setIsInquire] = useState(false);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    // setIsInquire(!isInquiry);
     onAuthorization(values);
   }
 

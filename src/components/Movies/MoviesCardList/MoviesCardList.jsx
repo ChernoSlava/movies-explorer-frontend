@@ -54,23 +54,12 @@ export function MoviesCardList({
       setPageSize(5);
     }
   }, [sizeScreen.width])
-
-    // let win = sizeScreen.width;
-    // if (win > 768) {
-    //   pageSize = 12;
-    // } else if (win > 480) {
-    //   pageSize = 8;
-    // }
-    // else {
-    //   pageSize = 5;
-    // }
-  // const size = !isMoviesLocation ? setPageSize(moviesForShow.length) && pageSize : pageSize;
   
   return (
     <section className="movies-card-list">
       {isNothingText}
       <ul className='movies-card-list__list'>
-        {moviesForShow?.slice(0, pageSize + currentPage).map(movie => (
+        {(isMoviesLocation ? moviesForShow?.slice(0, pageSize + currentPage) : moviesForShow).map(movie => (
           <MoviesCard
             key={movie.id || movie._id}
             onDeleteFilm={onDeleteFilm}

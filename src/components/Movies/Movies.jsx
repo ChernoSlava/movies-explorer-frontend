@@ -78,31 +78,45 @@ export function Movies({
     setFilteredMovies(
       checkbox ? filterShortMovies(moviesBlock) : moviesBlock
     )
-    localStorage.setItem(
-      `${user.email} - movies`,
-      JSON.stringify(moviesBlock)
-    );
   }
 
   function handleSearch(value, isShortMovies) {
-    setIsLoading(true);
     localStorage.setItem(`${user.email} - movieSearch`, value);
     localStorage.setItem(`${user.email} - shortMovies`, shortMovies);
+
+    const storageMovies = localStorage.getItem(`${user.email} - movies`);
+    if (!storageMovies) {
+      setIsLoading(true);
       moviesApi
         .getAllMovies()
         .then(movies => {
-            handleAnswerMovies(
-              transformMovies(movies),
-              value,
-              isShortMovies,
-            )
+          localStorage.setItem(
+            `${user.email} - movies`,
+            JSON.stringify(movies)
+          );
+          handleAnswerMovies(
+            transformMovies(movies),
+            value,
+            isShortMovies,
+          );
         })
         .catch(() => {
+          localStorage.setItem(
+            `${user.email} - movies`,
+            JSON.stringify([])
+          );
           console.log('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
         })
         .finally(() => {
           setIsLoading(false);
         })
+      } else {
+        handleAnswerMovies(
+          transformMovies(JSON.parse(storageMovies)),
+          value,
+          isShortMovies,
+        );
+      }
   }
 
   function handleShortMovies() {
@@ -117,11 +131,21 @@ export function Movies({
   useEffect(() => {
     const isShortMovies = localStorage.getItem(`${user.email} - shortMovies`) === 'true';
     setShortMovies(isShortMovies);
-    const searchValue = localStorage.getItem(`${user.email} - movieSearch`);
-    if (searchValue) {
-      handleSearch(searchValue, isShortMovies);
-    }
   }, [user]);
+
+  useEffect(() => {
+    const storageMovies = localStorage.getItem(`${user.email} - movies`);
+
+    if (storageMovies) {
+      const isShortMovies = localStorage.getItem(`${user.email} - shortMovies`) === 'true';
+      const value = localStorage.getItem(`${user.email} - movieSearch`);
+      handleAnswerMovies(
+        transformMovies(JSON.parse(storageMovies)),
+        value,
+        isShortMovies,
+      );
+    }
+  }, []);
 
   return (
   <>

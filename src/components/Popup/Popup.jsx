@@ -24,8 +24,11 @@ export const Popup = ({ isOpen, onClose, text, isSuccess }) => {
             onClose();
         }
     };
+
+    const openPopup = `popup ${isOpen && 'popup_opened'}`;
+    
     return (
-        <div className={`popup ${isOpen && 'popup_opened'}`} onClick={onClose} >
+        <div className={openPopup} onClick={onClose} >
             <div className="popup__container" onClick={handleOverlay}>
                 <button
                     type="button"
@@ -36,7 +39,9 @@ export const Popup = ({ isOpen, onClose, text, isSuccess }) => {
                     className="popup__icon"
                     src={isSuccess ? successIco : notSuccessIco}
                     alt={
-                        isSuccess ? "Иконка - всё успешно" : "Иконка - что-то пошло не так"
+                        isSuccess 
+                        ? "Иконка - всё успешно" 
+                        : "Иконка - что-то пошло не так"
                     }
                 />
                 <h3 className="popup__description">

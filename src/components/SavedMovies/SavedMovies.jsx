@@ -16,6 +16,8 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
   const [showedMovies, setShowedMovies] = useState(savedMoviesList);
   const [filteredMovies, setFilteredMovies] = useState(showedMovies);
 
+  const [isNothing, setIsNothing] = useState(false);
+
   function filterMovies(movies, userSearch) {
     function lower(x) {
       return x.toLowerCase().trim();
@@ -39,9 +41,12 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
     moviesList = isShortMovies ? filterShortMovies(moviesList) : moviesList;
     if (moviesList.length === 0) {
       console.log('Таких фильмов в вашем листе нет');
+      setIsNothing(true);
     } else {
-      setFilteredMovies(moviesList);
+      
+      setIsNothing(false);
     }
+    setFilteredMovies(moviesList);
   }
   function filterShortMovies(movies) {
     return movies.filter(movie => movie.duration < 40);
@@ -60,16 +65,6 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
     setFilteredMovies(shortMovies ? filterShortMovies(items) : items);
   }, [savedMoviesList]);
 
-  useEffect(() => {
-    const isShortMovies = localStorage.getItem(`${user.email} - shortSavedMovies`) === 'true';
-    setShortMovies(isShortMovies);
-    const searchValue = localStorage.getItem(`${user.email} - movieSearchSaved`);
-    setSearchQuery(searchValue);
-    if (searchValue) {
-      handleSearchSubmit(searchValue, isShortMovies);
-    }
-  }, [user]);
-  
   return (
     <>
       <Header loggedIn={loggedIn} />
@@ -83,6 +78,7 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
           onDeleteFilm={onDeleteFilm} 
           savedMoviesList={savedMoviesList}
           moviesForShow={filteredMovies}
+          isNothing={isNothing}
           />
       </section>
       <Footer />

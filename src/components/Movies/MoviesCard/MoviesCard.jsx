@@ -47,24 +47,8 @@ export function MoviesCard({ movie, saved, onSaveFilm, onDeleteFilm }) {
           <button
             className={`movies-card__button movies-card__button_type_delete`}
             onClick={handleDelete}
-            />
+          />
         )}
-        {/* {!canDelete
-          ? <button
-              className={`movies-card__button ${add ? savedClass : ''}`}
-              onClick={() => {
-                setAdd(!add);
-                onSave?.(id);
-              }}
-            />
-          : <button
-              className={`movies-card__button movies-card__button_type_delete`}
-              onClick={() => {
-                setAdd(false);
-                onSave?.(id);
-              }}
-            />
-        } */}
       </div>
     </li>
   );

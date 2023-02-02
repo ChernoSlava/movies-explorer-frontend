@@ -7,7 +7,7 @@ import { routerPath } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
 
-export function Register({ onRegistration, loggedIn }) {
+export function Register({ onRegistration, loggedIn, isInquiry }) {
   const navigation = useNavigate();
 
   const { values, handleChange, resetForm, errors } = useForm({});
@@ -19,7 +19,7 @@ export function Register({ onRegistration, loggedIn }) {
 
   useEffect(() => {
     resetForm();
-  }, [resetForm]);
+  }, [resetForm, isInquiry]);
 
   const isErrorSpanName = errors.name && 'register__field-error_active';
   const isErrorSpanEmail = errors.email && 'register__field-error_active';
@@ -31,8 +31,8 @@ export function Register({ onRegistration, loggedIn }) {
 
   const isErrors = (errors.name || errors.email || errors.password);
   const isEmptyValues = (!values.name || !values.password || !values.email);
-  const isDisabled = (isErrors || isEmptyValues) ? true : false;
-  const isDisabledClass = (isErrors || isEmptyValues) && 'register__btn_disabled';
+  const isDisabled = (isErrors || isEmptyValues || isInquiry);
+  const isDisabledClass = (isDisabled || isInquiry) && 'register__btn_disabled';
 
   return (
     <>
@@ -49,7 +49,7 @@ export function Register({ onRegistration, loggedIn }) {
                   </span>
                   <p className='register__field'>Имя</p>
                   <input
-                    className={`register__input ${isErrorInputName}`}
+                    className={`register__input ${isErrorInputName} ${isInquiry && 'register__input_disabled'}`}
                     name="name"
                     placeholder="Ваше имя"
                     minLength={2}
@@ -58,6 +58,7 @@ export function Register({ onRegistration, loggedIn }) {
                     required
                     onChange={handleChange}
                     value={values.name || ""}
+                    disabled={isInquiry}
                   ></input>
                 </label>
                 <label htmlFor="email" className='register__label'>
@@ -66,13 +67,14 @@ export function Register({ onRegistration, loggedIn }) {
                   </span>
                   <p className='register__field'>Космо почта</p>
                   <input
-                    className={`register__input ${isErrorInputEmail}`}
+                    className={`register__input ${isErrorInputEmail} ${isInquiry && 'register__input_disabled'}`}
                     name="email"
                     placeholder="star@mail.ru"
                     type="email"
                     required
                     onChange={handleChange}
                     value={values.email || ""}
+                    disabled={isInquiry}
                   ></input>
                 </label>
                 <label htmlFor="password" className='register__label'>
@@ -81,7 +83,7 @@ export function Register({ onRegistration, loggedIn }) {
                   </span>
                   <p className='register__field'>Космо пароль</p>
                   <input
-                    className={`register__input ${isErrorInputPassw}`}
+                    className={`register__input ${isErrorInputPassw} ${isInquiry && 'register__input_disabled'}`}
                     name="password"
                     placeholder="Пароль"
                     minLength={6}
@@ -89,6 +91,7 @@ export function Register({ onRegistration, loggedIn }) {
                     required
                     onChange={handleChange}
                     value={values.password || ""}
+                    disabled={isInquiry}
                   ></input>
                 </label>
               </fieldset>

@@ -15,6 +15,8 @@ export function useForm() {
     if (name === 'email') {
       if (!isEmail(value)) {
           input.setCustomValidity('Указана некорректная почта');
+      } else {
+        input.setCustomValidity('');
       }
     }
     

@@ -92,6 +92,20 @@
     left: 0;
 }
 
+.register__input_disabled {
+    animation: fade 2s ease forwards;
+}
+@keyframes fade {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 .register__btn-container {
     padding-top: 69px;
     display: flex;

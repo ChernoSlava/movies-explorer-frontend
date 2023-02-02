@@ -94,25 +94,18 @@
 }
 
 .login__input_disabled {
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
-    transform-origin: bottom;
-    animation-name: bounce;
-    animation-timing-function: linear;
+    animation: fade 2s ease forwards;
 }
-@keyframes bounce {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(150px);
-    }
-    100% {
-        transform: translateX(300px);
-    }
+@keyframes fade {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
-
-
 .login__btn-container {
     padding-top: 159px;
     display: flex;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { 
     Login, 
@@ -20,6 +20,8 @@ import { Loader } from './components/Movies/Preloader';
 export const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoginProcess, setLoginProcess] = useState(false);
+    const [isRegisterProcess, setRegisterProcess] = useState(false);
     const [savedMoviesList, setSavedMoviesList] = useState([]);
     const [user, setUser] = useState({});
     const [popupIsOpen, setPopupIsOpen] = useState(false);
@@ -27,9 +29,6 @@ export const App = () => {
     const [text, setText] = useState('Норм');
 
     const navigate = useNavigate();
-    const location = useLocation();
-
-    const fromPage = location.state?.from?.pathname || routerPath.main;
 
     useEffect(() => {
         const jwt = localStorage.getItem("jwt");
@@ -55,7 +54,7 @@ export const App = () => {
         } else {
             setIsLoading(false);
         } 
-    }, [loggedIn, navigate]);
+    }, [navigate]);
 
     function handlePopupIsOpen() {
         setPopupIsOpen(true);
@@ -65,6 +64,7 @@ export const App = () => {
     }
 
     function handleRegistration(data) {
+        setRegisterProcess(true);
         const {email, password} = data;
         mainApi
             .register(data)
@@ -82,9 +82,11 @@ export const App = () => {
             })
             .finally(() => {
                 handlePopupIsOpen();
+                setRegisterProcess(false);
             });
     };
     function handleAuthorization(data) {
+        setLoginProcess(true);
         mainApi
             .login(data)
             .then((res) => {
@@ -103,12 +105,23 @@ export const App = () => {
             })
             .finally(() => {
                 handlePopupIsOpen();
+                setLoginProcess(false);
             });
     };
 
     function handleSignOut() {
         setLoggedIn(false);
-        localStorage.removeItem("jwt");
+        setIsLoading(true);
+        setSavedMoviesList([]);
+        setUser({});
+        setPopupIsOpen(false);
+        setIsSuccess(true);
+        setText('Норм');
+        setRegisterProcess(false);
+        setLoginProcess(false);
+
+        localStorage.clear();
+
         navigate(routerPath.main);
     };
 
@@ -132,23 +145,18 @@ export const App = () => {
     };
 
     function handleSaveFilm(film) {
-        setIsLoading(true)
         mainApi
             .saveNewFilm(film)
             .then(newFilm => setSavedMoviesList([...savedMoviesList, newFilm]))
             .catch(err =>
                 console.log('При сохранении фильма произошла какая-то ошибка', err,)
-            )
-            .finally(() => {
-                setIsLoading(false);
-            });
+            );
     }
 
     function handleDeleteFilm(film) { 
         const savedFilm = savedMoviesList.find(
             (x) => x.movieId === film.id || x.movieId === film.movieId
         );
-        setIsLoading(true)
         mainApi
             .deleteFilm(savedFilm._id)
             .then(() => {
@@ -164,9 +172,6 @@ export const App = () => {
             .catch(err =>              
                 console.log('При удалении фильма произошла какая-то ошибка', err,)
             )
-            .finally(() => {
-                setIsLoading(false);
-            });
     };
 
     useEffect(() => {
@@ -200,9 +205,28 @@ export const App = () => {
                                 />
                             }
                         >
-                            <Route index element={<Main loggedIn={loggedIn} />} />
-                            <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} loggedIn={loggedIn} />} />
-                            <Route path={routerPath.register} element={<Register onRegistration={handleRegistration} loggedIn={loggedIn} />} />
+                            <Route 
+                                index 
+                                element={<Main 
+                                    loggedIn={loggedIn}
+                                />} 
+                            />
+                            <Route 
+                                path={routerPath.login} 
+                                element={<Login 
+                                    onAuthorization={handleAuthorization} 
+                                    loggedIn={loggedIn}
+                                    isInquiry={isLoginProcess}
+                                />} 
+                            />
+                            <Route
+                                path={routerPath.register} 
+                                element={<Register 
+                                    onRegistration={handleRegistration}
+                                    loggedIn={loggedIn}
+                                    isInquiry={isRegisterProcess}
+                                />} 
+                            />
                             <Route
                                 path={routerPath.movies}
                                 element={(
@@ -224,7 +248,7 @@ export const App = () => {
                                             loggedIn={loggedIn}
                                             onDeleteFilm={handleDeleteFilm}
                                             savedMoviesList={savedMoviesList}
-                                            />
+                                        />
                                     </ProtectedRoute>
                                 )}
                             />
@@ -232,11 +256,18 @@ export const App = () => {
                                 path={routerPath.profile}
                                 element={(
                                     <ProtectedRoute loggedIn={loggedIn}>
-                                        <Profile loggedIn={loggedIn} handleChangeProfile={handleChangeProfile} handleSignOut={handleSignOut}/>
+                                        <Profile 
+                                            loggedIn={loggedIn} 
+                                            handleChangeProfile={handleChangeProfile} 
+                                            handleSignOut={handleSignOut}
+                                        />
                                     </ProtectedRoute>
                                 )}
                             />
-                            <Route path={routerPath.alien} element={<ErrorPage />} />
+                            <Route 
+                                path={routerPath.alien} 
+                                element={<ErrorPage />} 
+                            />
                         </Route>
                     </Routes>
                 </CurrentUserContext.Provider>
