@@ -6,7 +6,7 @@ import { routerPath } from '../../constants'
 export const ProtectedRoute = ({ loggedIn, children }) => {
   const location = useLocation();
   if(!loggedIn) {
-    return <Navigate to={routerPath.login} state={{from: location}} replace />
+    return <Navigate to={routerPath.main} state={{from: location}} replace />
   }
   
   return children
