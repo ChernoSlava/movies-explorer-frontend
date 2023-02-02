@@ -18,6 +18,22 @@
     height: 47px;
     border-bottom: 1px solid #424242;
     align-items: center;
+    position: relative;
+}
+.search-form__field-error{
+    position: absolute;
+    top: 55px;
+    left: 0;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 12px;
+    color: #EE3465;
+
+}
+.search-form__field-error_active{
+    display: block;
 }
 
 .search-form__input {
@@ -125,6 +141,10 @@
         font-size: 18px;
         line-height: 22px;
         max-width: 200px;
+    }
+    .search-form__field-error{
+        font-size: 10px;
+        top: 42px;
     }
     .search-form__checkbox-container {
         padding-top: 40px;

@@ -5,7 +5,7 @@ import isEmail from 'validator/es/lib/isEmail';
 export function useForm() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-
+  const [isEmptiness, setIsEmptiness ] = useState(false);
 
 
   const handleChange = (e) => {
@@ -20,14 +20,16 @@ export function useForm() {
     
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: input.validationMessage });
+    setIsEmptiness(input.closest('form').checkValidity());
   };
 
   const resetForm = useCallback(
-    (newValues = {}, newErrors = {}) => {
+    (newValues = {}, newErrors = {}, moreEmptiness = false) => {
       setValues(newValues);
       setErrors(newErrors);
+      setIsEmptiness(moreEmptiness);
     },
-    [setValues, setErrors]
+    [setValues, setErrors, setIsEmptiness]
   );
-  return { values, handleChange, resetForm, errors };
+  return { values, handleChange, resetForm, errors, isEmptiness, setIsEmptiness };
 }
