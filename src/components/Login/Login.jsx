@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import './Login.css';
 
-import { routerPath } from '../../constants';
+import { ROUTER_PATH } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
 
@@ -33,9 +33,9 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
 
   return (
     <>
-      { loggedIn 
-      ? navigation(routerPath.main)
-      : <section className="login">
+      {loggedIn
+        ? navigation(ROUTER_PATH.MAIN)
+        : <section className="login">
           <form className='login__form' onSubmit={handleSubmit} noValidate>
             <div className="login__logo"><Logo /></div>
             <h1 className="login__title">Скорее на борт!</h1>
@@ -75,9 +75,9 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
               </label>
             </fieldset>
             <div className='login__btn-container'>
-              <button 
-                type="submit" 
-                className={`login__btn ${isDisabledClass}`}                
+              <button
+                type="submit"
+                className={`login__btn ${isDisabledClass}`}
                 disabled={isDisabled}
               >
                 Отправляемся
@@ -85,7 +85,7 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
               <p className="login__link-text">
                 Ещё не зарегистрированы?
                 <Link
-                  to={routerPath.register}
+                  to={ROUTER_PATH.REGISTER}
                   className="login__link"
                 >
                   Регистрация

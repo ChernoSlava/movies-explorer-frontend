@@ -3,7 +3,7 @@ import React from 'react';
 import './MoviesCard.css';
 
 import { useLocation } from 'react-router-dom';
-import { routerPath } from '../../../constants';
+import { ROUTER_PATH } from '../../../constants';
 
 export function MoviesCard({ movie, saved, onSaveFilm, onDeleteFilm }) {
   const location = useLocation();
@@ -36,14 +36,14 @@ export function MoviesCard({ movie, saved, onSaveFilm, onDeleteFilm }) {
           <h2 className="movies-card__title">{movie.nameRU}</h2>
           <h3 className="movies-card__time">{transformDuration(movie.duration)}</h3>
         </div>
-        {location.pathname === routerPath.movies && (
+        {location.pathname === ROUTER_PATH.MOVIES && (
           <button
             type='button'
             className={`movies-card__button ${saved ? savedClass : ''}`}
             onClick={saved ? handleDelete : handleLike}
           />
         )}
-        {location.pathname === routerPath.savedMovies && (
+        {location.pathname === ROUTER_PATH.SAVED_MOVIES && (
           <button
             className={`movies-card__button movies-card__button_type_delete`}
             onClick={handleDelete}

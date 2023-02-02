@@ -4,15 +4,20 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 
 import { MoviesCard } from '../MoviesCard';
-import { routerPath } from '../../../constants';
+import {
+  ROUTER_PATH, 
+  SCREEN_SIZE,
+  FEATURED_CARDS,
+  ADD_CARDS 
+} from '../../../constants';
 
-export function MoviesCardList({ 
-  onSaveFilm, 
+export function MoviesCardList({
+  onSaveFilm,
   onDeleteFilm,
   savedMoviesList,
   moviesForShow,
   isNothing
- }) {
+}) {
   const location = useLocation();
 
   const [currentPage, setNextPage] = useState(0);
@@ -21,9 +26,9 @@ export function MoviesCardList({
 
 
   const isNothingText = isNothing && <span className='movies-card-list__nothing'>Ничего не найдено</span>;
-  const isMoviesLocation = location.pathname === routerPath.movies;
+  const isMoviesLocation = location.pathname === ROUTER_PATH.MOVIES;
   const isMovies = isMoviesLocation && moviesForShow.length > currentPage + pageSize;
-  
+
   function getSavedMovieCard(arr, movie) {
     return arr.find((item) => {
       return item.movieId === (movie.id || movie.movieId);
@@ -38,23 +43,23 @@ export function MoviesCardList({
   useEffect(() => {
     window.addEventListener('resize', takeWidthScreen)
 
-    return() => {
+    return () => {
       window.removeEventListener('resize', takeWidthScreen)
     }
   }, [sizeScreen]);
 
   useEffect(() => {
     let win = sizeScreen.width;
-    if (win > 800) {
-      setPageSize(12);
-    } else if (win > 540) {
-      setPageSize(8);
+    if (win > SCREEN_SIZE.MIDDLE) {
+      setPageSize(FEATURED_CARDS.LARGE);
+    } else if (win > SCREEN_SIZE.LITTLE) {
+      setPageSize(FEATURED_CARDS.MEDIUM);
     }
     else {
-      setPageSize(5);
+      setPageSize(FEATURED_CARDS.SMALL);
     }
   }, [sizeScreen.width])
-  
+
   return (
     <section className="movies-card-list">
       {isNothingText}
@@ -70,22 +75,22 @@ export function MoviesCardList({
         ))}
       </ul>
       {isMovies
-        ? 
+        ?
         <button
-            type="button"
-            className="movies-card-list__button"
-            onClick={() => { 
-              if (sizeScreen.width <= 800) {
-                setNextPage(currentPage + 2);
-              } else {
-                setNextPage(currentPage + 3); 
-              }
-            }}
-          >
+          type="button"
+          className="movies-card-list__button"
+          onClick={() => {
+            if (sizeScreen.width <= SCREEN_SIZE.MIDDLE) {
+              setNextPage(currentPage + ADD_CARDS.MIN);
+            } else {
+              setNextPage(currentPage + ADD_CARDS.MAX);
+            }
+          }}
+        >
           Ещё
-          </button> 
-        : null 
-      } 
+        </button>
+        : null
+      }
     </section>
   );
 };

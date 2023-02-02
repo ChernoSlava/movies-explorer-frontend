@@ -4,7 +4,7 @@ import { Link, useLocation, NavLink } from 'react-router-dom';
 import './Navigation.css';
 
 import account from '../../images/Account.svg';
-import { routerPath, navigation, link } from '../../constants';
+import { ROUTER_PATH, NAVIGATION, LINK } from '../../constants';
 
 export function Navigation({ loggedIn }) {
   const location = useLocation();
@@ -13,9 +13,9 @@ export function Navigation({ loggedIn }) {
   function handleToggleMenu() {
     setMenuIsOpen(!menuIsOpen);
   }
-  const setActiveSideBar = ({ isActive }) => isActive ? link.navActiveBarLink : link.navStandartBarLink;
-  const setActiveForMovies = location.pathname === routerPath.movies ? link.navActiveLink : link.navStandartLink;
-  const setActiveForSavedMovies = location.pathname === routerPath.savedMovies ? link.navActiveLink : link.navStandartLink;
+  const setActiveSideBar = ({ isActive }) => isActive ? LINK.NAV_ACTIVE_BAR_LINK : LINK.NAV_STANDART_BAR_LINK;
+  const setActiveForMovies = location.pathname === ROUTER_PATH.MOVIES ? LINK.NAV_ACTIVE_LINK : LINK.NAV_STANDART_LINK;
+  const setActiveForSavedMovies = location.pathname === ROUTER_PATH.SAVED_MOVIES ? LINK.NAV_ACTIVE_LINK : LINK.NAV_STANDART_LINK;
   const setActiveMenu = menuIsOpen && "navigation__sidebar_opened";
 
   return (
@@ -24,13 +24,13 @@ export function Navigation({ loggedIn }) {
         {loggedIn && (
           <>
             <Link
-              to={routerPath.movies}
+              to={ROUTER_PATH.MOVIES}
               className={`navigation__link-first ${setActiveForMovies}`}
             >
               Фильмы
             </Link>
             <Link
-              to={routerPath.savedMovies}
+              to={ROUTER_PATH.SAVED_MOVIES}
               className={setActiveForSavedMovies}
             >
               Сохранённые фильмы
@@ -43,7 +43,7 @@ export function Navigation({ loggedIn }) {
           <>
             <li>
               <Link
-                to={routerPath.register}
+                to={ROUTER_PATH.REGISTER}
                 className="navigation__link navigation__link_mini"
               >
                 Регистрация
@@ -51,7 +51,7 @@ export function Navigation({ loggedIn }) {
             </li>
             <li>
               <Link
-                to={routerPath.login}
+                to={ROUTER_PATH.LOGIN}
                 className="navigation__link navigation__link_mini navigation__btn"
               >
                 Войти
@@ -62,11 +62,11 @@ export function Navigation({ loggedIn }) {
         {loggedIn && (
           <li className='navigation__none'>
             <Link
-              to={routerPath.profile}
+              to={ROUTER_PATH.PROFILE}
               className="navigation__link navigation__link_profile"
             >
               Аккаунт
-              <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico' />
+              <img src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} className='navigation__link-ico' />
             </Link>
           </li>
         )}
@@ -74,8 +74,8 @@ export function Navigation({ loggedIn }) {
       {loggedIn && (
         <button
           className="navigation__burger-btn"
-          type={navigation.burgerBtnType}
-          aria-label={navigation.ariaLabelBtnBurger}
+          type={NAVIGATION.BURGER_BTN_TYPE}
+          aria-label={NAVIGATION.ARIA_LABEL_BTN_BURGER}
           onClick={handleToggleMenu}
         />
       )}
@@ -86,7 +86,7 @@ export function Navigation({ loggedIn }) {
             <ul className='navigation__sidebar-menu'>
               <li className='navigation__sidebar-list-element'>
                 <NavLink
-                  to={routerPath.main}
+                  to={ROUTER_PATH.MAIN}
                   className={setActiveSideBar}
                 >
                   Главгая
@@ -94,7 +94,7 @@ export function Navigation({ loggedIn }) {
               </li>
               <li className='navigation__sidebar-list-element'>
                 <NavLink
-                  to={routerPath.movies}
+                  to={ROUTER_PATH.MOVIES}
                   className={setActiveSideBar}
                 >
                   Фильмы
@@ -102,7 +102,7 @@ export function Navigation({ loggedIn }) {
               </li>
               <li className='navigation__sidebar-list-element'>
                 <NavLink
-                  to={routerPath.savedMovies}
+                  to={ROUTER_PATH.SAVED_MOVIES}
                   className={setActiveSideBar}
                 >
                   Сохранённые фильмы
@@ -111,12 +111,12 @@ export function Navigation({ loggedIn }) {
             </ul>
             <div className='navigation__sidebar-profile'>
               <Link
-                to={routerPath.profile}
+                to={ROUTER_PATH.PROFILE}
                 className="navigation__sidebar-link navigation__sidebar-link-profile"
               >
                 Аккаунт
-                <img src={account} alt={navigation.icoAccountAlt} className='navigation__link-ico' />
-              </Link> 
+                <img src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} className='navigation__link-ico' />
+              </Link>
             </div>
           </div>
         </div>

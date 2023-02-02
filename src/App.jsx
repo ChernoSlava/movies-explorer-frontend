@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { 
-    Login, 
-    Register, 
-    Main, 
-    Movies, 
-    SavedMovies, 
-    Profile, 
-    AppLayout, 
-    ErrorPage, 
-    CurrentUserContext, 
+import {
+    Login,
+    Register,
+    Main,
+    Movies,
+    SavedMovies,
+    Profile,
+    AppLayout,
+    ErrorPage,
+    CurrentUserContext,
     ProtectedRoute,
 } from './components';
-import { routerPath } from './constants';
+import { ROUTER_PATH } from './constants';
 import { mainApi } from './utils';
 import { Loader } from './components/Movies/Preloader';
 
@@ -42,8 +42,8 @@ export const App = () => {
                         setLoggedIn(true)
                     } else {
                         console.log('Ошибка в проверке токена, пришли не те данные')
-                        navigate(routerPath.login);
-                    }                   
+                        navigate(ROUTER_PATH.LOGIN);
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
@@ -53,7 +53,7 @@ export const App = () => {
                 })
         } else {
             setIsLoading(false);
-        } 
+        }
     }, [navigate]);
 
     function handlePopupIsOpen() {
@@ -65,17 +65,18 @@ export const App = () => {
 
     function handleRegistration(data) {
         setRegisterProcess(true);
-        const {email, password} = data;
+        const { email, password } = data;
         mainApi
             .register(data)
             .then((res) => {
                 setIsSuccess(true);
                 res._id &&
-                setUser(res.data)
-                handleAuthorization({email, password});
+                    setUser(res.data)
+                handleAuthorization({ email, password });
                 setText('Добро пожаловать');
             })
-            .catch((err) => {;
+            .catch((err) => {
+                ;
                 console.log(err);
                 setIsSuccess(false);
                 setText('Ошибка с регистрацией')
@@ -92,9 +93,9 @@ export const App = () => {
             .then((res) => {
                 setIsSuccess(true);
                 res && res.token &&
-                setLoggedIn(true);
+                    setLoggedIn(true);
                 localStorage.setItem("jwt", res.token);
-                navigate(routerPath.movies);
+                navigate(ROUTER_PATH.MOVIES);
                 console.log('Добро пожаловать, Космический скиталец');
                 setText('Добро пожаловать');
             })
@@ -122,26 +123,26 @@ export const App = () => {
 
         localStorage.clear();
 
-        navigate(routerPath.main);
+        navigate(ROUTER_PATH.MAIN);
     };
 
     function handleChangeProfile({ name, email }) {
         mainApi
             .setUserInfoToServer({ name, email })
-                .then((userData) => {
-                    setIsSuccess(true);
-                    setUser(userData)
-                    setText('Данные изменены')
-                    console.log('ай да молодец, смог изменить имя')
-                })
-                .catch((err) => {
-                    setIsSuccess(false);
-                    console.log(err)
-                    setText('Ошибочка вышла')
-                })
-                .finally(() => {
-                    handlePopupIsOpen();
-                });
+            .then((userData) => {
+                setIsSuccess(true);
+                setUser(userData)
+                setText('Данные изменены')
+                console.log('ай да молодец, смог изменить имя')
+            })
+            .catch((err) => {
+                setIsSuccess(false);
+                console.log(err)
+                setText('Ошибочка вышла')
+            })
+            .finally(() => {
+                handlePopupIsOpen();
+            });
     };
 
     function handleSaveFilm(film) {
@@ -153,7 +154,7 @@ export const App = () => {
             );
     }
 
-    function handleDeleteFilm(film) { 
+    function handleDeleteFilm(film) {
         const savedFilm = savedMoviesList.find(
             (x) => x.movieId === film.id || x.movieId === film.movieId
         );
@@ -169,7 +170,7 @@ export const App = () => {
                 });
                 setSavedMoviesList(newSavedFilms)
             })
-            .catch(err =>              
+            .catch(err =>
                 console.log('При удалении фильма произошла какая-то ошибка', err,)
             )
     };
@@ -190,48 +191,48 @@ export const App = () => {
 
     return (
         <>
-            {isLoading ? 
+            {isLoading ?
                 <Loader /> :
                 <CurrentUserContext.Provider value={user}>
                     <Routes>
-                        <Route 
-                            path={routerPath.main} 
+                        <Route
+                            path={ROUTER_PATH.MAIN}
                             element={
-                                <AppLayout 
-                                    isOpen={popupIsOpen} 
-                                    onClose={handleClosePopup} 
-                                    isSuccess={isSuccess} 
-                                    text={text} 
+                                <AppLayout
+                                    isOpen={popupIsOpen}
+                                    onClose={handleClosePopup}
+                                    isSuccess={isSuccess}
+                                    text={text}
                                 />
                             }
                         >
-                            <Route 
-                                index 
-                                element={<Main 
+                            <Route
+                                index
+                                element={<Main
                                     loggedIn={loggedIn}
-                                />} 
-                            />
-                            <Route 
-                                path={routerPath.login} 
-                                element={<Login 
-                                    onAuthorization={handleAuthorization} 
-                                    loggedIn={loggedIn}
-                                    isInquiry={isLoginProcess}
-                                />} 
+                                />}
                             />
                             <Route
-                                path={routerPath.register} 
-                                element={<Register 
+                                path={ROUTER_PATH.LOGIN}
+                                element={<Login
+                                    onAuthorization={handleAuthorization}
+                                    loggedIn={loggedIn}
+                                    isInquiry={isLoginProcess}
+                                />}
+                            />
+                            <Route
+                                path={ROUTER_PATH.REGISTER}
+                                element={<Register
                                     onRegistration={handleRegistration}
                                     loggedIn={loggedIn}
                                     isInquiry={isRegisterProcess}
-                                />} 
+                                />}
                             />
                             <Route
-                                path={routerPath.movies}
+                                path={ROUTER_PATH.MOVIES}
                                 element={(
                                     <ProtectedRoute loggedIn={loggedIn}>
-                                        <Movies 
+                                        <Movies
                                             loggedIn={loggedIn}
                                             onSaveFilm={handleSaveFilm}
                                             onDeleteFilm={handleDeleteFilm}
@@ -241,10 +242,10 @@ export const App = () => {
                                 )}
                             />
                             <Route
-                                path={routerPath.savedMovies}
+                                path={ROUTER_PATH.SAVED_MOVIES}
                                 element={(
                                     <ProtectedRoute loggedIn={loggedIn}>
-                                        <SavedMovies 
+                                        <SavedMovies
                                             loggedIn={loggedIn}
                                             onDeleteFilm={handleDeleteFilm}
                                             savedMoviesList={savedMoviesList}
@@ -253,20 +254,20 @@ export const App = () => {
                                 )}
                             />
                             <Route
-                                path={routerPath.profile}
+                                path={ROUTER_PATH.PROFILE}
                                 element={(
                                     <ProtectedRoute loggedIn={loggedIn}>
-                                        <Profile 
-                                            loggedIn={loggedIn} 
-                                            handleChangeProfile={handleChangeProfile} 
+                                        <Profile
+                                            loggedIn={loggedIn}
+                                            handleChangeProfile={handleChangeProfile}
                                             handleSignOut={handleSignOut}
                                         />
                                     </ProtectedRoute>
                                 )}
                             />
-                            <Route 
-                                path={routerPath.alien} 
-                                element={<ErrorPage />} 
+                            <Route
+                                path={ROUTER_PATH.ALIEN}
+                                element={<ErrorPage />}
                             />
                         </Route>
                     </Routes>

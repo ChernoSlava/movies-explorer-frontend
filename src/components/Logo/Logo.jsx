@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 import './Logo.css';
 
 import ico from '../../images/Logo.svg';
-import { routerPath, logo } from '../../constants';
+import { ROUTER_PATH, LOGO } from '../../constants';
 
 export const Logo = () => {
     return (
         <Link
             className='logo'
-            to={routerPath.main}
-            aria-label={logo.ariaLabel}
+            to={ROUTER_PATH.MAIN}
+            aria-label={LOGO.ARIAL_LABEL}
         >
             <img
                 className='logo__ico'
                 src={ico}
-                alt={logo.logoAlt} />
-        </Link>  
+                alt={LOGO.LOGO_ALT} />
+        </Link>
     );
 };

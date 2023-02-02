@@ -8,6 +8,7 @@ import { SearchForm } from './SearchForm';
 import { MoviesCardList } from './MoviesCardList';
 import { Loader } from './Preloader';
 import { moviesApi } from '../../utils';
+import { SHORT_DURATION } from '../../constants';
 
 import { CurrentUserContext } from '../contexts';
 
@@ -28,7 +29,7 @@ export function Movies({
   const [isNothing, setIsNothing] = useState(false);
   
   function filterShortMovies(movies) {
-    return movies.filter(movie => movie.duration < 40);
+    return movies.filter(movie => movie.duration < SHORT_DURATION);
   }
   function filterMovies(movies, userSearch) {
     function lower(x) {
