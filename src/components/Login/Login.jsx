@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './Login.css';
 
@@ -7,7 +7,8 @@ import { routerPath } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
 
-export function Login({ onAuthorization }) {
+export function Login({ onAuthorization, loggedIn }) {
+  const navigation = useNavigate();
 
   const { values, handleChange, resetForm, errors } = useForm({});
 
@@ -31,62 +32,67 @@ export function Login({ onAuthorization }) {
   const isErrorInputPassw = errors.password && 'login__input-error';
 
   return (
-    <section className="login">
-      <form className='login__form' onSubmit={handleSubmit} noValidate>
-        <div className="login__logo"><Logo /></div>
-        <h1 className="login__title">Скорее на борт!</h1>
-        <fieldset className="login__fieldset">
-          <label htmlFor="email" className='login__label'>
-            <span className={`login__field-error ${isErrorSpanEmail}`}>
-              {errors.email}
-            </span>
-            <p className='login__field'>Космо почта</p>
-            <input
-              onChange={handleChange}
-              className={`login__input ${isErrorInputEmail}`}
-              name="email"
-              placeholder="star@mail.ru"
-              type="email"
-              required
-              value={values.email || ""}
-            ></input>
-          </label>
-          <label htmlFor="password" className='login__label'>
-            <span className={`login__field-error ${isErrorSpanPassw}`}>
-              {errors.password}
-            </span>
-            <p className='login__field'>Космо пароль</p>
-            <input
-              onChange={handleChange}
-              className={`login__input ${isErrorInputPassw}`}
-              name="password"
-              placeholder="Пароль"
-              minLength={6}
-              type="password"
-              required
-              value={values.password || ""}
-            ></input>
-          </label>
-        </fieldset>
-        <div className='login__btn-container'>
-          <button 
-            type="submit" 
-            className={`login__btn ${isDisabledClass}`}                
-            disabled={isDisabled}
-          >
-            Отправляемся
-          </button>
-          <p className="login__link-text">
-            Ещё не зарегистрированы?
-            <Link
-              to={routerPath.register}
-              className="login__link"
-            >
-              Регистрация
-            </Link>
-          </p>
-        </div>
-      </form>
-    </section>
+    <>
+      { loggedIn 
+      ? navigation(routerPath.main)
+      : <section className="login">
+          <form className='login__form' onSubmit={handleSubmit} noValidate>
+            <div className="login__logo"><Logo /></div>
+            <h1 className="login__title">Скорее на борт!</h1>
+            <fieldset className="login__fieldset">
+              <label htmlFor="email" className='login__label'>
+                <span className={`login__field-error ${isErrorSpanEmail}`}>
+                  {errors.email}
+                </span>
+                <p className='login__field'>Космо почта</p>
+                <input
+                  onChange={handleChange}
+                  className={`login__input ${isErrorInputEmail}`}
+                  name="email"
+                  placeholder="star@mail.ru"
+                  type="email"
+                  required
+                  value={values.email || ""}
+                ></input>
+              </label>
+              <label htmlFor="password" className='login__label'>
+                <span className={`login__field-error ${isErrorSpanPassw}`}>
+                  {errors.password}
+                </span>
+                <p className='login__field'>Космо пароль</p>
+                <input
+                  onChange={handleChange}
+                  className={`login__input ${isErrorInputPassw}`}
+                  name="password"
+                  placeholder="Пароль"
+                  minLength={6}
+                  type="password"
+                  required
+                  value={values.password || ""}
+                ></input>
+              </label>
+            </fieldset>
+            <div className='login__btn-container'>
+              <button 
+                type="submit" 
+                className={`login__btn ${isDisabledClass}`}                
+                disabled={isDisabled}
+              >
+                Отправляемся
+              </button>
+              <p className="login__link-text">
+                Ещё не зарегистрированы?
+                <Link
+                  to={routerPath.register}
+                  className="login__link"
+                >
+                  Регистрация
+                </Link>
+              </p>
+            </div>
+          </form>
+        </section>
+      }
+    </>
   );
 };

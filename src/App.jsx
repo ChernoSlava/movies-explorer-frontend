@@ -206,8 +206,8 @@ export const App = () => {
                             }
                         >
                             <Route index element={<Main loggedIn={loggedIn} />} />
-                            <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} />} />
-                            <Route path={routerPath.register} element={<Register onRegistration={handleRegistration} />} />
+                            <Route path={routerPath.login} element={<Login onAuthorization={handleAuthorization} loggedIn={loggedIn} />} />
+                            <Route path={routerPath.register} element={<Register onRegistration={handleRegistration} loggedIn={loggedIn} />} />
                             <Route
                                 path={routerPath.movies}
                                 element={(
