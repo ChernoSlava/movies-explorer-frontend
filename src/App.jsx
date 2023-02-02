@@ -65,17 +65,15 @@ export const App = () => {
     }
 
     function handleRegistration(data) {
+        const {email, password} = data;
         mainApi
             .register(data)
             .then((res) => {
                 setIsSuccess(true);
-                !res && !res.data 
-                ?
-                console.log("Возникла ошибка при регистрации") 
-                :
+                res._id &&
                 setUser(res.data)
-                navigate(routerPath.login);
-                setText('Регистрация успешна')
+                handleAuthorization({email, password});
+                setText('Добро пожаловать');
             })
             .catch((err) => {;
                 console.log(err);
@@ -91,13 +89,10 @@ export const App = () => {
             .login(data)
             .then((res) => {
                 setIsSuccess(true);
-                !res && !res.token
-                ?
-                console.log('Возникла ошибка авторизации на борт')
-                :
+                res && res.token &&
                 setLoggedIn(true);
                 localStorage.setItem("jwt", res.token);
-                navigate(fromPage, {replace: true});
+                navigate(routerPath.movies);
                 console.log('Добро пожаловать, Космический скиталец');
                 setText('Добро пожаловать');
             })
