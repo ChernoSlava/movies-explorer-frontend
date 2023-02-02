@@ -24,6 +24,8 @@ export function Movies({
   const [moviesFromSearch, setMoviesFromSearch] = useState([]);
   const [shortMovies, setShortMovies] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
+
+  const [isNothing, setIsNothing] = useState(false);
   
   function filterShortMovies(movies) {
     return movies.filter(movie => movie.duration < 40);
@@ -66,8 +68,12 @@ export function Movies({
   function handleAnswerMovies(movies, searchData, checkbox) {
     const moviesBlock = filterMovies(movies, searchData)
     if (moviesBlock.length === 0) {
-      console.log('Таких архивов не найдено')
+      console.log('Таких архивов не найдено');
+      setIsNothing(true);
+    } else {
+      setIsNothing(false);
     }
+    
     setMoviesFromSearch(moviesBlock);
     setFilteredMovies(
       checkbox ? filterShortMovies(moviesBlock) : moviesBlock
@@ -127,11 +133,12 @@ export function Movies({
           handleShortMovies={handleShortMovies}
           shortMovies={shortMovies}
           />
-        <MoviesCardList 
+        <MoviesCardList
           onSaveFilm={onSaveFilm} 
           onDeleteFilm={onDeleteFilm} 
           savedMoviesList={savedMoviesList}
           moviesForShow={filteredMovies}
+          isNothing={isNothing}
           />
     </section>
     <Footer />

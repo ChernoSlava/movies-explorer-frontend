@@ -8,7 +8,8 @@ export function MoviesCardList({
   onSaveFilm, 
   onDeleteFilm,
   savedMoviesList,
-  moviesForShow
+  moviesForShow,
+  isNothing
  }) {
 
   const [currentPage, setNextPage] = useState(0);
@@ -43,10 +44,12 @@ export function MoviesCardList({
   else {
     pageSize = 5;
   }
- 
+  
+  const isNothingText = isNothing && <span className='movies-card-list__nothing'>Ничего не найдено</span>;
+  
   return (
     <section className="movies-card-list">
-      {moviesForShow.length === 0 ? <span className='movies-card-list__nothing'>Ничего не найдено</span> : ''}
+      {isNothingText}
       <ul className='movies-card-list__list'>
         {moviesForShow?.slice(0, pageSize + currentPage).map(movie => (
           <MoviesCard
