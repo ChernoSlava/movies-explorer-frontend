@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './Login.css';
@@ -11,20 +11,22 @@ export function Login({ onAuthorization, loggedIn }) {
   const navigation = useNavigate();
 
   const { values, handleChange, resetForm, errors } = useForm({});
+  const [isInquiry, setIsInquire] = useState(false);
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    // setIsInquire(!isInquiry);
     onAuthorization(values);
   }
-  
+
   useEffect(() => {
     resetForm();
-  }, [resetForm]);
+  }, [resetForm, isInquiry]);
 
   const isErrors = errors.email || errors.password;
   const isEmptyValues = !values.password || !values.email;
-  const isDisabled = (isErrors || isEmptyValues) ? true : false;
-  const isDisabledClass = isDisabled && 'login__btn_disabled';
+  const isDisabled = (isErrors || isEmptyValues || isInquiry);
+  const isDisabledClass = (isDisabled || isInquiry) && 'login__btn_disabled';
 
   const isErrorSpanEmail = errors.email && 'login__field-error_active';
   const isErrorSpanPassw = errors.password && 'login__field-error_active';
@@ -47,12 +49,13 @@ export function Login({ onAuthorization, loggedIn }) {
                 <p className='login__field'>Космо почта</p>
                 <input
                   onChange={handleChange}
-                  className={`login__input ${isErrorInputEmail}`}
+                  className={`login__input ${isErrorInputEmail} ${isInquiry && 'login__input_disabled'}`}
                   name="email"
                   placeholder="star@mail.ru"
                   type="email"
                   required
                   value={values.email || ""}
+                  disabled={isInquiry}
                 ></input>
               </label>
               <label htmlFor="password" className='login__label'>
@@ -62,13 +65,14 @@ export function Login({ onAuthorization, loggedIn }) {
                 <p className='login__field'>Космо пароль</p>
                 <input
                   onChange={handleChange}
-                  className={`login__input ${isErrorInputPassw}`}
+                  className={`login__input ${isErrorInputPassw} ${isInquiry && 'login__input_disabled'}`}
                   name="password"
                   placeholder="Пароль"
                   minLength={6}
                   type="password"
                   required
                   value={values.password || ""}
+                  disabled={isInquiry}
                 ></input>
               </label>
             </fieldset>

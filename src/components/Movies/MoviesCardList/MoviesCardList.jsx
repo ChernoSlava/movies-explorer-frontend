@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import './MoviesCardList.css';
 
 import { MoviesCard } from '../MoviesCard';
+import { routerPath } from '../../../constants';
 
 export function MoviesCardList({ 
   onSaveFilm, 
@@ -11,9 +13,16 @@ export function MoviesCardList({
   moviesForShow,
   isNothing
  }) {
+  const location = useLocation();
 
   const [currentPage, setNextPage] = useState(0);
-  const [sizeScreen, setSizeSreen] = useState({ width: window.innerWidth })
+  const [sizeScreen, setSizeSreen] = useState({ width: window.innerWidth });
+  const [pageSize, setPageSize] = useState(0);
+
+
+  const isNothingText = isNothing && <span className='movies-card-list__nothing'>Ничего не найдено</span>;
+  const isMoviesLocation = location.pathname === routerPath.movies;
+  const isMovies = isMoviesLocation && moviesForShow.length > currentPage + pageSize;
   
   function getSavedMovieCard(arr, movie) {
     return arr.find((item) => {
@@ -34,18 +43,28 @@ export function MoviesCardList({
     }
   }, [sizeScreen]);
 
-  let pageSize;
-  let win = sizeScreen.width;
-  if (win > 768) {
-    pageSize = 12;
-  } else if (win > 480) {
-    pageSize = 8;
-  }
-  else {
-    pageSize = 5;
-  }
-  
-  const isNothingText = isNothing && <span className='movies-card-list__nothing'>Ничего не найдено</span>;
+  useEffect(() => {
+    let win = sizeScreen.width;
+    if (win > 800) {
+      setPageSize(12);
+    } else if (win > 540) {
+      setPageSize(8);
+    }
+    else {
+      setPageSize(5);
+    }
+  }, [sizeScreen.width])
+
+    // let win = sizeScreen.width;
+    // if (win > 768) {
+    //   pageSize = 12;
+    // } else if (win > 480) {
+    //   pageSize = 8;
+    // }
+    // else {
+    //   pageSize = 5;
+    // }
+  // const size = !isMoviesLocation ? setPageSize(moviesForShow.length) && pageSize : pageSize;
   
   return (
     <section className="movies-card-list">
@@ -61,18 +80,18 @@ export function MoviesCardList({
           />
         ))}
       </ul>
-      {moviesForShow.length > currentPage + pageSize
+      {isMovies
         ? 
         <button
             type="button"
             className="movies-card-list__button"
             onClick={() => { 
-              if (window.innerWidth <= 768) {
+              if (sizeScreen.width <= 800) {
                 setNextPage(currentPage + 2);
               } else {
                 setNextPage(currentPage + 3); 
               }
-              console.log(window.innerWidth); }}
+            }}
           >
           Ещё
           </button> 

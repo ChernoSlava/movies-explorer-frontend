@@ -93,6 +93,26 @@
     left: 0;
 }
 
+.login__input_disabled {
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    transform-origin: bottom;
+    animation-name: bounce;
+    animation-timing-function: linear;
+}
+@keyframes bounce {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(150px);
+    }
+    100% {
+        transform: translateX(300px);
+    }
+}
+
+
 .login__btn-container {
     padding-top: 159px;
     display: flex;

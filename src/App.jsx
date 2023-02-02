@@ -103,7 +103,7 @@ export const App = () => {
             })
             .catch((err) => {
                 setIsSuccess(false);
-                setText('Ошибка с авторизацией')
+                setText('Ошибка с авторизацией');
                 console.log(`Что-то глобально пошло не по плану`, err);
             })
             .finally(() => {
