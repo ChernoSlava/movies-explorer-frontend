@@ -69,6 +69,9 @@
     background: transparent;
     border: none;
     cursor: pointer;
+    margin-right: 10px;
+    align-self: start;
+    margin-top: 10px;
     background-image: url(../../../images/Save.svg);
 }
 
