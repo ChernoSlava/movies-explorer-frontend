@@ -187,7 +187,9 @@ export const App = () => {
                     console.log(`Не могу получить карточки`, err);
                 });
         }
-    }, [loggedIn, user])
+    }, [loggedIn, user]);
+
+
 
     return (
         <>

@@ -14,21 +14,21 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
 
   const { values, handleChange, resetForm, errors } = useForm({});
   const [ checkboxActive, setCheckboxActive ] = useState(false);
+
   const [playShowPassword] = useSound(sauron, { volume: 0.25 });
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onAuthorization(values);
-  }
+  };
   
   const handleShowPassword = () => {
     setCheckboxActive(!checkboxActive);
     if (!checkboxActive) {
       playShowPassword();
     }
-  }
+  };
 
- 
   useEffect(() => {
     resetForm();
   }, [resetForm, isInquiry]);
