@@ -1,22 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import useSound from 'use-sound';
 
 import './Login.css';
 
 import { ROUTER_PATH } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
+import sauron from '../../sound/sauron.mp3'
 
 export function Login({ onAuthorization, loggedIn, isInquiry }) {
   const navigation = useNavigate();
 
   const { values, handleChange, resetForm, errors } = useForm({});
+  const [ checkboxActive, setCheckboxActive ] = useState(false);
+  const [playShowPassword] = useSound(sauron, { volume: 0.25 });
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onAuthorization(values);
   }
+  
+  const handleShowPassword = () => {
+    setCheckboxActive(!checkboxActive);
+    if (!checkboxActive) {
+      playShowPassword();
+    }
+  }
 
+ 
   useEffect(() => {
     resetForm();
   }, [resetForm, isInquiry]);
@@ -67,11 +79,20 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
                   name="password"
                   placeholder="Пароль"
                   minLength={6}
-                  type="password"
+                  type={checkboxActive ? "text" : "password"}
                   required
                   value={values.password || ""}
                   disabled={isInquiry}
                 ></input>
+                <input
+                  type="checkbox"
+                  name="checkbox-log"
+                  id="checkbox-log"
+                  onChange={() => handleShowPassword()}
+                  checked={checkboxActive}
+                  className='login__checkbox' 
+                />
+                <label className={`login__checkbox-label ${checkboxActive && 'login__checkbox-label_active'}`} htmlFor="checkbox-log" />
               </label>
             </fieldset>
             <div className='login__btn-container'>

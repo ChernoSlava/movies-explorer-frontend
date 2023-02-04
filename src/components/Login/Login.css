@@ -106,13 +106,34 @@
     visibility: hidden;
   }
 }
+
+.login__checkbox {
+    cursor: pointer;
+    display: none;
+}
+.login__checkbox-label {
+    padding: 0;
+    margin: 0;      
+    position: absolute;
+    top: 30px;
+    right: 16px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-image: url(../../images/Глаз\ закрытый.png);
+    transition: .1s;
+}
+.login__checkbox-label_active {
+    background-image: url(../../images/Глаз\ саурона.png);
+    transition: 1s;
+}
 .login__btn-container {
     padding-top: 159px;
     display: flex;
     flex-direction: column;
     align-self: center;
     width: 100%;
-
 }
 
 .login__btn {
