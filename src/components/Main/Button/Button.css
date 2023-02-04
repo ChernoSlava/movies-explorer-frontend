@@ -4,6 +4,7 @@
     width: 96px;
     height: 36px;
     border: transparent;
+    white-space: nowrap;
 }
 
 .button__text {

@@ -1,42 +1,54 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
 
 import './MoviesCard.css';
 
-import poster from '../../../images/MainIco-min.jpg';
+import { useLocation } from 'react-router-dom';
+import { ROUTER_PATH } from '../../../constants';
 
-export function MoviesCard({ id, title, time, isSaved, canDelete, onSave }) {
+export function MoviesCard({ movie, saved, onSaveFilm, onDeleteFilm }) {
+  const location = useLocation();
 
-  const [ add, setAdd ] = useState(isSaved);
-  useEffect(() => {
-    setAdd(isSaved)
-  },[isSaved]);
+  function handleLike() {
+    onSaveFilm(movie);
+  }
+
+  function handleDelete() {
+    onDeleteFilm(movie);
+  }
+
+  function transformDuration(duration) {
+    const hours = Math.trunc(duration / 60);
+    const minutes = duration % 60;
+    if (hours === 0) {
+      return `${minutes}м`;
+    } else {
+      return `${hours}ч ${minutes}м`;
+    }
+  }
 
   const savedClass = 'movies-card__button_type_saved';
 
   return (
     <li className="movies-card">
-      <img className="movies-card__poster" alt={title} src={poster} />
+      <a href={movie.trailerLink} target="_blank" rel="noreferrer" className='movies-card__trailer'><img className="movies-card__poster" alt={movie.nameRU} src={movie.image} /></a>
       <div className="movies-card__info">
         <div className="movies-card__text-container">
-          <h2 className="movies-card__title">{title}</h2>
-          <h3 className="movies-card__time">{time}</h3>
+          <h2 className="movies-card__title">{movie.nameRU}</h2>
+          <h3 className="movies-card__time">{transformDuration(movie.duration)}</h3>
         </div>
-        {!canDelete
-          ? <button
-              className={`movies-card__button ${add ? savedClass : ''}`}
-              onClick={() => {
-                setAdd(!add);
-                onSave?.(id);
-              }}
-            />
-          : <button
-              className={`movies-card__button movies-card__button_type_delete`}
-              onClick={() => {
-                setAdd(false);
-                onSave?.(id);
-              }}
-            />
-        }
+        {location.pathname === ROUTER_PATH.MOVIES && (
+          <button
+            type='button'
+            className={`movies-card__button ${saved ? savedClass : ''}`}
+            onClick={saved ? handleDelete : handleLike}
+          />
+        )}
+        {location.pathname === ROUTER_PATH.SAVED_MOVIES && (
+          <button
+            className={`movies-card__button movies-card__button_type_delete`}
+            onClick={handleDelete}
+          />
+        )}
       </div>
     </li>
   );

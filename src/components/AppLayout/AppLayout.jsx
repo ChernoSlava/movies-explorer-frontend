@@ -1,11 +1,16 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 import './AppLayout.css';
 
-export const AppLayout = ({ children = null }) => {
+import { Popup } from '../Popup';
+
+export const AppLayout = ({ ...props }) => {
+
   return (
     <div className='app-layout'>
-      {children}
+      <Popup {...props}/>
+      <Outlet />
     </div>
   );
 };

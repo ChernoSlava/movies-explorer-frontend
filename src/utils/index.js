@@ -1,1 +1,2 @@
-// Место для api
+export { mainApi } from './MainApi';
+export { moviesApi } from './MoviesApi';
