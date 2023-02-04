@@ -1,13 +1,14 @@
 import { createGlobalStyle } from "styled-components/macro";
+import { baseTheme } from "../../theme";
 
 export const GlobalStyles = createGlobalStyle`
 
   body {
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-family: ${props => props.theme.fontFamily.standart};
     padding: 0;
     width: 100%;
-    background-color: #202020;
-    color: white;
+    background-color: ${props => props.theme.global.bodyBack};
+    color: ${props => props.theme.global.bodyText};
   }
 
   body::-webkit-scrollbar {

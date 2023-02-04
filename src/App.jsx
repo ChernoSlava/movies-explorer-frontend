@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { ThemeProvider } from "styled-components";
 
 import {
     Login,
@@ -16,6 +17,8 @@ import {
 import { ROUTER_PATH } from './constants';
 import { mainApi } from './utils';
 import { Loader } from './components/Movies/Preloader';
+import { baseTheme } from './theme';
+
 
 export const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -196,6 +199,7 @@ export const App = () => {
             {isLoading ?
                 <Loader /> :
                 <CurrentUserContext.Provider value={user}>
+                    <ThemeProvider theme={baseTheme}>
                     <Routes>
                         <Route
                             path={ROUTER_PATH.MAIN}
@@ -273,6 +277,7 @@ export const App = () => {
                             />
                         </Route>
                     </Routes>
+                    </ThemeProvider>
                 </CurrentUserContext.Provider>
             }
         </>

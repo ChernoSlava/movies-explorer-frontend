@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components/macro';
+import { baseTheme } from '../../../theme';
 
 export const PreloaderStyled = styled.div`
     display: flex;
@@ -8,7 +9,7 @@ export const PreloaderStyled = styled.div`
     height: 100%;
     z-index: 10;
     position: fixed;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: ${baseTheme.colors.preloader};
 `;
 
 export const PreloaderContainer = styled.div`

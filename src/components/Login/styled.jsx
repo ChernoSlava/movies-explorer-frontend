@@ -41,7 +41,7 @@ export const LoginTitle = styled.h1`
     margin: 0;
     padding: 0;
     padding-bottom: 40px;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;;
+    font-family: ${props => props.theme.fontFamily.standart};
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
@@ -71,12 +71,12 @@ export const LoginFieldError = styled.span`
     margin: 0;
     padding: 0;
     position: absolute;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;;
+    font-family: ${props => props.theme.fontFamily.standart};
     font-style: normal;
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
-    color: #EE3465;
+    color: ${props => props.theme.colors.error};
     display: none;
 
     ${props => props.isError && `
@@ -99,32 +99,32 @@ const fade = keyframes`
 export const LoginField = styled.p`
     margin: 0;
     padding: 0;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;;
+    font-family: ${props => props.theme.fontFamily.standart};
     font-style: normal;
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
-    color: #8B8B8B;
+    color: ${props => props.theme.colors.field};
     padding-bottom: 10px;
 `;
 
 export const LoginInput = styled.input`
     margin: 0;
     padding: 0;
-    background: #2F2F2F;
+    background: ${props => props.theme.colors.inputBack};
     border-radius: 8px;
     border: transparent;
     height: 46px;
     padding-left: 15px;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;;
+    font-family: ${props => props.theme.fontFamily.standart};
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
-    color: #FFFFFF;
+    color: ${props => props.theme.colors.inputText};
 
     ${props => props.isError && `
-        color: #EE3465;
+        color: ${props => props.theme.colors.error};
           
     `}
 
@@ -167,7 +167,7 @@ export const LoginSubmitButton = styled.button`
     margin: 0;
     padding: 0;
     border: transparent;
-    background: #4285F4;
+    background: ${props => props.theme.colors.buttonSubmit};
     border-radius: 3px;
     width: 100%;
     min-height: 45px;
@@ -175,7 +175,7 @@ export const LoginSubmitButton = styled.button`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;;
+    font-family: ${props => props.theme.fontFamily.standart};
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -184,9 +184,9 @@ export const LoginSubmitButton = styled.button`
     color: #FFFFFF;
 
     ${props => props.isBlock && `
-        color: #343333;;
+        color: ${props => props.theme.colors.buttonText};
         cursor: not-allowed;
-        background: #49638c;
+        background: ${props => props.theme.colors.buttonBlock};
         &:hover{
             opacity: 1; 
         }
@@ -198,25 +198,25 @@ export const LoginLinkText = styled.p`
     padding: 0;
     padding-top: 16px;
     padding-bottom: 70px;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;;
+    font-family: ${props => props.theme.fontFamily.standart};
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    color: #8B8B8B;
+    color: ${props => props.theme.colors.field};
 `;
 
 export const LoginLink = styled(Link)`
     margin: 0;
     padding: 0;
     padding-left: 6px;
-    font-family: 'Inter', Arial, Helvetica, sans-serif;;
+    font-family: ${props => props.theme.fontFamily.standart};
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    color: #4285F4;
+    color: ${props => props.theme.colors.buttonSubmit};
     text-decoration: none;
 `;
