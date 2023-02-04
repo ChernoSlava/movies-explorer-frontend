@@ -75,6 +75,7 @@ export function Register({ onRegistration, loggedIn, isInquiry }) {
                   onChange={handleChange}
                   value={values.email || ""}
                   disabled={isInquiry}
+                  autoComplete="email"
                 ></input>
               </label>
               <label htmlFor="password" className='register__label'>
@@ -92,6 +93,7 @@ export function Register({ onRegistration, loggedIn, isInquiry }) {
                   onChange={handleChange}
                   value={values.password || ""}
                   disabled={isInquiry}
+                  autoComplete="new-password"
                 ></input>
               </label>
             </fieldset>

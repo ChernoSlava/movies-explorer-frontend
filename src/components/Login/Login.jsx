@@ -66,6 +66,7 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
                   required
                   value={values.email || ""}
                   disabled={isInquiry}
+                  autoComplete="email"
                 ></input>
               </label>
               <label htmlFor="password" className='login__label'>
@@ -83,6 +84,7 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
                   required
                   value={values.password || ""}
                   disabled={isInquiry}
+                  autoComplete="current-password"
                 ></input>
                 <input
                   type="checkbox"
@@ -90,7 +92,7 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
                   id="checkbox-log"
                   onChange={() => handleShowPassword()}
                   checked={checkboxActive}
-                  className='login__checkbox' 
+                  className='login__checkbox'
                 />
                 <label className={`login__checkbox-label ${checkboxActive && 'login__checkbox-label_active'}`} htmlFor="checkbox-log" />
               </label>
