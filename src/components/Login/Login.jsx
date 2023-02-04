@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useSound from 'use-sound';
-
-import './Login.css';
 
 import { ROUTER_PATH } from '../../constants';
 import { Logo } from '../Logo';
 import { useForm } from '../../hooks';
 import sauron from '../../sound/sauron.mp3'
+
+import {
+  LoginStyled,
+  LoginForm,
+  LoginTitle,
+  LoginFieldset,
+  LoginLabel,
+  LoginFieldError, 
+  LoginField,
+  LoginInput, 
+  LoginLogo,
+  LoginCheckbox,
+  LoginLabelForCheckbox,
+  LoginButtonContainer,
+  LoginSubmitButton,
+  LoginLinkText,
+  LoginLink
+ } from './styled';
 
 export function Login({ onAuthorization, loggedIn, isInquiry }) {
   const navigation = useNavigate();
@@ -36,30 +52,27 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
   const isErrors = errors.email || errors.password;
   const isEmptyValues = !values.password || !values.email;
   const isDisabled = (isErrors || isEmptyValues || isInquiry);
-  const isDisabledClass = (isDisabled || isInquiry) && 'login__btn_disabled';
-
-  const isErrorSpanEmail = errors.email && 'login__field-error_active';
-  const isErrorSpanPassw = errors.password && 'login__field-error_active';
-  const isErrorInputEmail = errors.email && 'login__input-error';
-  const isErrorInputPassw = errors.password && 'login__input-error';
 
   return (
     <>
       {loggedIn
         ? navigation(ROUTER_PATH.MAIN)
-        : <section className="login">
-          <form className='login__form' onSubmit={handleSubmit} noValidate>
-            <div className="login__logo"><Logo /></div>
-            <h1 className="login__title">Скорее на борт!</h1>
-            <fieldset className="login__fieldset">
-              <label htmlFor="email" className='login__label'>
-                <span className={`login__field-error ${isErrorSpanEmail}`}>
+        : <LoginStyled>
+          <LoginForm onSubmit={handleSubmit} noValidate>
+            <LoginLogo>
+              <Logo />
+            </LoginLogo>
+            <LoginTitle>Скорее на борт!</LoginTitle>
+            <LoginFieldset>
+              <LoginLabel htmlFor="email">
+                <LoginFieldError isError={errors.email}>
                   {errors.email}
-                </span>
-                <p className='login__field'>Космо почта</p>
-                <input
+                </LoginFieldError>
+                <LoginField>Космо почта</LoginField>
+                <LoginInput
                   onChange={handleChange}
-                  className={`login__input ${isErrorInputEmail} ${isInquiry && 'login__input_disabled'}`}
+                  isError={errors.email}
+                  isDisa={isInquiry}
                   name="email"
                   placeholder="star@mail.ru"
                   type="email"
@@ -67,16 +80,17 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
                   value={values.email || ""}
                   disabled={isInquiry}
                   autoComplete="email"
-                ></input>
-              </label>
-              <label htmlFor="password" className='login__label'>
-                <span className={`login__field-error ${isErrorSpanPassw}`}>
+                ></LoginInput>
+              </LoginLabel>
+              <LoginLabel htmlFor="password">
+                <LoginFieldError isError={errors.password}>
                   {errors.password}
-                </span>
-                <p className='login__field'>Космо пароль</p>
-                <input
+                </LoginFieldError>
+                <LoginField>Космо пароль</LoginField>
+                <LoginInput
                   onChange={handleChange}
-                  className={`login__input ${isErrorInputPassw} ${isInquiry && 'login__input_disabled'}`}
+                  isError={errors.password}
+                  isDisa={isInquiry}
                   name="password"
                   placeholder="Пароль"
                   minLength={6}
@@ -85,38 +99,36 @@ export function Login({ onAuthorization, loggedIn, isInquiry }) {
                   value={values.password || ""}
                   disabled={isInquiry}
                   autoComplete="current-password"
-                ></input>
-                <input
+                ></LoginInput>
+                <LoginCheckbox
                   type="checkbox"
                   name="checkbox-log"
                   id="checkbox-log"
                   onChange={() => handleShowPassword()}
                   checked={checkboxActive}
-                  className='login__checkbox'
                 />
-                <label className={`login__checkbox-label ${checkboxActive && 'login__checkbox-label_active'}`} htmlFor="checkbox-log" />
-              </label>
-            </fieldset>
-            <div className='login__btn-container'>
-              <button
+                <LoginLabelForCheckbox active={checkboxActive} htmlFor="checkbox-log" />
+              </LoginLabel>
+            </LoginFieldset>
+            <LoginButtonContainer>
+              <LoginSubmitButton
                 type="submit"
-                className={`login__btn ${isDisabledClass}`}
+                isBlock={isDisabled}
                 disabled={isDisabled}
               >
                 Отправляемся
-              </button>
-              <p className="login__link-text">
+              </LoginSubmitButton>
+              <LoginLinkText>
                 Ещё не зарегистрированы?
-                <Link
+                <LoginLink
                   to={ROUTER_PATH.REGISTER}
-                  className="login__link"
                 >
                   Регистрация
-                </Link>
-              </p>
-            </div>
-          </form>
-        </section>
+                </LoginLink>
+              </LoginLinkText>
+            </LoginButtonContainer>
+          </LoginForm>
+        </LoginStyled>
       }
     </>
   );
