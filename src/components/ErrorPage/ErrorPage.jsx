@@ -1,8 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './ErrorPage.css';
-
 import { ErrorPageStyled, ErrorPageBtn } from './styled';
 
 export function ErrorPage() {
