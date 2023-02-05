@@ -76,7 +76,7 @@ export const LoginFieldError = styled.span`
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
-    color: ${props => props.theme.colors.error};
+    color: ${props => props.theme.colors.red10};
     display: none;
 
     ${props => props.isError && `
@@ -104,14 +104,14 @@ export const LoginField = styled.p`
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
-    color: ${props => props.theme.colors.field};
+    color: ${props => props.theme.colors.grey10};
     padding-bottom: 10px;
 `;
 
 export const LoginInput = styled.input`
     margin: 0;
     padding: 0;
-    background: ${props => props.theme.colors.inputBack};
+    background: ${props => props.theme.colors.grey20};
     border-radius: 8px;
     border: transparent;
     height: 46px;
@@ -121,10 +121,10 @@ export const LoginInput = styled.input`
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
-    color: ${props => props.theme.colors.inputText};
+    color: ${props => props.theme.colors.white10};
 
     ${props => props.isError && `
-        color: ${props => props.theme.colors.error};
+        color: ${props => props.theme.colors.red10};
           
     `}
 
@@ -167,7 +167,7 @@ export const LoginSubmitButton = styled.button`
     margin: 0;
     padding: 0;
     border: transparent;
-    background: ${props => props.theme.colors.buttonSubmit};
+    background: ${props => props.theme.colors.blue10};
     border-radius: 3px;
     width: 100%;
     min-height: 45px;
@@ -184,9 +184,9 @@ export const LoginSubmitButton = styled.button`
     color: #FFFFFF;
 
     ${props => props.isBlock && `
-        color: ${props => props.theme.colors.buttonText};
+        color: ${props => props.theme.colors.grey40};
         cursor: not-allowed;
-        background: ${props => props.theme.colors.buttonBlock};
+        background: ${props => props.theme.colors.grey30};
         &:hover{
             opacity: 1; 
         }
@@ -204,7 +204,7 @@ export const LoginLinkText = styled.p`
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    color: ${props => props.theme.colors.field};
+    color: ${props => props.theme.colors.grey10};
 `;
 
 export const LoginLink = styled(Link)`
@@ -217,6 +217,6 @@ export const LoginLink = styled(Link)`
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    color: ${props => props.theme.colors.buttonSubmit};
+    color: ${props => props.theme.colors.blue10};
     text-decoration: none;
 `;

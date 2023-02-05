@@ -196,90 +196,90 @@ export const App = () => {
 
     return (
         <>
-            {isLoading ?
-                <Loader /> :
-                <CurrentUserContext.Provider value={user}>
-                    <ThemeProvider theme={baseTheme}>
-                    <Routes>
-                        <Route
-                            path={ROUTER_PATH.MAIN}
-                            element={
-                                <AppLayout
-                                    isOpen={popupIsOpen}
-                                    onClose={handleClosePopup}
-                                    isSuccess={isSuccess}
-                                    text={text}
+            <ThemeProvider theme={baseTheme}>
+                {isLoading ?
+                    <Loader /> :
+                    <CurrentUserContext.Provider value={user}>
+                        <Routes>
+                            <Route
+                                path={ROUTER_PATH.MAIN}
+                                element={
+                                    <AppLayout
+                                        isOpen={popupIsOpen}
+                                        onClose={handleClosePopup}
+                                        isSuccess={isSuccess}
+                                        text={text}
+                                    />
+                                }
+                            >
+                                <Route
+                                    index
+                                    element={<Main
+                                        loggedIn={loggedIn}
+                                    />}
                                 />
-                            }
-                        >
-                            <Route
-                                index
-                                element={<Main
-                                    loggedIn={loggedIn}
-                                />}
-                            />
-                            <Route
-                                path={ROUTER_PATH.LOGIN}
-                                element={<Login
-                                    onAuthorization={handleAuthorization}
-                                    loggedIn={loggedIn}
-                                    isInquiry={isLoginProcess}
-                                />}
-                            />
-                            <Route
-                                path={ROUTER_PATH.REGISTER}
-                                element={<Register
-                                    onRegistration={handleRegistration}
-                                    loggedIn={loggedIn}
-                                    isInquiry={isRegisterProcess}
-                                />}
-                            />
-                            <Route
-                                path={ROUTER_PATH.MOVIES}
-                                element={(
-                                    <ProtectedRoute loggedIn={loggedIn}>
-                                        <Movies
-                                            loggedIn={loggedIn}
-                                            onSaveFilm={handleSaveFilm}
-                                            onDeleteFilm={handleDeleteFilm}
-                                            savedMoviesList={savedMoviesList}
-                                        />
-                                    </ProtectedRoute>
-                                )}
-                            />
-                            <Route
-                                path={ROUTER_PATH.SAVED_MOVIES}
-                                element={(
-                                    <ProtectedRoute loggedIn={loggedIn}>
-                                        <SavedMovies
-                                            loggedIn={loggedIn}
-                                            onDeleteFilm={handleDeleteFilm}
-                                            savedMoviesList={savedMoviesList}
-                                        />
-                                    </ProtectedRoute>
-                                )}
-                            />
-                            <Route
-                                path={ROUTER_PATH.PROFILE}
-                                element={(
-                                    <ProtectedRoute loggedIn={loggedIn}>
-                                        <Profile
-                                            loggedIn={loggedIn}
-                                            handleChangeProfile={handleChangeProfile}
-                                            handleSignOut={handleSignOut}
-                                        />
-                                    </ProtectedRoute>
-                                )}
-                            />
-                            <Route
-                                path={ROUTER_PATH.ALIEN}
-                                element={<ErrorPage />}
-                            />
-                        </Route>
-                    </Routes>
-                    </ThemeProvider>
-                </CurrentUserContext.Provider>
-            }
+                                <Route
+                                    path={ROUTER_PATH.LOGIN}
+                                    element={<Login
+                                        onAuthorization={handleAuthorization}
+                                        loggedIn={loggedIn}
+                                        isInquiry={isLoginProcess}
+                                    />}
+                                />
+                                <Route
+                                    path={ROUTER_PATH.REGISTER}
+                                    element={<Register
+                                        onRegistration={handleRegistration}
+                                        loggedIn={loggedIn}
+                                        isInquiry={isRegisterProcess}
+                                    />}
+                                />
+                                <Route
+                                    path={ROUTER_PATH.MOVIES}
+                                    element={(
+                                        <ProtectedRoute loggedIn={loggedIn}>
+                                            <Movies
+                                                loggedIn={loggedIn}
+                                                onSaveFilm={handleSaveFilm}
+                                                onDeleteFilm={handleDeleteFilm}
+                                                savedMoviesList={savedMoviesList}
+                                            />
+                                        </ProtectedRoute>
+                                    )}
+                                />
+                                <Route
+                                    path={ROUTER_PATH.SAVED_MOVIES}
+                                    element={(
+                                        <ProtectedRoute loggedIn={loggedIn}>
+                                            <SavedMovies
+                                                loggedIn={loggedIn}
+                                                onDeleteFilm={handleDeleteFilm}
+                                                savedMoviesList={savedMoviesList}
+                                            />
+                                        </ProtectedRoute>
+                                    )}
+                                />
+                                <Route
+                                    path={ROUTER_PATH.PROFILE}
+                                    element={(
+                                        <ProtectedRoute loggedIn={loggedIn}>
+                                            <Profile
+                                                loggedIn={loggedIn}
+                                                handleChangeProfile={handleChangeProfile}
+                                                handleSignOut={handleSignOut}
+                                            />
+                                        </ProtectedRoute>
+                                    )}
+                                />
+                                <Route
+                                    path={ROUTER_PATH.ALIEN}
+                                    element={<ErrorPage />}
+                                />
+                            </Route>
+                        </Routes>
+                    </CurrentUserContext.Provider>
+                }
+            </ThemeProvider>
         </>
     );
 };
