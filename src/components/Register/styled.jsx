@@ -1,10 +1,7 @@
-import styled, { keyframes, css } from "styled-components/macro";
 import { Link } from 'react-router-dom';
+import styled, { keyframes, css} from 'styled-components/macro';
 
-import closedEye from '../../images/ClosedEye.png';
-import openedEye from '../../images/SauronEye.png';
-
-export const LoginStyled = styled.section`
+export const RegisterStyled = styled.section`
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,10 +10,10 @@ export const LoginStyled = styled.section`
 
     @media screen and (max-width: 450px) {
         max-width: 260px;
-    }  
+    } 
 `;
 
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -26,18 +23,19 @@ export const LoginForm = styled.form`
     } 
 `;
 
-export const LoginLogo = styled.div`
+export const RegisterLogo = styled.div`
     padding: 70px 0 40px;
 
     @media screen and (max-width: 768px) { 
         padding: 232px 0 40px;
     }
-    @media screen and (max-width: 450px) { 
+
+    @media screen and (max-width: 450px) {
         padding: 58px 0 50px;
-    }
+    } 
 `;
 
-export const LoginTitle = styled.h1`
+export const RegisterTitle = styled.h1`
     margin: 0;
     padding: 0;
     padding-bottom: 40px;
@@ -49,10 +47,11 @@ export const LoginTitle = styled.h1`
     color: ${props => props.theme.colors.white10};
 
     @media screen and (max-width: 450px) {
-        padding-bottom: 80px;
-    }
+        padding: 58px 0 50px;
+    } 
 `;
-export const LoginFieldset = styled.fieldset`
+
+export const RegisterFieldset = styled.fieldset`
     border: 0;
     padding: 0;
     width: 100%;
@@ -61,13 +60,13 @@ export const LoginFieldset = styled.fieldset`
     flex-direction: column;
 `;
 
-export const LoginLabel = styled.label`
+export const RegisterLabel = styled.label`
     display: flex;
     flex-direction: column;
     position: relative;
 `;
 
-export const LoginFieldError = styled.span`
+export const RegisterFieldError = styled.span`
     margin: 0;
     padding: 0;
     position: absolute;
@@ -77,14 +76,22 @@ export const LoginFieldError = styled.span`
     font-size: 10px;
     line-height: 12px;
     color: ${props => props.theme.colors.red10};
-    display: none;
 
     ${props => props.isError && `
         top: 72px;
-        left: 0;
-        display: inline;   
+        left: 0;  
     `}
-
+`;
+export const RegisterField = styled.p`
+    margin: 0;
+    padding: 0;
+    font-family: ${props => props.theme.fontFamily.standart};
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: ${props => props.theme.colors.grey10};
+    padding-bottom: 10px;
 `;
 const fade = keyframes`
     from {
@@ -96,19 +103,7 @@ const fade = keyframes`
         visibility: hidden;
     }
 `;
-export const LoginField = styled.p`
-    margin: 0;
-    padding: 0;
-    font-family: ${props => props.theme.fontFamily.standart};
-    font-style: normal;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    color: ${props => props.theme.colors.grey10};
-    padding-bottom: 10px;
-`;
-
-export const LoginInput = styled.input`
+export const RegisterInput = styled.input`
     margin: 0;
     padding: 0;
     background: ${props => props.theme.colors.grey20};
@@ -123,47 +118,20 @@ export const LoginInput = styled.input`
     line-height: 16px;
     color: ${props => props.theme.colors.white10};
 
-    ${props => props.isError && `
+    ${props => props.isErr && `
         color: ${props.theme.colors.red10};
-          
     `}
 
-    animation: ${props => (props.isDisa ? css`${fade} 2s ease forwards;` : '')} ;
+    animation: ${props => (props.isInquiry ? css`${fade} 2s ease forwards;` : '')} ;
 `;
-
-export const LoginCheckbox = styled.input`
-    cursor: pointer;
-    display: none;
-`;
-
-export const LoginLabelForCheckbox = styled.label`
-    padding: 0;
-    margin: 0;      
-    position: absolute;
-    top: 30px;
-    right: 16px;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    background-image: url(${closedEye});
-    transition: .1s;
-
-    ${props => props.active && `
-        background-image: url(${openedEye});
-        transition: 1s;  
-    `}
-`;
-
-export const LoginButtonContainer = styled.div`
-    padding-top: 159px;
+export const RegisterButtonsContainer = styled.div`
+    padding-top: 69px;
     display: flex;
     flex-direction: column;
     align-self: center;
     width: 100%;
 `;
-
-export const LoginSubmitButton = styled.button`
+export const RegisterButton = styled.button`
     margin: 0;
     padding: 0;
     border: transparent;
@@ -193,7 +161,7 @@ export const LoginSubmitButton = styled.button`
     `}
 `;
 
-export const LoginLinkText = styled.p`
+export const RegisterLinkText = styled.p`
     margin: 0;
     padding: 0;
     padding-top: 16px;
@@ -206,8 +174,7 @@ export const LoginLinkText = styled.p`
     text-align: center;
     color: ${props => props.theme.colors.grey10};
 `;
-
-export const LoginLink = styled(Link)`
+export const RegisterLink = styled(Link)`
     margin: 0;
     padding: 0;
     padding-left: 6px;

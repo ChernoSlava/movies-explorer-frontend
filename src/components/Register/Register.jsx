@@ -1,7 +1,21 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import './Register.css';
+import {
+  RegisterStyled,
+  RegisterForm,
+  RegisterLogo,
+  RegisterTitle,
+  RegisterFieldset,
+  RegisterLabel,
+  RegisterFieldError,
+  RegisterField,
+  RegisterInput,
+  RegisterButtonsContainer,
+  RegisterButton,
+  RegisterLinkText,
+  RegisterLink
+} from './styled';
 
 import { ROUTER_PATH } from '../../constants';
 import { Logo } from '../Logo';
@@ -21,35 +35,37 @@ export function Register({ onRegistration, loggedIn, isInquiry }) {
     resetForm();
   }, [resetForm, isInquiry]);
 
-  const isErrorSpanName = errors.name && 'register__field-error_active';
-  const isErrorSpanEmail = errors.email && 'register__field-error_active';
-  const isErrorSpanPassw = errors.password && 'register__field-error_active';
+  const isErrorSpanName = errors.name;
+  const isErrorSpanEmail = errors.email;
+  const isErrorSpanPassw = errors.password;
 
-  const isErrorInputName = errors.name && 'register__input-error';
-  const isErrorInputEmail = errors.email && 'register__input-error';
-  const isErrorInputPassw = errors.password && 'register__input-error';
+  const isErrorInputName = errors.name;
+  const isErrorInputEmail = errors.email;
+  const isErrorInputPassw = errors.password;
 
   const isErrors = (errors.name || errors.email || errors.password);
   const isEmptyValues = (!values.name || !values.password || !values.email);
   const isDisabled = (isErrors || isEmptyValues || isInquiry);
-  const isDisabledClass = (isDisabled || isInquiry) && 'register__btn_disabled';
 
   return (
     <>
       {loggedIn
         ? navigation(ROUTER_PATH.MAIN)
-        : <section className="register">
-          <form className='register__form' onSubmit={handleSubmit} noValidate>
-            <div className="register__logo"><Logo /></div>
-            <h1 className="register__title">Добро пожаловать!</h1>
-            <fieldset className="register__fieldset">
-              <label htmlFor="name" className='register__label'>
-                <span className={`register__field-error ${isErrorSpanName}`}>
+        : <RegisterStyled>
+          <RegisterForm onSubmit={handleSubmit} noValidate>
+            <RegisterLogo>
+              <Logo />
+            </RegisterLogo>
+            <RegisterTitle>Добро пожаловать!</RegisterTitle>
+            <RegisterFieldset>
+              <RegisterLabel htmlFor="name">
+                <RegisterFieldError isError={isErrorSpanName}>
                   {errors.name}
-                </span>
-                <p className='register__field'>Имя</p>
-                <input
-                  className={`register__input ${isErrorInputName} ${isInquiry && 'register__input_disabled'}`}
+                </RegisterFieldError>
+                <RegisterField>Имя</RegisterField>
+                <RegisterInput
+                  isErr={isErrorInputName}
+                  isInquiry={isInquiry}
                   name="name"
                   placeholder="Ваше имя"
                   minLength={2}
@@ -59,15 +75,16 @@ export function Register({ onRegistration, loggedIn, isInquiry }) {
                   onChange={handleChange}
                   value={values.name || ""}
                   disabled={isInquiry}
-                ></input>
-              </label>
-              <label htmlFor="email" className='register__label'>
-                <span className={`register__field-error ${isErrorSpanEmail}`}>
+                ></RegisterInput>
+              </RegisterLabel>
+              <RegisterLabel htmlFor="email">
+                <RegisterFieldError isError={isErrorSpanEmail}>
                   {errors.email}
-                </span>
-                <p className='register__field'>Космо почта</p>
-                <input
-                  className={`register__input ${isErrorInputEmail} ${isInquiry && 'register__input_disabled'}`}
+                </RegisterFieldError>
+                <RegisterField>Космо почта</RegisterField>
+                <RegisterInput
+                  isErr={isErrorInputEmail}
+                  isInquiry={isInquiry}
                   name="email"
                   placeholder="star@mail.ru"
                   type="email"
@@ -76,15 +93,16 @@ export function Register({ onRegistration, loggedIn, isInquiry }) {
                   value={values.email || ""}
                   disabled={isInquiry}
                   autoComplete="email"
-                ></input>
-              </label>
-              <label htmlFor="password" className='register__label'>
-                <span className={`register__field-error ${isErrorSpanPassw}`}>
+                ></RegisterInput>
+              </RegisterLabel>
+              <RegisterLabel htmlFor="password">
+                <RegisterFieldError isError={isErrorSpanPassw}>
                   {errors.password}
-                </span>
-                <p className='register__field'>Космо пароль</p>
-                <input
-                  className={`register__input ${isErrorInputPassw} ${isInquiry && 'register__input_disabled'}`}
+                </RegisterFieldError>
+                <RegisterField>Космо пароль</RegisterField>
+                <RegisterInput
+                  isErr={isErrorInputPassw}
+                  isInquiry={isInquiry}
                   name="password"
                   placeholder="Пароль"
                   minLength={6}
@@ -94,29 +112,26 @@ export function Register({ onRegistration, loggedIn, isInquiry }) {
                   value={values.password || ""}
                   disabled={isInquiry}
                   autoComplete="new-password"
-                ></input>
-              </label>
-            </fieldset>
-            <div className='register__btn-container'>
-              <button
+                ></RegisterInput>
+              </RegisterLabel>
+            </RegisterFieldset>
+            <RegisterButtonsContainer>
+              <RegisterButton
                 type="submit"
-                className={`register__btn ${isDisabledClass}`}
+                isBlock={isDisabled}
                 disabled={isDisabled}
               >
                 Зарегистрироваться
-              </button>
-              <p className="register__link-text">
+              </RegisterButton>
+              <RegisterLinkText>
                 Уже зарегистрированы?
-                <Link
-                  to={ROUTER_PATH.LOGIN}
-                  className="register__link"
-                >
+                <RegisterLink to={ROUTER_PATH.LOGIN}>
                   Взойти на борт
-                </Link>
-              </p>
-            </div>
-          </form>
-        </section>
+                </RegisterLink>
+              </RegisterLinkText>
+            </RegisterButtonsContainer>
+          </RegisterForm>
+        </RegisterStyled>
       }
     </>
   );
