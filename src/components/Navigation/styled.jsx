@@ -37,27 +37,27 @@ export const NavigationLink = styled(Link)`
     text-align: right;
     color: ${props => props.theme.colors.white10};
     text-decoration: none;
-    ${props => props.active && `
+    ${props => props.$active && `
         font-weight: 500;
     `}
-    ${props => props.first && `
+    ${props => props.$first && `
         padding-right: 20px;
     `}
-    ${ props => props.mini && `
+    ${ props => props.$mini && `
         font-size: 12px;
         @media screen and (max-width: 450px) {
             font-size: 10px;
         }
     `}
-    ${props => props.btn && `
+    ${props => props.$btn && `
         width: 76px;
         height: 32px;
         display: flex;
-        background: ${props => props.theme.colors.extraGreen20};
+        background: ${props.theme.colors.extraGreen20};
         border-radius: 3px;
         margin-left: 30px;
         align-items: center;
-        color: ${props => props.theme.colors.black30};
+        color: ${props.theme.colors.black30};
         justify-content: center;
 
         @media screen and (max-width: 450px) {
@@ -66,7 +66,8 @@ export const NavigationLink = styled(Link)`
             margin-left: 14px;
         }
     `}
-    ${props => props.profile && `
+
+    ${props => props.$profile && `
         display: flex;
         align-items: center;
     `}
@@ -198,7 +199,7 @@ export const NavigationSidebarNavLink = styled(NavLink)`
     text-decoration: none;
     color: ${props => props.theme.colors.white10};
     
-    ${props => props.active && `
+    ${props => props.$active && `
         border-bottom: 2px solid #FFFFFF;
         height: 26px;
     `}

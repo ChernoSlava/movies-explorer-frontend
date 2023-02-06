@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation, NavLink } from 'react-router-dom';
-
-import './Navigation.css';
+import { useLocation } from 'react-router-dom';
 
 import {
   NavigationStyled,
@@ -23,7 +21,7 @@ import {
 } from './styled';
 
 import account from '../../images/Account.svg';
-import { ROUTER_PATH, NAVIGATION, LINK } from '../../constants';
+import { ROUTER_PATH, NAVIGATION } from '../../constants';
 
 export function Navigation({ loggedIn }) {
   const location = useLocation();
@@ -32,122 +30,109 @@ export function Navigation({ loggedIn }) {
   function handleToggleMenu() {
     setMenuIsOpen(!menuIsOpen);
   }
-  const setActiveSideBar = ({ isActive }) => isActive ? LINK.NAV_ACTIVE_BAR_LINK : LINK.NAV_STANDART_BAR_LINK;
-  const setActiveForMovies = location.pathname === ROUTER_PATH.MOVIES ? LINK.NAV_ACTIVE_LINK : LINK.NAV_STANDART_LINK;
-  const setActiveForSavedMovies = location.pathname === ROUTER_PATH.SAVED_MOVIES ? LINK.NAV_ACTIVE_LINK : LINK.NAV_STANDART_LINK;
-  const setActiveMenu = menuIsOpen && "navigation__sidebar_opened";
-  // const isMini = true;
-  // const isBtn = true;
-  // const sasa = Boolean;
+  const setActiveForMovies = location.pathname === ROUTER_PATH.MOVIES;
+  const setActiveForSavedMovies = location.pathname === ROUTER_PATH.SAVED_MOVIES;
+  const setActiveForMain = location.pathname === ROUTER_PATH.MAIN;
+  const setActiveMenu = menuIsOpen;
 
   return (
-    <NavigationStyled className="navigation">
-      <NavigationNone className='navigation__none'>
+    <NavigationStyled>
+      <NavigationNone>
         {loggedIn && (
           <>
-            <Link
+            <NavigationLink
               to={ROUTER_PATH.MOVIES}
-              // first={true}
-              // active={setActiveForMovies}
-              className={`navigation__link-first ${setActiveForMovies}`}
+              $first={true}
+              $active={setActiveForMovies}
             >
               Фильмы
-            </Link>
-            <Link
+            </NavigationLink>
+            <NavigationLink
               to={ROUTER_PATH.SAVED_MOVIES}
-              // active={setActiveForSavedMovies}
-              className={setActiveForSavedMovies}
+              $active={setActiveForSavedMovies}
             >
               Сохранённые фильмы
-            </Link>
+            </NavigationLink>
           </>
         )}
       </NavigationNone>
-      <NavigationList className='navigation__list'>
+      <NavigationList>
         {!loggedIn && (
           <>
             <li>
-              <Link
+              <NavigationLink
                 to={ROUTER_PATH.REGISTER}
-                // mini={true}
-                className="navigation__link navigation__link_mini"
+                $mini={true}
               >
                 Регистрация
-              </Link>
+              </NavigationLink>
             </li>
             <li>
-              <Link
+              <NavigationLink
                 to={ROUTER_PATH.LOGIN}
-                // mini={true}
-                // btn={isBtn}
-                className="navigation__link navigation__link_mini navigation__btn"
+                $mini={true}
+                $btn={true}
               >
                 Войти
-              </Link>
+              </NavigationLink>
             </li>
           </>
         )}
         {loggedIn && (
-          <NavigationListNone className='navigation__none'>
-            <Link
+          <NavigationListNone>
+            <NavigationLink
               to={ROUTER_PATH.PROFILE}
-              // profile={true}
-              className="navigation__link navigation__link_profile"
+              $profile={true}
             >
               Аккаунт
-              <NavigationLinkIco src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} className='navigation__link-ico' />
-            </Link>
+              <NavigationLinkIco src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} />
+            </NavigationLink>
           </NavigationListNone>
         )}
       </NavigationList>
       {loggedIn && (
         <NavigationBurgerButton
-          className="navigation__burger-btn"
           type={NAVIGATION.BURGER_BTN_TYPE}
           aria-label={NAVIGATION.ARIA_LABEL_BTN_BURGER}
           onClick={handleToggleMenu}
         />
       )}
       {loggedIn && (
-        <NavigationSidebar className={`navigation__sidebar ${setActiveMenu}`} active={setActiveMenu}>
-          <NavigationSidebarContainer className='navigation__sidebar-container'>
-            <NavigationCloseButton className="navigation__close-btn" onClick={handleToggleMenu} />
-            <NavigationSidebardMenu className='navigation__sidebar-menu'>
-              <NavigationSidebardList className='navigation__sidebar-list-element'>
-                <NavLink
+        <NavigationSidebar active={setActiveMenu}>
+          <NavigationSidebarContainer>
+            <NavigationCloseButton onClick={handleToggleMenu} />
+            <NavigationSidebardMenu>
+              <NavigationSidebardList>
+                <NavigationSidebarNavLink
                   to={ROUTER_PATH.MAIN}
-                  // active={setActiveSideBar}
-                  className={setActiveSideBar}
+                  $active={setActiveForMain}
                 >
                   Главная
-                </NavLink>
+                </NavigationSidebarNavLink>
               </NavigationSidebardList>
-              <NavigationSidebardList className='navigation__sidebar-list-element'>
-                <NavLink
+              <NavigationSidebardList>
+                <NavigationSidebarNavLink
                   to={ROUTER_PATH.MOVIES}
-                  // active={setActiveSideBar}
-                  className={setActiveSideBar}
+                  $active={setActiveForMovies}
                 >
                   Фильмы
-                </NavLink>
+                </NavigationSidebarNavLink>
               </NavigationSidebardList>
-              <NavigationSidebardList className='navigation__sidebar-list-element'>
-                <NavLink
+              <NavigationSidebardList>
+                <NavigationSidebarNavLink
                   to={ROUTER_PATH.SAVED_MOVIES}
-                  // active={setActiveSideBar}
-                  className={setActiveSideBar}
+                  $active={setActiveForSavedMovies}
                 >
                   Сохранённые фильмы
-                </NavLink>
+                </NavigationSidebarNavLink>
               </NavigationSidebardList>
             </NavigationSidebardMenu>
-            <NavigationSidebarProfile className='navigation__sidebar-profile'>
+            <NavigationSidebarProfile>
               <NavigationSidebarLink
                 to={ROUTER_PATH.PROFILE}
-                className="navigation__sidebar-link navigation__sidebar-link-profile"
               >
                 Аккаунт
-                <img src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} className='navigation__link-ico' />
+                <NavigationLinkIco src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} />
               </NavigationSidebarLink>
             </NavigationSidebarProfile>
           </NavigationSidebarContainer>
