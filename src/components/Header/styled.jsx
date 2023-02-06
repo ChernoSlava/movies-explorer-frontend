@@ -1,4 +1,6 @@
-.header {
+import styled from 'styled-components/macro';
+
+export const HeaderStyled = styled.header`
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,16 +11,11 @@
     flex-direction: row;
     align-items: center;
     padding: 18px 70px;
-}
 
-@media screen and (max-width: 768px) { 
-    .header {
+    @media screen and (max-width: 768px) {
         padding: 18px 50px;
     }
-}
-
-@media screen and (max-width: 450px) {
-    .header {
+    @media screen and (max-width: 450px) {
         padding: 14px 18px;
     }
-}
+`;

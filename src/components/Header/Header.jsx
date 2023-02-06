@@ -1,15 +1,14 @@
 import React from 'react';
 
-import './Header.css';
-
+import { HeaderStyled } from './styled';
 import { Logo } from '../Logo';
 import { Navigation } from '../Navigation';
 
 export function Header({ loggedIn }) {
   return (
-    <header className='header'>
+    <HeaderStyled>
       <Logo />
       <Navigation loggedIn={loggedIn} />
-    </header>
+    </HeaderStyled>
   );
 };

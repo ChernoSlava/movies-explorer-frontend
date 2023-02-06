@@ -9,7 +9,7 @@ export function Portfolio() {
       <ul className='portfolio__container'>
         <li className='portfolio__list'>
           <a 
-            href='https://github.com/ChernoSlava/how-to-learn' 
+            href='https://chernoslava.github.io/how-to-learn/' 
             className='portfolio__link' 
             target='_blank' 
             rel="noreferrer"
