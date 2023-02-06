@@ -46,7 +46,7 @@ export const LoginTitle = styled.h1`
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
-    color: #FFFFFF;
+    color: ${props => props.theme.colors.white10};
 
     @media screen and (max-width: 450px) {
         padding-bottom: 80px;
