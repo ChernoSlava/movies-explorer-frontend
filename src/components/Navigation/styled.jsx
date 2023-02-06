@@ -15,6 +15,16 @@ export const NavigationNone = styled.ul`
         display: none;
     }
 `;
+export const NavbarContainer = styled("nav")` 
+    width: 100%; 
+    height:${(props) => (props.extend ? "100vh" : "60px")}; 
+    background-color: purple; 
+    display: flex; 
+    flex-direction: column; 
+    @media(min-width:700px){ 
+        height: 60px; 
+    }
+`;
 export const NavigationLink = styled(Link)`
     padding: 0;
     margin: 0;

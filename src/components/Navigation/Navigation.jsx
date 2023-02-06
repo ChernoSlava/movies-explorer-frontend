@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, NavLink } from 'react-router-dom';
 
 import './Navigation.css';
+
 import {
   NavigationStyled,
   NavigationNone,
@@ -54,7 +55,7 @@ export function Navigation({ loggedIn }) {
             </Link>
             <Link
               to={ROUTER_PATH.SAVED_MOVIES}
-              active={setActiveForSavedMovies}
+              // active={setActiveForSavedMovies}
               className={setActiveForSavedMovies}
             >
               Сохранённые фильмы

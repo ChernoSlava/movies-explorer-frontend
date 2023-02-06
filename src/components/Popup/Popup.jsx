@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 
-import './Popup.css';
+import {
+    PopupStyled,
+    PopupContainer,
+    PopupCloseButton,
+    PopupIcon,
+    PopupDescription,
+} from './styled';
+
 import successIco from "../../images/InfoPopupWork.svg";
 import notSuccessIco from "../../images/InfoPopupDon'tWork.svg";
 
@@ -24,19 +31,15 @@ export const Popup = ({ isOpen, onClose, text, isSuccess }) => {
             onClose();
         }
     };
-
-    const openPopup = `popup ${isOpen && 'popup_opened'}`;
     
     return (
-        <div className={openPopup} onClick={onClose} >
-            <div className="popup__container" onClick={handleOverlay}>
-                <button
+        <PopupStyled onClick={onClose} opened={isOpen} >
+            <PopupContainer onClick={handleOverlay}>
+                <PopupCloseButton
                     type="button"
-                    className="popup__close-icon"
                     onClick={onClose}
-                ></button>
-                <img
-                    className="popup__icon"
+                ></PopupCloseButton>
+                <PopupIcon
                     src={isSuccess ? successIco : notSuccessIco}
                     alt={
                         isSuccess 
@@ -44,10 +47,10 @@ export const Popup = ({ isOpen, onClose, text, isSuccess }) => {
                         : "Иконка - что-то пошло не так"
                     }
                 />
-                <h3 className="popup__description">
+                <PopupDescription>
                     {text}
-                </h3>
-            </div>
-        </div>
+                </PopupDescription>
+            </PopupContainer>
+        </PopupStyled>
     );
 }

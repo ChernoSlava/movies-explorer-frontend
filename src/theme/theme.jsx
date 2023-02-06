@@ -8,6 +8,7 @@ export const baseTheme = {
         black10: "rgba(43, 10, 10, 0.248)",
         black20: "rgb(43, 10, 10)",
         black30: "#000000",
+        black40: "rgba(0, 0, 0, .5)",
 
         red10: '#EE3465',
 
@@ -22,6 +23,8 @@ export const baseTheme = {
 
         extraGreen10: '#31be54',
         extraGreen20: '#3DDC84',
+
+        purple10: 'rgb(200, 39, 227)',
         
     },
     fontFamily: {
