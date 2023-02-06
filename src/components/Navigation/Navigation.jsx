@@ -119,7 +119,7 @@ export function Navigation({ loggedIn }) {
                   // active={setActiveSideBar}
                   className={setActiveSideBar}
                 >
-                  Главгая
+                  Главная
                 </NavLink>
               </NavigationSidebardList>
               <NavigationSidebardList className='navigation__sidebar-list-element'>
