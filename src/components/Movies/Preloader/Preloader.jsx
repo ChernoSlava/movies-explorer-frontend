@@ -1,6 +1,8 @@
-import { PreloaderStyled, PreloaderContainer, PreloaderRound } from './styled';
+import React from 'react';
 
-export const Loader = () => {
+import { PreloaderContainer, PreloaderRound, PreloaderStyled } from './styled';
+
+export function Loader() {
   return (
     <PreloaderStyled>
       <PreloaderContainer>
@@ -13,7 +15,7 @@ export const Loader = () => {
                     <div>
                       <div>
                         <div>
-                          <div></div>
+                          <div />
                         </div>
                       </div>
                     </div>
@@ -26,4 +28,4 @@ export const Loader = () => {
       </PreloaderContainer>
     </PreloaderStyled>
   );
-};
+}

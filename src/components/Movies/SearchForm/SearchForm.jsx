@@ -1,21 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { ROUTER_PATH } from '../../../constants';
+import { useForm } from '../../../hooks';
+import { CurrentUserContext } from '../../contexts';
 
 import './SearchForm.css';
 
-import { useForm } from '../../../hooks';
-import { CurrentUserContext } from '../../contexts';
-import { ROUTER_PATH } from '../../../constants';
-import { useState } from 'react';
-
-export function SearchForm({
-  onSubmit,
-  handleShortMovies,
-  shortMovies
-}) {
-
+export function SearchForm({ onSubmit, handleShortMovies, shortMovies }) {
   const location = useLocation();
-  const user = useContext(CurrentUserContext);
+  const { email } = useContext(CurrentUserContext);
 
   const { values, handleChange, isEmptiness, setIsEmptiness } = useForm({});
   const [emptySearch, setEmptySearch] = useState('');
@@ -24,36 +19,45 @@ export function SearchForm({
 
   const savedMoviesLocation = location.pathname === ROUTER_PATH.SAVED_MOVIES;
   const spanContainer = !savedMoviesLocation && emptySearch;
+  const checkbox = 'box';
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    isEmptiness ? onSubmit(values.film) : setEmptySearch(textError);
+    if (isEmptiness) {
+      onSubmit(values.film);
+    } else {
+      setEmptySearch(textError);
+    }
+    // isEmptiness ? onSubmit(values.film) : setEmptySearch(textError);
   }
 
   useEffect(() => {
-    if (location.pathname === ROUTER_PATH.MOVIES && localStorage.getItem(`${user.email} - movieSearch`)) {
-      const searchValue = localStorage.getItem(`${user.email} - movieSearch`);
+    if (
+      location.pathname === ROUTER_PATH.MOVIES &&
+      localStorage.getItem(`${email} - movieSearch`)
+    ) {
+      const searchValue = localStorage.getItem(`${email} - movieSearch`);
       values.film = searchValue;
       setIsEmptiness(true);
     }
-  }, [user]);
+  }, [email]);
 
   useEffect(() => {
-    setEmptySearch('')
+    setEmptySearch('');
   }, [isEmptiness]);
 
   return (
     <div className="search-form">
-      <form className='search-form__form' onSubmit={handleSubmit} noValidate>
-        <fieldset className='search-form__field'>
-          <span className={`search-form__field-error`}>{spanContainer}</span>
+      <form className="search-form__form" onSubmit={handleSubmit} noValidate>
+        <fieldset className="search-form__field">
+          <span className="search-form__field-error">{spanContainer}</span>
           <input
             type="text"
             placeholder="Фильм"
             name="film"
             minLength={1}
             className="search-form__input"
-            id='film'
+            id="film"
             required
             onChange={handleChange}
             value={values.film || ''}
@@ -64,19 +68,29 @@ export function SearchForm({
             className="search-form__button"
           />
         </fieldset>
-        <div className='search-form__checkbox-container'>
-          <input
-            type="checkbox"
-            name="checkbox"
-            id="checkbox"
-            onChange={handleShortMovies}
-            checked={shortMovies ? true : false}
-            className='search-form__checkbox'
-          />
-          <label className="search-form__checkbox-label" htmlFor="checkbox" />
+        <div className="search-form__checkbox-container">
+          <label
+            className={`search-form__checkbox-label 
+              ${!!shortMovies && 'search-form__checkbox-label_checked'}`}
+            htmlFor={checkbox}>
+            <input
+              type="checkbox"
+              name="checkbox"
+              id={checkbox}
+              onChange={handleShortMovies}
+              checked={!!shortMovies}
+              className="search-form__checkbox"
+            />
+          </label>
           <p className="search-form__text">Короткометражки</p>
         </div>
       </form>
     </div>
   );
+}
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  handleShortMovies: PropTypes.func.isRequired,
+  shortMovies: PropTypes.bool.isRequired,
 };

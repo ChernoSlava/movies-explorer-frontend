@@ -1,17 +1,18 @@
-import styled, { keyframes, css } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
+
 import alien from '../../images/ErrorPage-min.jpg';
 
 export const ErrorPageStyled = styled.div`
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url(${alien});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: column-reverse;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(${alien});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column-reverse;
 `;
 const blur = keyframes`
     from {
@@ -25,31 +26,33 @@ const blur = keyframes`
 `;
 
 export const ErrorPageBtn = styled.button`
-    font-family: ${props => props.theme.fontFamily.standart};
-    font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 17px;
-    text-align: center;
-    color: ${props => props.theme.colors.extraGreen10};
-    text-decoration: none;
-    cursor: pointer;
-    background-color: ${props => props.theme.colors.black10};
-    background-position: center;
-    border: transparent;
-    text-transform: uppercase;
-    width: fit-content;
-    align-self: center;
-    margin-bottom: 60px;
-    height: 40px;
-    border: 1px inset rgba(49, 190, 84, .1);
-    border-radius: 20px;
+  font-family: ${props => props.theme.fontFamily.standart};
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 17px;
+  text-align: center;
+  color: ${props => props.theme.colors.extraGreen10};
+  text-decoration: none;
+  cursor: pointer;
+  background-color: ${props => props.theme.colors.black10};
+  background-position: center;
+  border: transparent;
+  text-transform: uppercase;
+  width: fit-content;
+  align-self: center;
+  margin-bottom: 60px;
+  height: 40px;
+  border: 1px inset rgba(49, 190, 84, 0.1);
+  border-radius: 20px;
 
-    &:hover {
-        border: 2px inset rgba(49, 190, 84);
-        background-color: ${props => props.theme.colors.black20};
-        transition: ease-in-out .1s;
-    }
+  &:hover {
+    border: 2px inset rgba(49, 190, 84);
+    background-color: ${props => props.theme.colors.black20};
+    transition: ease-in-out 0.1s;
+  }
 
-    animation: ${css`${blur} .6s ease-in-out infinite`};
+  animation: ${css`
+    ${blur} .6s ease-in-out infinite
+  `};
 `;

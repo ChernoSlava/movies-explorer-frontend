@@ -1,37 +1,38 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { NAVIGATION, ROUTER_PATH } from '../../constants';
+import account from '../../images/Account.svg';
 
 import {
-  NavigationStyled,
-  NavigationNone,
-  NavigationLink,
-  NavigationList,
-  NavigationLinkIco,
-  NavigationListNone,
   NavigationBurgerButton,
+  NavigationCloseButton,
+  NavigationLink,
+  NavigationLinkIco,
+  NavigationList,
+  NavigationListNone,
+  NavigationNone,
   NavigationSidebar,
   NavigationSidebarContainer,
-  NavigationCloseButton,
+  NavigationSidebardList,
   NavigationSidebardMenu,
-  NavigationSidebardList, 
-  NavigationSidebarNavLink, 
+  NavigationSidebarLink,
+  NavigationSidebarNavLink,
   NavigationSidebarProfile,
-  NavigationSidebarLink
-
+  NavigationStyled,
 } from './styled';
-
-import account from '../../images/Account.svg';
-import { ROUTER_PATH, NAVIGATION } from '../../constants';
 
 export function Navigation({ loggedIn }) {
   const location = useLocation();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-  function handleToggleMenu() {
+  const handleToggleMenu = () => {
     setMenuIsOpen(!menuIsOpen);
-  }
+  };
   const setActiveForMovies = location.pathname === ROUTER_PATH.MOVIES;
-  const setActiveForSavedMovies = location.pathname === ROUTER_PATH.SAVED_MOVIES;
+  const setActiveForSavedMovies =
+    location.pathname === ROUTER_PATH.SAVED_MOVIES;
   const setActiveForMain = location.pathname === ROUTER_PATH.MAIN;
   const setActiveMenu = menuIsOpen;
 
@@ -42,15 +43,13 @@ export function Navigation({ loggedIn }) {
           <>
             <NavigationLink
               to={ROUTER_PATH.MOVIES}
-              $first={true}
-              $active={setActiveForMovies}
-            >
+              $first
+              $active={setActiveForMovies}>
               Фильмы
             </NavigationLink>
             <NavigationLink
               to={ROUTER_PATH.SAVED_MOVIES}
-              $active={setActiveForSavedMovies}
-            >
+              $active={setActiveForSavedMovies}>
               Сохранённые фильмы
             </NavigationLink>
           </>
@@ -60,19 +59,12 @@ export function Navigation({ loggedIn }) {
         {!loggedIn && (
           <>
             <li>
-              <NavigationLink
-                to={ROUTER_PATH.REGISTER}
-                $mini={true}
-              >
+              <NavigationLink to={ROUTER_PATH.REGISTER} $mini>
                 Регистрация
               </NavigationLink>
             </li>
             <li>
-              <NavigationLink
-                to={ROUTER_PATH.LOGIN}
-                $mini={true}
-                $btn={true}
-              >
+              <NavigationLink to={ROUTER_PATH.LOGIN} $mini $btn>
                 Войти
               </NavigationLink>
             </li>
@@ -80,12 +72,12 @@ export function Navigation({ loggedIn }) {
         )}
         {loggedIn && (
           <NavigationListNone>
-            <NavigationLink
-              to={ROUTER_PATH.PROFILE}
-              $profile={true}
-            >
+            <NavigationLink to={ROUTER_PATH.PROFILE} $profile>
               Аккаунт
-              <NavigationLinkIco src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} />
+              <NavigationLinkIco
+                src={account}
+                alt={NAVIGATION.ICO_ACCOUNT_ALT}
+              />
             </NavigationLink>
           </NavigationListNone>
         )}
@@ -105,34 +97,32 @@ export function Navigation({ loggedIn }) {
               <NavigationSidebardList>
                 <NavigationSidebarNavLink
                   to={ROUTER_PATH.MAIN}
-                  $active={setActiveForMain}
-                >
+                  $active={setActiveForMain}>
                   Главная
                 </NavigationSidebarNavLink>
               </NavigationSidebardList>
               <NavigationSidebardList>
                 <NavigationSidebarNavLink
                   to={ROUTER_PATH.MOVIES}
-                  $active={setActiveForMovies}
-                >
+                  $active={setActiveForMovies}>
                   Фильмы
                 </NavigationSidebarNavLink>
               </NavigationSidebardList>
               <NavigationSidebardList>
                 <NavigationSidebarNavLink
                   to={ROUTER_PATH.SAVED_MOVIES}
-                  $active={setActiveForSavedMovies}
-                >
+                  $active={setActiveForSavedMovies}>
                   Сохранённые фильмы
                 </NavigationSidebarNavLink>
               </NavigationSidebardList>
             </NavigationSidebardMenu>
             <NavigationSidebarProfile>
-              <NavigationSidebarLink
-                to={ROUTER_PATH.PROFILE}
-              >
+              <NavigationSidebarLink to={ROUTER_PATH.PROFILE}>
                 Аккаунт
-                <NavigationLinkIco src={account} alt={NAVIGATION.ICO_ACCOUNT_ALT} />
+                <NavigationLinkIco
+                  src={account}
+                  alt={NAVIGATION.ICO_ACCOUNT_ALT}
+                />
               </NavigationSidebarLink>
             </NavigationSidebarProfile>
           </NavigationSidebarContainer>
@@ -140,4 +130,8 @@ export function Navigation({ loggedIn }) {
       )}
     </NavigationStyled>
   );
+}
+
+Navigation.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
 };
