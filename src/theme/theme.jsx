@@ -15,6 +15,7 @@ export const baseTheme = {
 
     white10: '#FFFFFF',
     white20: '#d7cece',
+    white30: '#f0cccc',
 
     blue10: '#4285F4',
 

@@ -6,7 +6,18 @@ import { ROUTER_PATH } from '../../../constants';
 import { useForm } from '../../../hooks';
 import { CurrentUserContext } from '../../contexts';
 
-import './SearchForm.css';
+import {
+  SearchFormButton,
+  SearchFormCheckbox,
+  SearchFormCheckboxContainer,
+  SearchFormCheckboxLabel,
+  SearchFormFieldError,
+  SearchFormFieldset,
+  SearchFormInput,
+  SearchFormMain,
+  SearchFormStyled,
+  SearchFormText,
+} from './styled';
 
 export function SearchForm({ onSubmit, handleShortMovies, shortMovies }) {
   const location = useLocation();
@@ -21,15 +32,14 @@ export function SearchForm({ onSubmit, handleShortMovies, shortMovies }) {
   const spanContainer = !savedMoviesLocation && emptySearch;
   const checkbox = 'box';
 
-  function handleSubmit(evt) {
+  const handleSubmit = evt => {
     evt.preventDefault();
     if (isEmptiness) {
       onSubmit(values.film);
     } else {
       setEmptySearch(textError);
     }
-    // isEmptiness ? onSubmit(values.film) : setEmptySearch(textError);
-  }
+  };
 
   useEffect(() => {
     if (
@@ -47,45 +57,36 @@ export function SearchForm({ onSubmit, handleShortMovies, shortMovies }) {
   }, [isEmptiness]);
 
   return (
-    <div className="search-form">
-      <form className="search-form__form" onSubmit={handleSubmit} noValidate>
-        <fieldset className="search-form__field">
-          <span className="search-form__field-error">{spanContainer}</span>
-          <input
+    <SearchFormStyled>
+      <SearchFormMain onSubmit={handleSubmit} noValidate>
+        <SearchFormFieldset>
+          <SearchFormFieldError>{spanContainer}</SearchFormFieldError>
+          <SearchFormInput
             type="text"
             placeholder="Фильм"
             name="film"
             minLength={1}
-            className="search-form__input"
             id="film"
             required
             onChange={handleChange}
             value={values.film || ''}
           />
-          <button
-            type="submit"
-            aria-label="Найти"
-            className="search-form__button"
-          />
-        </fieldset>
-        <div className="search-form__checkbox-container">
-          <label
-            className={`search-form__checkbox-label 
-              ${!!shortMovies && 'search-form__checkbox-label_checked'}`}
-            htmlFor={checkbox}>
-            <input
+          <SearchFormButton type="submit" aria-label="Найти" />
+        </SearchFormFieldset>
+        <SearchFormCheckboxContainer>
+          <SearchFormCheckboxLabel htmlFor={checkbox} checked={!!shortMovies}>
+            <SearchFormCheckbox
               type="checkbox"
               name="checkbox"
               id={checkbox}
               onChange={handleShortMovies}
               checked={!!shortMovies}
-              className="search-form__checkbox"
             />
-          </label>
-          <p className="search-form__text">Короткометражки</p>
-        </div>
-      </form>
-    </div>
+          </SearchFormCheckboxLabel>
+          <SearchFormText>Короткометражки</SearchFormText>
+        </SearchFormCheckboxContainer>
+      </SearchFormMain>
+    </SearchFormStyled>
   );
 }
 
