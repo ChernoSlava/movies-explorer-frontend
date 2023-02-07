@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components/macro";
+import { createGlobalStyle } from 'styled-components/macro';
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -51,9 +51,14 @@ export const GlobalStyles = createGlobalStyle`
   select:-webkit-autofill:focus {
     border: 0;
     -webkit-text-fill-color: #ffffff;
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    box-shadow: 0 0 0px 1000px transparent inset;
     transition: background-color 5000s ease-in-out 0s;
-    background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,174,255,0.04) 50%,rgba(255,255,255,0) 51%,rgba(0,174,255,0.03) 100%);  
+    background: -webkit-linear-gradient(
+      top,  
+      rgba(255,255,255,0) 0%,
+      rgba(0,174,255,0.04) 50%,
+      rgba(255,255,255,0) 51%,
+      rgba(0,174,255,0.03) 100%);  
   }
 
-`
+`;

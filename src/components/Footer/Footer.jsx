@@ -1,36 +1,38 @@
+import React from 'react';
+
 import {
-  FooterStyled, 
-  FooterTitle, 
   FooterBorder,
-  FooterNav, 
-  FooterCopy, 
+  FooterCopy,
+  FooterLink,
   FooterLinks,
-  FooterLink
+  FooterNav,
+  FooterStyled,
+  FooterTitle,
 } from './styled';
 
 export function Footer() {
   return (
     <FooterStyled>
       <FooterTitle>Учебный проект Яндекс.Практикум х BeatFilm.</FooterTitle>
-      <FooterBorder></FooterBorder>
+      <FooterBorder />
       <FooterNav>
         <FooterCopy>&copy;{new Date().getFullYear()}</FooterCopy>
         <FooterLinks>
-          <FooterLink 
-            href="https://practicum.yandex.ru" 
-            target="_blank" 
+          <FooterLink
+            href="https://practicum.yandex.ru"
+            target="_blank"
             rel="noreferrer">
-              Яндекс.Практикум
+            Яндекс.Практикум
           </FooterLink>
-          <FooterLink 
-            href="https://github.com/ChernoSlava" 
-            target="_blank" 
-            rel="noreferrer" 
-            last={true}>
-              Github
+          <FooterLink
+            href="https://github.com/ChernoSlava"
+            target="_blank"
+            rel="noreferrer"
+            last>
+            Github
           </FooterLink>
         </FooterLinks>
       </FooterNav>
     </FooterStyled>
   );
-};
+}

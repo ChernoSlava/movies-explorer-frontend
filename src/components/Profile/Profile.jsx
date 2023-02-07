@@ -1,70 +1,72 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+import { useForm } from '../../hooks';
+import { CurrentUserContext } from '../contexts';
+import { Header } from '../Header';
 
 import {
-  ProfileStyled,
-  ProfileForm, 
-  ProfileTitle, 
-  ProfileFieldset,
-  ProfileLabel,
-  ProfileFieldError, 
-  ProfileField,
-  ProfileInput,
   ProfileBorder,
+  ProfileButton,
   ProfileButtonsContainer,
-  ProfileButton
+  ProfileField,
+  ProfileFieldError,
+  ProfileFieldset,
+  ProfileForm,
+  ProfileInput,
+  ProfileLabel,
+  ProfileStyled,
+  ProfileTitle,
 } from './styled';
-
-import { Header } from '../Header';
-import { CurrentUserContext } from '../contexts';
-import { useForm } from '../../hooks';
 
 export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
   const user = useContext(CurrentUserContext);
-  
+  const { name, email } = user;
+
   const { values, handleChange, resetForm, errors } = useForm({});
 
-  function handleSubmit(e) {
+  const handleSubmit = e => {
     e.preventDefault();
     handleChangeProfile(values);
-  }
+  };
 
   useEffect(() => {
     if (user) {
       resetForm(user, {});
     }
   }, [user, resetForm]);
-  
-  const isNotValues = user.name === values.name && user.email === values.email;
+
+  const isNotValues = name === values.name && email === values.email;
 
   const isDisabled = errors.name || errors.email || isNotValues;
 
   const isInutErrorName = errors.name;
   const isInutErrorEmail = errors.email;
-  
+
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <ProfileStyled> 
+      <ProfileStyled>
         <ProfileForm onSubmit={handleSubmit} noValidate>
-          <ProfileTitle>Добро пожаловать, уважаемый {user.name}!</ProfileTitle>
+          <ProfileTitle>Добро пожаловать, уважаемый {name}!</ProfileTitle>
           <ProfileFieldset>
             <ProfileLabel htmlFor="name">
-              <ProfileFieldError nam={true}>{errors.name}</ProfileFieldError>
+              <ProfileFieldError nam>{errors.name}</ProfileFieldError>
               <ProfileField>Имя</ProfileField>
               <ProfileInput
-                err={isInutErrorName}            
+                err={isInutErrorName}
                 name="name"
-                minLength='2'
-                maxLength='30'
+                minLength="2"
+                maxLength="30"
                 type="text"
                 required
                 value={values.name || ''}
                 onChange={handleChange}
-              ></ProfileInput>
+              />
             </ProfileLabel>
             <ProfileBorder />
             <ProfileLabel htmlFor="email">
-              <ProfileFieldError email={true}>{errors.email}</ProfileFieldError>
+              <ProfileFieldError email>{errors.email}</ProfileFieldError>
               <ProfileField>Космо почта</ProfileField>
               <ProfileInput
                 err={isInutErrorEmail}
@@ -73,28 +75,29 @@ export function Profile({ loggedIn, handleChangeProfile, handleSignOut }) {
                 required
                 value={values.email || ''}
                 onChange={handleChange}
-              ></ProfileInput>
+              />
             </ProfileLabel>
             <ProfileButtonsContainer>
               <ProfileButton
-                edit={true}  
+                edit
                 type="submit"
-                disab={isDisabled}               
-                disabled={isDisabled} 
-                >
-                  Изменить хроники
-                </ProfileButton>
-              <ProfileButton 
-                type="button" 
-                exit={true} 
-                onClick={handleSignOut}
-                >
-                  Покинуть корабль
-                </ProfileButton>
+                disab={isDisabled}
+                disabled={isDisabled}>
+                Изменить хроники
+              </ProfileButton>
+              <ProfileButton type="button" exit onClick={handleSignOut}>
+                Покинуть корабль
+              </ProfileButton>
             </ProfileButtonsContainer>
           </ProfileFieldset>
         </ProfileForm>
       </ProfileStyled>
     </>
   );
+}
+
+Profile.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  handleChangeProfile: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
 };

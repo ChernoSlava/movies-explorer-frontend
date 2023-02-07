@@ -1,21 +1,21 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { Popup } from '../Popup';
+
+import { GlobalStyles } from './GlobalStyles';
+import { AppLayoutStyled } from './styled';
+
 import './AppLayout.css';
 
-import { Popup } from '../Popup';
-import { AppLayoutStyled } from './styled';
-import { GlobalStyles } from './GlobalStyles';
-
-export const AppLayout = ({ ...props }) => {
-
+export function AppLayout({ ...props }) {
   return (
     <>
       <GlobalStyles />
       <AppLayoutStyled>
-        <Popup {...props}/>
+        <Popup {...props} />
         <Outlet />
       </AppLayoutStyled>
     </>
   );
-};
+}
