@@ -18,7 +18,7 @@ export const PromoScreen = styled.div`
   height: 493px;
   display: flex;
   flex-direction: column;
-  background: #272727;
+  background: ${props => props.theme.colors.grey60};
   border-radius: 10px;
   background-image: url(${promoImage});
   background-position: right;
@@ -35,14 +35,14 @@ export const PromoScreen = styled.div`
 export const PromoTitle = styled.h1`
   margin: 0;
   padding: 0;
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-family: ${props => props.theme.fontFamily.standart};
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
   text-align: center;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: ${props => props.theme.colors.white10};
   padding-top: 160px;
   padding-bottom: 151px;
 

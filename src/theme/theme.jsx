@@ -21,6 +21,7 @@ export const baseTheme = {
     grey30: '#49638c',
     grey40: '#343333',
     grey50: '#303030',
+    grey60: '#272727',
 
     extraGreen10: '#31be54',
     extraGreen20: '#3DDC84',
