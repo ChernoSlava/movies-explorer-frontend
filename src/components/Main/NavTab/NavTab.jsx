@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Button } from '../Button';
 
-import './NavTab.css';
+import { NavTabStyled } from './styled';
 
 export function NavTab() {
   return (
-    <article className="navtab">
+    <NavTabStyled>
       <Button title="О проекте" link="#about-project" />
       <Button title="Технологии" link="#techs" />
       <Button title="Студент" link="#I'm" />
-    </article>
+    </NavTabStyled>
   );
 }
