@@ -2,17 +2,17 @@ import React from 'react';
 
 import { NavTab } from '../NavTab';
 
-import './Promo.css';
+import { PromoScreen, PromoStyled, PromoTitle } from './styled';
 
 export function Promo() {
   return (
-    <section className="promo">
-      <div className="promo__screen">
-        <h1 className="promo__title">
+    <PromoStyled>
+      <PromoScreen>
+        <PromoTitle>
           Учебный проект студента факультета Веб-разработки.
-        </h1>
+        </PromoTitle>
         <NavTab />
-      </div>
-    </section>
+      </PromoScreen>
+    </PromoStyled>
   );
 }

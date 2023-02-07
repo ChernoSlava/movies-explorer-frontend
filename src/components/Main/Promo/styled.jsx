@@ -1,10 +1,17 @@
-.promo {
+import styled from 'styled-components/macro';
+
+import promoImage from '../../../images/MainIco-min.jpg';
+
+export const PromoStyled = styled.section`
   margin: 0;
   padding: 0;
   padding: 20px 40px 0;
-}
 
-.promo__screen {
+  @media screen and (max-width: 486px) {
+    padding: 14px 14px 0 14px;
+  }
+`;
+export const PromoScreen = styled.div`
   margin: 0;
   padding: 0;
   width: 100%;
@@ -13,60 +20,45 @@
   flex-direction: column;
   background: #272727;
   border-radius: 10px;
-  background-image: url('../../../images/MainIco-min.jpg');
+  background-image: url(${promoImage});
   background-position: right;
   background-repeat: no-repeat;
   background-size: cover;
-}
 
-.promo__title {
+  @media screen and (max-width: 768px) {
+    height: 834px;
+  }
+  @media screen and (max-width: 486px) {
+    height: 586px;
+  }
+`;
+export const PromoTitle = styled.h1`
   margin: 0;
   padding: 0;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
-  ;
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
   text-align: center;
   letter-spacing: -0.04em;
-  color: #FFFFFF;
+  color: #ffffff;
   padding-top: 160px;
   padding-bottom: 151px;
-}
 
-@media screen and (max-width: 768px) {
-  .promo__screen {
-    height: 834px;
-  }
-
-  .promo__title {
+  @media screen and (max-width: 768px) {
     font-size: 40px;
     line-height: 52px;
     padding-top: 350px;
     padding-bottom: 314px;
   }
-}
-
-@media screen and (max-width: 616px) {
-  .promo__title {
+  @media screen and (max-width: 616px) {
     font-size: 30px;
   }
-}
-
-@media screen and (max-width: 486px) {
-  .promo {
-    padding: 14px 14px 0 14px;
-  }
-
-  .promo__screen {
-    height: 586px;
-  }
-
-  .promo__title {
+  @media screen and (max-width: 486px) {
     font-size: 29px;
     line-height: 37px;
     padding-top: 220px;
     padding-bottom: 212px;
   }
-}
+`;
