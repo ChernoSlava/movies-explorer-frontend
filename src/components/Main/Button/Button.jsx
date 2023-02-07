@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Button.css';
+import { ButtonStyled, ButtonText } from './styled';
 
 export function Button({ title, link }) {
   return (
-    <button type="button" className="button">
-      <a href={link} className="button__text">
-        {title}
-      </a>
-    </button>
+    <ButtonStyled type="button">
+      <ButtonText href={link}>{title}</ButtonText>
+    </ButtonStyled>
   );
 }
 
