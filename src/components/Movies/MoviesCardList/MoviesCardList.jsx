@@ -10,7 +10,12 @@ import {
 } from '../../../constants';
 import { MoviesCard } from '../MoviesCard';
 
-import './MoviesCardList.css';
+import {
+  MoviesCardButton,
+  MoviesCardListElement,
+  MoviesCardListNothing,
+  MoviesCardListStyled,
+} from './styled';
 
 export function MoviesCardList({
   onSaveFilm,
@@ -26,7 +31,7 @@ export function MoviesCardList({
   const [pageSize, setPageSize] = useState(0);
 
   const isNothingText = isNothing && (
-    <span className="movies-card-list__nothing">Ничего не найдено</span>
+    <MoviesCardListNothing>Ничего не найдено</MoviesCardListNothing>
   );
   const isMoviesLocation = location.pathname === ROUTER_PATH.MOVIES;
   const isMovies =
@@ -63,9 +68,9 @@ export function MoviesCardList({
   }, [sizeScreen.width]);
 
   return (
-    <section className="movies-card-list">
+    <MoviesCardListStyled>
       {isNothingText}
-      <ul className="movies-card-list__list">
+      <MoviesCardListElement>
         {(isMoviesLocation
           ? moviesForShow.slice(0, pageSize + currentPage)
           : moviesForShow
@@ -78,11 +83,10 @@ export function MoviesCardList({
             movie={movie}
           />
         ))}
-      </ul>
+      </MoviesCardListElement>
       {isMovies ? (
-        <button
+        <MoviesCardButton
           type="button"
-          className="movies-card-list__button"
           onClick={() => {
             if (sizeScreen.width <= SCREEN_SIZE.MIDDLE) {
               setNextPage(currentPage + ADD_CARDS.MIN);
@@ -91,9 +95,9 @@ export function MoviesCardList({
             }
           }}>
           Ещё
-        </button>
+        </MoviesCardButton>
       ) : null}
-    </section>
+    </MoviesCardListStyled>
   );
 }
 MoviesCardList.propTypes = {
