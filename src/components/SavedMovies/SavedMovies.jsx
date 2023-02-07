@@ -7,7 +7,7 @@ import { Header } from '../Header';
 import { MoviesCardList } from '../Movies/MoviesCardList';
 import { SearchForm } from '../Movies/SearchForm';
 
-import './SavedMovies.css';
+import { SavedMoviesStyled } from './styled';
 
 export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
   const { email } = useContext(CurrentUserContext);
@@ -68,7 +68,7 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <section className="saved-movies">
+      <SavedMoviesStyled>
         <SearchForm
           onSubmit={value => handleSearchSubmit(value, shortMovies)}
           handleShortMovies={handleShortMovies}
@@ -80,7 +80,7 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
           moviesForShow={filteredMovies}
           isNothing={isNothing}
         />
-      </section>
+      </SavedMoviesStyled>
       <Footer />
     </>
   );

@@ -10,8 +10,7 @@ import { Header } from '../Header';
 import { MoviesCardList } from './MoviesCardList';
 import { Loader } from './Preloader';
 import { SearchForm } from './SearchForm';
-
-import './Movies.css';
+import { MoviesStyled } from './styled';
 
 export function Movies({
   loggedIn,
@@ -20,7 +19,6 @@ export function Movies({
   savedMoviesList,
 }) {
   const { email } = useContext(CurrentUserContext);
-  // console.log(PropTypes.checkPropTypes(savedMoviesList));
   const [isLoading, setIsLoading] = useState(false);
   const [moviesFromSearch, setMoviesFromSearch] = useState([]);
   const [shortMovies, setShortMovies] = useState(false);
@@ -136,7 +134,7 @@ export function Movies({
     <>
       {isLoading && <Loader />}
       <Header loggedIn={loggedIn} />
-      <section className="movies">
+      <MoviesStyled>
         <SearchForm
           onSubmit={value => handleSearch(value, shortMovies)}
           handleShortMovies={handleShortMovies}
@@ -149,7 +147,7 @@ export function Movies({
           moviesForShow={filteredMovies}
           isNothing={isNothing}
         />
-      </section>
+      </MoviesStyled>
       <Footer />
     </>
   );
