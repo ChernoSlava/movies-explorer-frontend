@@ -4,7 +4,16 @@ import PropTypes from 'prop-types';
 
 import { ROUTER_PATH } from '../../../constants';
 
-import './MoviesCard.css';
+import {
+  MoviesCardButton,
+  MoviesCardInfo,
+  MoviesCardPoster,
+  MoviesCardStyled,
+  MoviesCardTextContainer,
+  MoviesCardTime,
+  MoviesCardTitle,
+  MoviesCardTrailer,
+} from './styled';
 
 export function MoviesCard({ movie, saved, onSaveFilm, onDeleteFilm }) {
   const location = useLocation();
@@ -26,46 +35,37 @@ export function MoviesCard({ movie, saved, onSaveFilm, onDeleteFilm }) {
     return `${hours}ч ${minutes}м`;
   }
 
-  const savedClass = 'movies-card__button_type_saved';
-
   return (
-    <li className="movies-card">
-      <a
+    <MoviesCardStyled>
+      <MoviesCardTrailer
         href={movie.trailerLink}
         target="_blank"
-        rel="noreferrer"
-        className="movies-card__trailer">
-        <img
-          className="movies-card__poster"
-          alt={movie.nameRU}
-          src={movie.image}
-        />
-      </a>
-      <div className="movies-card__info">
-        <div className="movies-card__text-container">
-          <h2 className="movies-card__title">{movie.nameRU}</h2>
-          <h3 className="movies-card__time">
-            {transformDuration(movie.duration)}
-          </h3>
-        </div>
+        rel="noreferrer">
+        <MoviesCardPoster alt={movie.nameRU} src={movie.image} />
+      </MoviesCardTrailer>
+      <MoviesCardInfo>
+        <MoviesCardTextContainer>
+          <MoviesCardTitle>{movie.nameRU}</MoviesCardTitle>
+          <MoviesCardTime>{transformDuration(movie.duration)}</MoviesCardTime>
+        </MoviesCardTextContainer>
         {location.pathname === ROUTER_PATH.MOVIES && (
-          <button
+          <MoviesCardButton
             type="button"
             aria-label="like"
-            className={`movies-card__button ${saved ? savedClass : ''}`}
             onClick={saved ? handleDelete : handleLike}
+            save={saved}
           />
         )}
         {location.pathname === ROUTER_PATH.SAVED_MOVIES && (
-          <button
+          <MoviesCardButton
             type="button"
             aria-label="dislike"
-            className="movies-card__button movies-card__button_type_delete"
             onClick={handleDelete}
+            delet
           />
         )}
-      </div>
-    </li>
+      </MoviesCardInfo>
+    </MoviesCardStyled>
   );
 }
 

@@ -9,6 +9,7 @@ export const baseTheme = {
     black20: 'rgb(43, 10, 10)',
     black30: '#000000',
     black40: 'rgba(0, 0, 0, .5)',
+    black50: '#222222',
 
     red10: '#EE3465',
 
