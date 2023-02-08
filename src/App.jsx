@@ -32,6 +32,9 @@ export function App() {
 
   const navigate = useNavigate();
 
+  const handlePopupIsOpen = () => {
+    setPopupIsOpen(true);
+  };
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     mainApi.setToken(jwt);
@@ -43,12 +46,13 @@ export function App() {
             setUser(data);
             setLoggedIn(true);
           } else {
-            console.log('Ошибка в проверке токена, пришли не те данные');
             navigate(ROUTER_PATH.LOGIN);
           }
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          setIsSuccess(false);
+          setText('Произошла ошибка');
+          handlePopupIsOpen();
         })
         .finally(() => {
           setIsLoading(false);
@@ -58,9 +62,6 @@ export function App() {
     }
   }, [navigate]);
 
-  const handlePopupIsOpen = () => {
-    setPopupIsOpen(true);
-  };
   const handleClosePopup = () => {
     setPopupIsOpen(false);
   };
@@ -75,13 +76,11 @@ export function App() {
         }
         localStorage.setItem('jwt', res.token);
         navigate(ROUTER_PATH.MOVIES);
-        console.log('Добро пожаловать, Космический скиталец');
         setText('Добро пожаловать');
       })
-      .catch(err => {
+      .catch(() => {
         setIsSuccess(false);
         setText('Ошибка с авторизацией');
-        console.log(`Что-то глобально пошло не по плану`, err);
       })
       .finally(() => {
         handlePopupIsOpen();
@@ -101,8 +100,7 @@ export function App() {
         handleAuthorization({ email, password });
         setText('Добро пожаловать');
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
         setIsSuccess(false);
         setText('Ошибка с регистрацией');
       })
@@ -135,11 +133,9 @@ export function App() {
         setIsSuccess(true);
         setUser(userData);
         setText('Данные изменены');
-        console.log('ай да молодец, смог изменить имя');
       })
-      .catch(err => {
+      .catch(() => {
         setIsSuccess(false);
-        console.log(err);
         setText('Ошибочка вышла');
       })
       .finally(() => {
@@ -151,9 +147,11 @@ export function App() {
     mainApi
       .saveNewFilm(film)
       .then(newFilm => setSavedMoviesList([...savedMoviesList, newFilm]))
-      .catch(err =>
-        console.log('При сохранении фильма произошла какая-то ошибка', err),
-      );
+      .catch(() => {
+        setIsSuccess(false);
+        setText('Не удалось сохранить фильм');
+        handlePopupIsOpen();
+      });
   };
 
   const handleDeleteFilm = film => {
@@ -171,9 +169,11 @@ export function App() {
         });
         setSavedMoviesList(newSavedFilms);
       })
-      .catch(err =>
-        console.log('При удалении фильма произошла какая-то ошибка', err),
-      );
+      .catch(() => {
+        setIsSuccess(false);
+        setText('Не удалось удалить фильм');
+        handlePopupIsOpen();
+      });
   };
 
   useEffect(() => {
@@ -184,8 +184,10 @@ export function App() {
           const personalSavedFilms = data.filter(x => x.owner === user._id);
           setSavedMoviesList(personalSavedFilms);
         })
-        .catch(err => {
-          console.log(`Не могу получить карточки`, err);
+        .catch(() => {
+          setIsSuccess(false);
+          setText('Не удалось получить карточки:(');
+          handlePopupIsOpen();
         });
     }
   }, [loggedIn, user]);

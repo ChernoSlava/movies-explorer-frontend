@@ -59,7 +59,6 @@ export function Movies({
   function handleAnswerMovies(movies, searchData, checkbox) {
     const moviesBlock = filterMovies(movies, searchData);
     if (moviesBlock.length === 0) {
-      console.log('Таких архивов не найдено');
       setIsNothing(true);
     } else {
       setIsNothing(false);
@@ -84,7 +83,7 @@ export function Movies({
         })
         .catch(() => {
           localStorage.setItem(`${email} - movies`, JSON.stringify([]));
-          console.log(process.env.REACT_APP_ERROR_TEXT);
+          // console.log(process.env.REACT_APP_ERROR_TEXT);
         })
         .finally(() => {
           setIsLoading(false);

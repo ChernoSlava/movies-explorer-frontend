@@ -43,7 +43,6 @@ export function SavedMovies({ loggedIn, onDeleteFilm, savedMoviesList }) {
     let moviesList = filterMovies(savedMoviesList, inputValue);
     moviesList = isShortMovies ? filterShortMovies(moviesList) : moviesList;
     if (moviesList.length === 0) {
-      console.log('Таких фильмов в вашем листе нет');
       setIsNothing(true);
     } else {
       setIsNothing(false);
