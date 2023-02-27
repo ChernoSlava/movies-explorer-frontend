@@ -17,6 +17,60 @@
 
 ---
 
+## Предпросмотр проекта
+
+### Стартовая страница
+<div>
+  <img 
+    src='./images/1)Main_page.png' 
+    width="600px"
+  >
+</div>
+
+### Страница авторизации
+<div>
+  <img 
+    src='./images/2)Auth_page.png' 
+    width="600px"
+  >
+</div>
+
+### Страница регистрации
+<div >
+  <img 
+    src='./images/3)Registe_page.png' 
+    width="600px"
+  >
+</div>
+
+### Страница поиска фильмов
+<div >
+  <img 
+    src='./images/4)Movies_page.png' 
+    width="600px"
+  >
+</div>
+
+
+
+### Страница поиска cохраённых фильмов с фильтром
+<div >
+  <img 
+    src='./images/5)Saved_movies_page.png' 
+    width="600px"
+  >
+</div>
+
+### Страница 404
+<div >
+  <img 
+    src='./images/6)Error_page.png' 
+    width="600px"
+  >
+</div>
+
+---
+
 ## Требования, установка и запуск:
 
 ### Требования:
