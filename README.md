@@ -2,24 +2,24 @@
 ## level - 3
 
 ---
-## Описание
-### Функционал: Проект позволяет пользователю ознакомиться с необычными, интересными фильмами, сохранить их себе в список, посмотреть трейлер, сделать поиск фильмов по ключевым словам.
+## Description
+### Functionality: The project allows the user to get acquainted with unusual, interesting films, save them to his list, watch the trailer, search for movies by keywords.
 
-### Технологический стек:
+### Technology stack:
 
-- HTML5, 
+- HTML5,
 - CSS,
-- React js, 
-- Node js, 
-- MongoDB, 
-- Express js, 
+- React js,
+- Node js,
+- MongoDB,
+- Express js,
 - PM2.
 
 ---
 
-## Предпросмотр проекта
+## Project preview
 
-### Стартовая страница
+### Start page
 <div>
   <img 
     src='./images/1)Main_page.png' 
@@ -27,7 +27,7 @@
   >
 </div>
 
-### Страница авторизации
+### Authorization page
 <div>
   <img 
     src='./images/2)Auth_page.png' 
@@ -35,7 +35,7 @@
   >
 </div>
 
-### Страница регистрации
+### Registration page
 <div >
   <img 
     src='./images/3)Registe_page.png' 
@@ -43,7 +43,7 @@
   >
 </div>
 
-### Страница поиска фильмов
+### Movie search page
 <div >
   <img 
     src='./images/4)Movies_page.png' 
@@ -53,7 +53,7 @@
 
 
 
-### Страница поиска cохраённых фильмов с фильтром
+### ### Saved movies search page with filter
 <div >
   <img 
     src='./images/5)Saved_movies_page.png' 
@@ -61,7 +61,7 @@
   >
 </div>
 
-### Страница 404
+### Page 404
 <div >
   <img 
     src='./images/6)Error_page.png' 
@@ -71,9 +71,9 @@
 
 ---
 
-## Требования, установка и запуск:
+## Requirements, installation and launch:
 
-### Требования:
+### Requirements:
 
 * npm >= 6.14;
 
@@ -81,56 +81,54 @@
 
 * MongoDB
 
-### Установка:
+### Installation:
 
-Для установки на ваш компьютер нужно на локальном компьютере выполнить команду: 
+To install on your computer, you need to run the command on your local computer:
 
-- `git clone https://github.com/ChernoSlava/movies-explorer-frontend` - Для копирования проекта на локальный пк по https;
+- `git clone https://github.com/ChernoSlava/movies-explorer-frontend ` - To copy the project to a local PC over https;
 
-После этого в консоли нужно выполнить: 
+After that, in the console, you need to run:
 
-- `npm install` - Для установки зависимостей;
+- `npm install` - To install dependencies;
 
-Для использования:
+To use:
 
-- `npm run start` - Команда для запуска проекта;
-- `npm run build` - Для сборки проекта;
-
+- `npm run start' - Command to start the project;
+- `npm run build' - To build the project;
 ------ 
-
-## Ссылки на этот проект
-### Макет проекта https://disk.yandex.ru/d/69oaThBQQpratA
+## Links to this project
+### Project layout https://disk .yandex.ru/d/69oaThBQQpratA
 ---
-### Публичный IP - 158.160.58.195
-### Домен с доступным приложением [https://movies.chernoslava.nomoredomainsclub.ru](https://movies.chernoslava.nomoredomainsclub.ru)
-### Домен с сервером приложения [https://api.movies.chernoslava.nomoredomains.club](https://api.movies.chernoslava.nomoredomains.club)
+### Public IP - 158.160.58.195
+### Domain with an available application [https://movies.chernoslava.nomoredomainsclub.ru ](https://movies.chernoslava.nomoredomainsclub.ru )
+### Domain with the application server [https://api.movies.chernoslava.nomoredomains.club](https://api.movies.chernoslava.nomoredomains.club )
 ---
-### Ссылка на github frontend части [Github](https://github.com/ChernoSlava/movies-explorer-frontend)
-### Ссылка на github backend части [Github](https://github.com/ChernoSlava/movies-explorer-api)
+### Link to github frontend part [Github](https://github.com/ChernoSlava/movies-explorer-frontend )
+### Link to github backend part [Github](https://github.com/ChernoSlava/movies-explorer-api )
 
 ---
 
-## Ссылки на другие проекты
-### Проекты созданные при обучении Яндекс.Практикум:
+## Links to other projects
+### Projects created during Yandex training.Workshop:
 
-1) [Статичный сайт Путешествие по России](https://github.com/ChernoSlava/Russian-travel);
-2) [Репозиторий проекта Место на чистом js](https://github.com/ChernoSlava/Mesto);
-3) [Репозиторий полноценного доработанного проекта Место Frontend и Backend](https://github.com/ChernoSlava/react-mesto-api-full);
-4) [Дипломный проект Movies explorer](https://github.com/ChernoSlava/movies-explorer-frontend).
+1) [Static website Travel to Russia](https://github.com/ChernoSlava/Russian-travel);
+2) [The project repository is a place on pure js](https://github.com/ChernoSlava/Mesto);
+3) [Repository of a full-fledged modified project, Frontend and Backend location](https://github.com/ChernoSlava/react-mesto-api-full);
+4) [Graduation project Movies explorer](https://github.com/ChernoSlava/movies-explorer-frontend).
 
 
-### Проекты созданные при обучении и менторстве senior web developer Абретова А.:
+### Projects created with the training and mentoring of senior web developer Abretova A.:
 
 1) [Counter](https://github.com/ChernoSlava/counter);
 2) [Counter-temperature](https://github.com/ChernoSlava/counter-temperature);
 3) [ToDo list](https://github.com/ChernoSlava/ToDo);
 4) [Contacts keeper](https://github.com/ChernoSlava/contacts-keeper);
 4) [Fish gallery](https://github.com/ChernoSlava/fish-gallery);
-5) [Рефакторинг дипломного проекта Movies explorer](https://github.com/ChernoSlava/Movies-exlorer-refactor).
+5) [Refactoring of the Movies explorer graduation project](https://github.com/ChernoSlava/Movies-exlorer-refactor ).
 
-### Проекты с использованием разных технологий:
+### Projects using different technologies:
 
-1) [Dihitals clock с использование SCSS/jQuery](https://github.com/ChernoSlava/Digital-Clock.git);
-2) [Films review с использование PUG/SCSS](https://github.com/ChernoSlava/Film-Review);
-3) [2d игра на Vanila JavaScript/Canvas](https://github.com/ChernoSlava/Fluppy);
-4) [Сайт по продаже бургеров React/Next js](https://github.com/ChernoSlava/Burgers-Next-JS).
+1) [Dihitals clock using SCSS/jQuery](https://github.com/ChernoSlava/Digital-Clock.git);
+2) [Films review using PUG/SCSS](https://github.com/ChernoSlava/Film-Review );
+3) [2d game on Vanila JavaScript/Canvas](https://github.com/ChernoSlava/Fluppy );
+4) [React/Next js burger website](https://github.com/ChernoSlava/Burgers-Next-JS ).
